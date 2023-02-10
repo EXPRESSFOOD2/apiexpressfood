@@ -1,25 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable max-len */
 require('dotenv').config();
-const {Sequelize, Op} = require('sequelize');
+const {Sequelize, Op } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const {DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY} = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_DIALECT, DB_PORT, DB_SCHEMA } = process.env;
 
-// const sequelize = new Sequelize(
-//     `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/videogames`,
-//     {
-//       logging: false,
-//       native: false,
-//     },
-// );
 const sequelize = new Sequelize(
-    DB_DEPLOY,
+    `${DB_DIALECT}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_SCHEMA}`,
     {
       logging: false,
       native: false,
     },
 );
+
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -46,18 +40,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const {Videogame, Genre} = sequelize.models;
 
-// Aca vendrian las relaciones
-Videogame.belongsToMany(Genre, {
-  through: 'videogame_genres',
-
-}, {timestamps: false});
-
-Genre.belongsToMany(Videogame, {
-  through: 'videogame_genres',
-
-}, {timestamps: false});
 
 module.exports = {
   ...sequelize.models,
