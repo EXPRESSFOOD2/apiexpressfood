@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-const { INVALID_RECIPE_NAME, INVALID_PRODUCED_AMOUNT } = require("./utils/Recipe-ErrorMSGs");
+const { INVALID_RECIPE_NAME, INVALID_PRODUCED_AMOUNT, MIN_PROD_AMOUNT } = require("./utils/Recipe-ErrorMSGs");
 
 module.exports = (sequelize) => {
     sequelize.define('Recipe', {
@@ -28,12 +28,12 @@ module.exports = (sequelize) => {
         },
         produced_amount: {
             type: DataTypes.FLOAT,
-            defaultValue: 1,
+            defaultValue: MIN_PROD_AMOUNT,
             validate: {
                 isNumeric: {
                     msg: INVALID_PRODUCED_AMOUNT
                 },
-                min: 1,
+                min: MIN_PROD_AMOUNT,
             }
         }
     },{ sequelize })
