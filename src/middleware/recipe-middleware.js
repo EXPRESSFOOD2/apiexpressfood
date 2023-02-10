@@ -19,8 +19,6 @@ const validateRecipePost = async (name, details, produced_amount, type_measure, 
     return result;
 }
 
-
-
 module.exports = {
     validateRecipePost
 }
