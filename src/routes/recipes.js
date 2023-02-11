@@ -1,11 +1,14 @@
 const { Router } = require('express');
 const router = Router();
-const { validateRecipePost } = require("../middleware/recipe-middleware")
+const { validateRecipePost, validateRecipeGet } = require("../middleware/recipe-middleware")
 const { postRecipe } = require("../controllers/recipe-post-controller");
+const { getAllRecipes } = require("../controllers/recipe-get-controller")
 
 router.post("/", async (req, res) => {
     const { name, details, produced_amount, type_measure, ingredArray } = req.body;
     try {
+        /* TODO */
+        /* AUTH */
         validateRecipePost( name, details, produced_amount, type_measure, ingredArray );
         let result = await postRecipe(name, details, produced_amount, type_measure, ingredArray);
         return res.status(200).json( result )
@@ -17,7 +20,10 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         /* TODO */
-        return res.status(200).json( "Recipes GETS" )
+        /* AUTH */
+        validateRecipeGet();
+        const result = await getAllRecipes();
+        return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
