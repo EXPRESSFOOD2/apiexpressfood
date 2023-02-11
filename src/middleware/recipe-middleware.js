@@ -19,6 +19,14 @@ const validateRecipePost = async (name, details, produced_amount, type_measure, 
     return result;
 }
 
+const validateRecipeGet = () => {
+    let result = true
+    /* TODO */
+    /* Any idea? */
+    return result;
+}
+
 module.exports = {
-    validateRecipePost
+    validateRecipePost,
+    validateRecipeGet
 }

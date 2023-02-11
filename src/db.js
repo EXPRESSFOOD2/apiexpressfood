@@ -49,6 +49,7 @@ const { Ingredient,
 Recipe.belongsToMany( Ingredient, { through: IngredientsRecipes });
 Ingredient.belongsToMany( Recipe, { through: IngredientsRecipes });
 
+
 module.exports = {
   ...sequelize.models,
   Op, // para poder importar los modelos así: const { Product, User } = require('./db.js');

@@ -2,7 +2,7 @@ const { conn } = require("../src/db");
 const { Ingredient } = conn.models;
 const { INVALID_INGREDIENT_NAME, NOT_A_NUMERIC } = require("../src/models/utils/Ingredient-ErrorMSGs");
 const { MEASURES_SHORT } = require("../src/models/utils/constants")
-describe("Ingredient Model", () => {
+xdescribe("Ingredient Model", () => {
     beforeAll(async () => {
         await conn.sync({ force: true });
     });

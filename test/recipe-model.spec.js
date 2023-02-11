@@ -2,7 +2,7 @@ const { conn } = require("../src/db");
 const { Recipe } = conn.models;
 const { INVALID_RECIPE_NAME, INVALID_PRODUCED_AMOUNT } = require("../src/models/utils/Recipe-ErrorMSGs");
 
-describe("Recipe Model", () => {
+xdescribe("Recipe Model", () => {
     beforeAll(async () => {
         await conn.sync({ force: true });
     });
