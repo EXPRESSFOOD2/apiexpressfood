@@ -36,7 +36,7 @@ module.exports = (sequelize) => {
                 }
               },
         },
-        salt: {
+        secret: {
             type: DataTypes.TEXT,
             allowNull: false,
         },
