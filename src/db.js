@@ -60,6 +60,8 @@ Ingredient.belongsToMany( MenuItem, { through: IngredientsMenuItems });
 Role.belongsToMany( User, { through: UsersRoles });
 User.hasOne( Role, { through: UsersRoles } );
 
+//! aca van las demas relaciones
+
 
 
 module.exports = {
