@@ -1,14 +1,14 @@
 const { Router } = require('express');
 const router = Router();
-//const { postRecipe } = require("../controllers/recipe-post-controller");
+const { validateRecipePost } = require("../middleware/recipe-middleware")
+const { postRecipe } = require("../controllers/recipe-post-controller");
 
 router.post("/", async (req, res) => {
-    //const {name, details, produced_amount, type_measure, ingredArray} = req.body;
+    const { name, details, produced_amount, type_measure, ingredArray } = req.body;
     try {
-        /* TODO */
-        // VAlidar el el name(R) no se encuentra repetido en Ingredients && body anda Bien
-        // Crear y Retornar
-        return res.status(200).send( "Recipes POST" )
+        validateRecipePost( name, details, produced_amount, type_measure, ingredArray );
+        let result = await postRecipe(name, details, produced_amount, type_measure, ingredArray);
+        return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
