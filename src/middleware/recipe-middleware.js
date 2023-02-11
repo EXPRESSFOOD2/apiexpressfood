@@ -16,6 +16,7 @@ const validateRecipePost = async (name, details, produced_amount, type_measure, 
     if( await isRecipeNameAnExistingIngredientName(name) ) throw Error(DUPLICATED_RECIPE_NAME);
     if(produced_amount < MIN_PROD_AMOUNT) throw Error(INVALID_PRODUCED_AMOUNT);
     if(!ingredArray.length) throw Error(INVALID_INGREDIENTS_ARRAY)
+    // Type Measure VALIDO
     return result;
 }
 

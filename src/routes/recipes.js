@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
     try {
         /* TODO */
         /* AUTH */
-        validateRecipeGet()
+        validateRecipeGet();
         const result = await getAllRecipes();
         return res.status(200).json( result )
     } catch (error) {
