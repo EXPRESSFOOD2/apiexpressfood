@@ -60,6 +60,8 @@ Ingredient.belongsToMany( MenuItem, { through: IngredientsMenuItems });
 Role.belongsToMany( User, { through: UsersRoles });
 User.hasOne( Role, { through: UsersRoles } );
 
+//!tuki
+
 
 
 module.exports = {
