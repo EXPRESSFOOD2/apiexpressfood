@@ -21,12 +21,12 @@ Añadir la otra cara del pan para envolver todo el contenido.`,
     await Ingredient.create({name: "Hamburguesa del Chef", layer: 2, type_measure: "un", ingredients_all: JSON.stringify([
     {id: 13, name: "Pan Hamburguesa", amount: 1},
     
-        {id: 10, name: "Carne Molida", amount: 80},
-        {id: 3, name: "Huevo", amount: 0.6},
-        {id: 7, name: "Cebolla", amount: 51},
-        {id: 5, name: "Sal", amount: 0.2},
-        {id: 8, name: "Pimienta", amount: 0.6},
-        {id: 2, name: "Harina", amount: 12.6}
+    {id: 12, name: "Carne Molida", amount: 80},
+    {id: 3, name: "Huevo", amount: 0.6},
+    {id: 7, name: "Cebolla", amount: 26},
+    {id: 5, name: "Sal", amount: 0.2},
+    {id: 10, name: "Pimienta", amount: 0.6},
+    {id: 2, name: "Harina", amount: 12.6}
     ,
     {id: 14, name: "Ketchup", amount: 20},
     {id: 15, name: "Mayonesa", amount: 20},
@@ -48,11 +48,15 @@ Añadir la otra cara del pan para envolver todo el contenido.`,
 
     await IngredientsRecipes.bulkCreate([
         {RecipeId: 3, IngredientId: 13, waste_rate: 0},
-        {RecipeId: 3, IngredientId: 21, waste_rate: 0},
+        {RecipeId: 3, IngredientId: 12, waste_rate: 0},
+        {RecipeId: 3, IngredientId: 3, waste_rate: 0},
+        {RecipeId: 3, IngredientId: 7, waste_rate: 0},
+        {RecipeId: 3, IngredientId: 5, waste_rate: 0},
+        {RecipeId: 3, IngredientId: 10, waste_rate: 0},
+        {RecipeId: 3, IngredientId:2, waste_rate: 0},
         {RecipeId: 3, IngredientId: 14, waste_rate: 0},
         {RecipeId: 3, IngredientId: 15, waste_rate: 0},
         {RecipeId: 3, IngredientId: 8, waste_rate: 0},
-        {RecipeId: 3, IngredientId: 7, waste_rate: 0},
         {RecipeId: 3, IngredientId: 9, waste_rate: 0},
         {RecipeId: 3, IngredientId: 18, waste_rate: 0},
         

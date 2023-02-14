@@ -1,6 +1,7 @@
 const IngredientSeed = require('./Ingredient-seed');
 const RecipeSeed1 = require('./Recipe-layer1-seed');
 const RecipeSeed2 = require('./Recipe-layer2-seed');
+const RecipeSeed3 = require('./Recipe-layer3-seed');
 //const Seed = require('./');
 
 module.exports = function() {
@@ -14,6 +15,8 @@ module.exports = function() {
         RecipeSeed1();
     }).then(() => {
         RecipeSeed2()
+    }).then(() => {
+        RecipeSeed3();
     }).then(() => {
         console.log('********** Successfully seeded db **********');
     });

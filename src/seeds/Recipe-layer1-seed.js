@@ -24,36 +24,36 @@ module.exports = async function() {
     type_measure: "gr" });
     await Ingredient.create({name: "Masa de Pizza", layer: 1, type_measure: "gr", ingredients_all: JSON.stringify([
     {id: 2, name: "Harina", amount: 0.5128},
-    {id: 15, name: "Levadura Fresca", amount: 0.0467},
+    {id: 16, name: "Levadura Fresca", amount: 0.0467},
     {id: 1, name: "Agua", amount: 0.3364},
     {id: 5, name: "Sal", amount: 0.0186},
-    {id: 16, name: "Aceite de Oliva", amount: 0.0373}])})
+    {id: 17, name: "Aceite de Oliva", amount: 0.0373}])})
     await Recipe.create({   name: "Medallon de Carne 120gr",
     details: "Mezclar todo y a disfrutar",
     produced_amount: 10,
     type_measure: "un" })
     await Ingredient.create({name: "Medallon de Carne 120gr", layer: 1, type_measure: "gr", ingredients_all: JSON.stringify([
-        {id: 10, name: "Carne Molida", amount: 80},
+        {id: 12, name: "Carne Molida", amount: 80},
         {id: 3, name: "Huevo", amount: 0.6},
         {id: 7, name: "Cebolla", amount: 26},
         {id: 5, name: "Sal", amount: 0.2},
-        {id: 8, name: "Pimienta", amount: 0.6},
+        {id: 10, name: "Pimienta", amount: 0.6},
         {id: 2, name: "Harina", amount: 12.6}
     ])})
 
 
     await IngredientsRecipes.bulkCreate([
         {RecipeId: 1, IngredientId: 2, waste_rate: 3},
-        {RecipeId: 1, IngredientId: 15, waste_rate: 0},
+        {RecipeId: 1, IngredientId: 16, waste_rate: 0},
         {RecipeId: 1, IngredientId: 1, waste_rate: 0},
         {RecipeId: 1, IngredientId: 5, waste_rate: 0},
-        {RecipeId: 1, IngredientId: 16, waste_rate: 0},
+        {RecipeId: 1, IngredientId: 17, waste_rate: 0},
 
-        {RecipeId: 2, IngredientId: 10, waste_rate: 0},
+        {RecipeId: 2, IngredientId: 12, waste_rate: 0},
         {RecipeId: 2, IngredientId: 3, waste_rate: 0},
         {RecipeId: 2, IngredientId: 7, waste_rate: 5},
         {RecipeId: 2, IngredientId: 5, waste_rate: 0},
-        {RecipeId: 2, IngredientId: 8, waste_rate: 0},
+        {RecipeId: 2, IngredientId: 10, waste_rate: 0},
         {RecipeId: 2, IngredientId: 2, waste_rate: 0},
     ])
 };
