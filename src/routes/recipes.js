@@ -54,10 +54,11 @@ router.put("/", async (req ,res )=> {
         validateRecipeData(name , detail)
         const result = await updateRecipe ( id_recipe , name , detail )
         res.status(200).json(result)
-    } catch (error) {   
+    } catch (error) {
         res.status(404).json(error.message)
     }
 })
+
 
 
 // router.patch("/", async (req, res) => {
@@ -68,6 +69,7 @@ router.put("/", async (req ,res )=> {
 //         return res.status(400).json({ error: error.message })
 //     }
 // })
+
 
 module.exports = router;
 
