@@ -54,7 +54,7 @@ router.put("/", async (req ,res )=> {
         validateRecipeData(name , detail)
         const result = await updateRecipe ( id_recipe , name , detail )
         res.status(200).json(result)
-    } catch (error) {   
+    } catch (error) {
         res.status(404).json(error.message)
     }
 })
@@ -62,7 +62,7 @@ router.put("/", async (req ,res )=> {
 /*
 router.patch("/", async (req, res) => {
     try {
-        /* TODO */
+        //! TODO
         return res.status(200).json( "Recipes PATCH" )
     } catch (error) {
         return res.status(400).json({ error: error.message })
