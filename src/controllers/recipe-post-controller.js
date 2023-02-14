@@ -1,11 +1,7 @@
 const { Recipe, Ingredient, IngredientsRecipes } = require('../db');
 
 const postRecipe = async (name, details, produced_amount, type_measure, ingredArray) => {
-    // Ingredient.create({name: "Papa", layer: 0, type_measure: "gr"})
-    // Ingredient.create({name: "Manteca purificada", layer: 1, type_measure: "gr"})
-    // Ingredient.create({name: "Papa Negra", layer: 0, type_measure: "gr"})
-    // Ingredient.create({name: "Manteca purificada plus", layer: 1, type_measure: "gr"})
-                                                             
+
     let newRecipe = await Recipe.create({name, details, produced_amount})
     let layer = processLayer(ingredArray)
     createIngredientsRecipes({RecipeId: newRecipe.id, ingredArray})
@@ -14,7 +10,7 @@ const postRecipe = async (name, details, produced_amount, type_measure, ingredAr
 }
 const createIngredientsRecipes = async ({RecipeId, ingredArray}) => {
     const result = ingredArray.map( ing => {
-        return {RecipeId, IngredientId: ing.id, waste_rate: ing.waste_rate, per_recipe: ing.per_recipe}
+        return {RecipeId, IngredientId: ing.id, waste_rate: ing.waste_rate}
     } )
     IngredientsRecipes.bulkCreate(result)
 }
