@@ -1,35 +1,35 @@
 /* eslint-disable new-cap */
 const {Router} = require('express');
-
-// Importar todos los routers y middlewares;
-
-const recipesRouter = require("./recipes");
-const ingredient_get = require("./ingredient/ingredient_get")
-const ingredient_post = require("./ingredient/ingredient_post")
-const ingredient_put = require("./ingredient/ingredient_put")
-const ingredient_delete = require("./ingredient/ingredient_delete")
-const {ingredient_middleware} = require("../middleware/ingredient_middleware.js")
-const {ingredient_delete_middleware} = require("../middleware/ingredient_delete_middleware.js")
-const {ingredient_put_middleware} = require("../middleware//ingredient_put_middleware")
-const usersRouterPost = require("./users/users_post");
-const usersGetLogin = require("./users/users_login");
-
 const router = Router();
 
-//middlewares
-router.use("/ingredients/create", ingredient_middleware);
-router.use("/ingredients/update", ingredient_put_middleware);
-router.use("/ingredients/delete", ingredient_delete_middleware);
+//* Recipe Routes
+const recipesPostRouter = require("./recipes/recipes_post")
 
+//* User Routes
+const usersPostRouter = require("./users/users-post");
+const usersGetLoginRouter = require("./users/users-login");
 
-// Configurar los routers
-router.use("/ingredients", ingredient_get);
-router.use("/ingredients", ingredient_post);
-router.use("/ingredients", ingredient_put);
-router.use("/ingredients", ingredient_delete);
-router.use("/recipes", recipesRouter);
+//* Ingredient Routes
+const ingredientsPostRouter = require("./ingredients/ingredients-post");
+const ingredientsGetRouter = require("./ingredients/ingredients-get");
+const ingredientsDeleteRouter = require("./ingredients/ingredients-delete");
+const ingredientsPatchRouter = require("./ingredients/ingredients-patch");
 
-router.use("/users/create", usersRouterPost);
-router.use("/users/login", usersGetLogin);
+//* Recipe
+router.use("/recipes/create", recipesPostRouter);
+
+//* User
+router.use("/users/create", usersPostRouter);
+router.use("/users/login", usersGetLoginRouter);
+
+//* Ingredient
+router.use("/ingredients/create", ingredientsPostRouter);
+router.use("/ingredients/get", ingredientsGetRouter);
+router.use("/ingredients/update", ingredientsPatchRouter);
+router.use("/ingredients/delete", ingredientsDeleteRouter);
+
+//* Recipe
+//router.use("/recipes/get", )
 
 module.exports = router;
+

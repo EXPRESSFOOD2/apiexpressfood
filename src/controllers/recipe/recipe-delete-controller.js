@@ -1,4 +1,4 @@
-const { Recipe } = require('../db')
+const { Recipe } = require('../../db')
 
 const deleteRecipe = async ( id ) => {
 
