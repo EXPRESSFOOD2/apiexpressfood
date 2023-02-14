@@ -48,7 +48,8 @@ const { Ingredient,
   MenuItem,
   Role,
   User,
-  UsersRoles, } = sequelize.models;
+  UsersRoles,
+  Password, } = sequelize.models;
 
 //! Relationships
 Recipe.belongsToMany( Ingredient, { through: IngredientsRecipes });
