@@ -20,6 +20,9 @@ const FAKE_INGREDEINTS = [
     {name: "Aceite de Oliva",layer: 0 , type_measure: "ml"},
     {name: "Queso Cheddar",layer: 0 , type_measure: "gr"},
     {name: "Papa",layer: 0 , type_measure: "gr"},
+    {name: "Gaseosa",layer: 0 , type_measure: "un"},
+    {name: "Limonada",layer: 0 , type_measure: "un"},
+    {name: "Te",layer: 0 , type_measure: "un"},
     ]
 
 module.exports = function() {
