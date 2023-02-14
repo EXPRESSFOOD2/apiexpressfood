@@ -48,7 +48,8 @@ const { Ingredient,
   MenuItem,
   Role,
   User,
-  UsersRoles, } = sequelize.models;
+  UsersRoles,
+  Password, } = sequelize.models;
 
 //! Relationships
 Recipe.belongsToMany( Ingredient, { through: IngredientsRecipes });
@@ -59,6 +60,8 @@ Ingredient.belongsToMany( MenuItem, { through: IngredientsMenuItems });
 
 Role.belongsToMany( User, { through: UsersRoles });
 User.hasOne( Role, { through: UsersRoles } );
+
+//!tuki
 
 
 

@@ -1,6 +1,5 @@
 const { Router } = require('express');
 const router = Router();
-//const { postIngredient } = require("../controllers/ingredient-post-controller")
 
 router.get("/", async (req, res) => {
     try {
