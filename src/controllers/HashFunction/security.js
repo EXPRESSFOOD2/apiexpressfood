@@ -19,6 +19,7 @@ const validateAccountPassword = async (userId, hashedPass) => {
       return result && result.id > 0 ? "Conected!!! Logged!!" : INVALID_LOGIN;
 }
 
+
 const generateSecret = () => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

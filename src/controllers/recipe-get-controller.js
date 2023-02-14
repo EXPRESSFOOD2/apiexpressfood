@@ -5,4 +5,5 @@ const getAllRecipes = async () => {
             model: Ingredient }})
     return results;
 }
+
 module.exports = { getAllRecipes }
