@@ -59,16 +59,16 @@ router.put("/", async (req ,res )=> {
     }
 })
 
-/*
-router.patch("/", async (req, res) => {
-    try {
-        /* TODO */
-        return res.status(200).json( "Recipes PATCH" )
-    } catch (error) {
-        return res.status(400).json({ error: error.message })
-    }
-})
-*/
+
+// router.patch("/", async (req, res) => {
+//     try {
+//         /* TODO */
+//         return res.status(200).json( "Recipes PATCH" )
+//     } catch (error) {
+//         return res.status(400).json({ error: error.message })
+//     }
+// })
+
 module.exports = router;
 
 
