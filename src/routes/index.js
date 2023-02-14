@@ -11,6 +11,8 @@ const ingredient_delete = require("./ingredient/ingredient_delete")
 const {ingredient_middleware} = require("../middleware/ingredient_middleware.js")
 const {ingredient_delete_middleware} = require("../middleware/ingredient_delete_middleware.js")
 const {ingredient_put_middleware} = require("../middleware//ingredient_put_middleware")
+const usersRouterPost = require("./users/users_post");
+const usersGetLogin = require("./users/users_login");
 
 const router = Router();
 
@@ -26,5 +28,8 @@ router.use("/ingredients", ingredient_post);
 router.use("/ingredients", ingredient_put);
 router.use("/ingredients", ingredient_delete);
 router.use("/recipes", recipesRouter);
+
+router.use("/users/create", usersRouterPost);
+router.use("/users/login", usersGetLogin);
 
 module.exports = router;

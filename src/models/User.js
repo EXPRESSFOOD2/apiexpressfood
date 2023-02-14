@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 
-const { INVALID_EMAIL } = require("./utils/Recipe-ErrorMSGs")
+const { INVALID_EMAIL, INVALID_NAME, INVALID_LAST_NAME } = require("./utils/User-ErrorMSGs")
 
 module.exports = (sequelize) => {
     sequelize.define("User", {
@@ -14,18 +14,34 @@ module.exports = (sequelize) => {
         name: {
             type: DataTypes.STRING(70),
             allowNull: false,
+            validate: {
+                is: /^[a-zA-Z íáúóéÍÁÓÚÉñÑ]*$/,
+                notEmpty: true,
+                notNull: {
+                  msg: INVALID_NAME
+                }
+              },
         },
         last_name: {
             type: DataTypes.STRING(70),
-            allowNull: false
+            allowNull: false,
+            validate: {
+                is: /^[a-zA-Z íáúóéÍÁÓÚÉñÑ]*$/,
+                notEmpty: true,
+                notNull: {
+                  msg: INVALID_LAST_NAME
+                }
+              },
         },
         account_name: {
             type: DataTypes.STRING(35),
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         email: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
             validate: {
                 isEmail: {
                     msg: INVALID_EMAIL
@@ -40,5 +56,9 @@ module.exports = (sequelize) => {
             type: DataTypes.TEXT,
             allowNull: false,
         },
+        phone: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        }
     })
 }

@@ -44,7 +44,8 @@ module.exports = (sequelize) => {
             }
         },
         ingredients_all: {
-            type: DataTypes.JSON
+            type: DataTypes.JSON,
+            allowNull: true,
         }
     },{ })
 }
