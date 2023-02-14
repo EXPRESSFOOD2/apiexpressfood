@@ -25,7 +25,7 @@ const processUserPost = async (req,res) => {
         if (!EMAIL_REGEX.test(email)) throw Error(INVALID_EMAIL);
         if (!password_question || password_question.length < MIN_QUESTION_LENGTH) throw Error(INVALID_QUESTION);
         if (!password_answer || password_answer.length < MIN_ANSWER_LENGTH) throw Error(INVALID_ANSWER);
-        //! Create USER
+        //* Create USER
         const result = await userPostController(name, last_name, account_name, password, email, phone, password_question, password_answer)
         return res.status(200).json( result )
     } catch (error) {
