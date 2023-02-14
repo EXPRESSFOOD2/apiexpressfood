@@ -2,12 +2,6 @@ const { Recipe, Ingredient, IngredientsRecipes } = require('../db');
 /*
 
 */
-const FAKE_RECIPEL2 = [
-    {   name: "Hamburguesa del Chef",
-        details: "Hamburguesa especial",
-        produced_amount: 1,
-        type_measure: "un" },
-    ]
 
 module.exports = async function() {
     await Recipe.create({   name: "Hamburguesa del Chef",
@@ -26,13 +20,20 @@ Añadir la otra cara del pan para envolver todo el contenido.`,
     type_measure: "un" });
     await Ingredient.create({name: "Hamburguesa del Chef", layer: 2, type_measure: "un", ingredients_all: JSON.stringify([
     {id: 13, name: "Pan Hamburguesa", amount: 1},
-    {id: 21, name: "Medallon de Carne 120gr", amount: 120},
-    {id: 14, name: "Ketchup", amount: 0.3364},
-    {id: 15, name: "Mayonesa", amount: 0.0186},
-    {id: 8, name: "Tomate", amount: 0.0186},
-    {id: 7, name: "Cebolla", amount: 0.0186},
-    {id: 9, name: "Lechuga", amount: 0.0186},
-    {id: 18, name: "Queso Cheddar", amount: 0.0373}])})
+    
+        {id: 10, name: "Carne Molida", amount: 80},
+        {id: 3, name: "Huevo", amount: 0.6},
+        {id: 7, name: "Cebolla", amount: 51},
+        {id: 5, name: "Sal", amount: 0.2},
+        {id: 8, name: "Pimienta", amount: 0.6},
+        {id: 2, name: "Harina", amount: 12.6}
+    ,
+    {id: 14, name: "Ketchup", amount: 20},
+    {id: 15, name: "Mayonesa", amount: 20},
+    {id: 8, name: "Tomate", amount: 60},
+
+    {id: 9, name: "Lechuga", amount: 50},
+    {id: 18, name: "Queso Cheddar", amount: 70}])})
     await Recipe.create({   name: "Papas Fritas",
     details: "Metele sazon batria y reggaeton, que lo demas lo pone calderon",
     produced_amount: 1,
