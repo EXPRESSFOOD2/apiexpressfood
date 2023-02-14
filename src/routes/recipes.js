@@ -44,6 +44,9 @@ router.delete("/", async (req, res) => {
 })
 
 
+
+//sustituir por un put, para evitar logica del lado del front
+
 router.put("/", async (req ,res )=> {
     const { id_recipe , name , detail} = req.body
 
@@ -56,6 +59,7 @@ router.put("/", async (req ,res )=> {
     }
 })
 
+/*
 router.patch("/", async (req, res) => {
     try {
         /* TODO */
@@ -64,7 +68,7 @@ router.patch("/", async (req, res) => {
         return res.status(400).json({ error: error.message })
     }
 })
-
+*/
 module.exports = router;
 
 
