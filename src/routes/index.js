@@ -2,6 +2,9 @@
 const {Router} = require('express');
 const router = Router();
 
+//* Recipe Routes
+const recipesPostRouter = require("./recipes/recipes_post")
+
 //* User Routes
 const usersPostRouter = require("./users/users-post");
 const usersGetLoginRouter = require("./users/users-login");
@@ -11,6 +14,9 @@ const ingredientsPostRouter = require("./ingredients/ingredients-post");
 const ingredientsGetRouter = require("./ingredients/ingredients-get");
 const ingredientsDeleteRouter = require("./ingredients/ingredients-delete");
 const ingredientsPatchRouter = require("./ingredients/ingredients-patch");
+
+//* Recipe
+router.use("/recipes/create", recipesPostRouter);
 
 //* User
 router.use("/users/create", usersPostRouter);

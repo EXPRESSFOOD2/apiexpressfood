@@ -6,6 +6,7 @@ module.exports = {
     INVALID_PRODUCED_AMOUNT: "Must be a Numeric: 1 or bigger",
     INVALID_INGREDIENTS_ARRAY: "An Recipe must include at least 1 ingredient",
     INVALID_DATA_TYPE_ID:"the data id must be an integer",
-    INVALID_RECIPE_DETAIL:"Invalid Recipe detail: Can't be Empty"
+    INVALID_RECIPE_DETAIL:"Invalid Recipe detail: Can't be Empty",
+    INVALID_TYPE_MEASURE: "Invalid Measure Type"
 
 }

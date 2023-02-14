@@ -45,7 +45,7 @@ const processIngredientGetById = async (req, res) => {
     const { id } = req.params;
     try {
         if ( isNaN(id) || id < 1) throw Error(INVALID_ID)
-        const result = ingredientsGetByIdController(id)
+        const result = await ingredientsGetByIdController(id)
         if ( !result ) throw Error(CANT_FIND_INGREDIENT)
         return res.status(200).json( result )
     } catch (error) {
@@ -68,6 +68,7 @@ const isExistingIngredient = async (name) => {
     let result = await Ingredient.findAll({where: {name}})
     return result.length > 0 ? true : false;
 }
+
 const validateIngredient = async (name, layer, type_measure, ingredients_all) => {
     if ( await isExistingIngredient(name) ) throw Error(DUPLICATED_NAME);
     if ( await Recipe.findOne({where: {name}}) ) throw Error(DUPLICATED_RECIPE_NAME)
