@@ -9,7 +9,7 @@ const getIngredients = async () => {
       
       return false;
     }
-  } catch (error) {
+  } catch (error) { 
     return error.message
   }
 };

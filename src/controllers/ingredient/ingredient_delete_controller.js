@@ -1,14 +1,11 @@
 const { Ingredient } = require("../../db");
 
-const deleteIngredient = async (id) => {
+const deleteIngredient = async (ingredientsIds) => {
   try {
-    const responseDb = await Ingredient.findByPk(id);
-    if (Object.values(responseDb.dataValues).length) {
-      await Ingredient.destroy({where: {id: responseDb.dataValues.id}});
-      return true;
-    } else {
-      return false;
-    }
+
+      await Ingredient.destroy({where: {id: ingredientsIds.map((ingredient)=>ingredient.id)}});
+
+  
   } catch (error) {
     return error.message;
   }

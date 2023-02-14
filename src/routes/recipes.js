@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const router = Router();
 const { validateRecipePost, validateRecipeGet } = require("../middleware/recipe-middleware")
-const { postRecipe } = require("../controllers/recipe/recipe-post-controller");
-const { getAllRecipes } = require("../controllers/recipe/recipe-get-controller")
+const { postRecipe } = require("../controllers/recipe-post-controller");
+const { getAllRecipes } = require("../controllers/recipe-get-controller")
 
 router.post("/", async (req, res) => {
     const { name, details, produced_amount, type_measure, ingredArray } = req.body;

@@ -3,13 +3,14 @@ const router = Router();
 const { deleteIngredient } = require("../../controllers/ingredient//ingredient_delete_controller")
 
 
-router.put("/update", async (req, res) => {
-    const {id, name, type_measure } = req.body;
+router.delete("/delete", async (req, res) => {
+    //mandar id por params
+    const ingredientsIds = req.body;
     try {
      
-        let result = await deleteIngredient(id)
-        if(!result) return res.status(200).send("The ingredient does not exist")
-        return res.status(200).send("Ingredient deleted successfully")
+     await deleteIngredient(ingredientsIds)
+return res.status(200).send({msg:"Ingredients was deleted successfully"})
+      
     } catch (error) {
         return res.status(200).send({ error: error.message })
     }

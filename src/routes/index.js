@@ -7,19 +7,24 @@ const recipesRouter = require("./recipes");
 const ingredient_get = require("./ingredient/ingredient_get")
 const ingredient_post = require("./ingredient/ingredient_post")
 const ingredient_put = require("./ingredient/ingredient_put")
-const ingredientMiddleware = require("..//middleware/ingredient_post")
+const ingredient_delete = require("./ingredient/ingredient_delete")
+const {ingredient_middleware} = require("../middleware/ingredient_middleware.js")
+const {ingredient_delete_middleware} = require("../middleware/ingredient_delete_middleware.js")
+const {ingredient_put_middleware} = require("../middleware//ingredient_put_middleware")
 
 const router = Router();
 
 //middlewares
-router.use("/ingredients/create", ingredientMiddleware);
-router.use("/ingredients/update", ingredientMiddleware);
+router.use("/ingredients/create", ingredient_middleware);
+router.use("/ingredients/update", ingredient_put_middleware);
+router.use("/ingredients/delete", ingredient_delete_middleware);
 
 
 // Configurar los routers
 router.use("/ingredients", ingredient_get);
 router.use("/ingredients", ingredient_post);
 router.use("/ingredients", ingredient_put);
+router.use("/ingredients", ingredient_delete);
 router.use("/recipes", recipesRouter);
 
 module.exports = router;

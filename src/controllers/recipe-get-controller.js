@@ -1,4 +1,4 @@
-const { Recipe, Ingredient, IngredientsRecipes } = require('../../db');
+const { Recipe, Ingredient, IngredientsRecipes } = require('../db');
 
 const getAllRecipes = async () => {
     const results = await Recipe.findAll({include: {

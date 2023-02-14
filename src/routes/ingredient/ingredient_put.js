@@ -4,12 +4,14 @@ const { putIngredient } = require("../../controllers/ingredient//ingredient_put_
 
 
 router.put("/update", async (req, res) => {
+
+    //mandar id por params
     const {id, name, type_measure } = req.body;
     try {
      
         let result = await putIngredient(id,name, type_measure)
-        if(!result) return res.status(200).send("The ingredient does not exist")
-        return res.status(200).send("Ingredient updated successfully")
+       return res.status(200).send(result)
+       
     } catch (error) {
         return res.status(200).send({ error: error.message })
     }

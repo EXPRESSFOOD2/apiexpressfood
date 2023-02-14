@@ -1,4 +1,4 @@
-const { Recipe, Ingredient, IngredientsRecipes } = require('../../db');
+const { Recipe, Ingredient, IngredientsRecipes } = require('../db');
 
 const postRecipe = async (name, details, produced_amount, type_measure, ingredArray) => {
     // Ingredient.create({name: "Papa", layer: 0, type_measure: "gr"})
