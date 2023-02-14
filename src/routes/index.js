@@ -6,6 +6,7 @@ const {Router} = require('express');
 const ingredientsRouter = require("./ingredients")
 const recipesRouter = require("./recipes");
 const usersRouterPost = require("./users/users_post");
+const usersGetLogin = require("./users/users_login");
 
 const router = Router();
 
@@ -13,6 +14,7 @@ const router = Router();
 router.use("/ingredients", ingredientsRouter);
 router.use("/recipes", recipesRouter);
 
-router.use("/users", usersRouterPost);
+router.use("/users/create", usersRouterPost);
+router.use("/users/login", usersGetLogin);
 
 module.exports = router;

@@ -10,5 +10,7 @@ module.exports = {
     MIN_QUESTION_LENGTH: 8,
     INVALID_QUESTION: "The question is to short",
     MIN_ANSWER_LENGTH: 8,
-    INVALID_ANSWER: "The answer is to short"
+    INVALID_ANSWER: "The answer is to short",
+    INVALID_LOGIN_PARAMS: "Must provide, Account & Password",
+    INVALID_LOGIN: "Invalid Account & Password or This Account Doesn't exist",
 }

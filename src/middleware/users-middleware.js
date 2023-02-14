@@ -1,10 +1,10 @@
-
 const { conn, Op } = require("../db");
 const { User } = conn.models;
 const { INVAME_NAME_OR_ACCOUNT, EMAIL_REGEX, INVALID_NAME, INVALID_LAST_NAME,
         ALPHA_REGEX, MIN_PASS_LENGTH, PASSWORD_TO_SHORT, INVALID_EMAIL,
-        MIN_QUESTION_LENGTH, INVALID_QUESTION, MIN_ANSWER_LENGTH, INVALID_ANSWER } = require("../models/utils/User-ErrorMSGs")
+        MIN_QUESTION_LENGTH, INVALID_QUESTION, MIN_ANSWER_LENGTH, INVALID_ANSWER, INVALID_LOGIN_PARAMS } = require("../models/utils/User-ErrorMSGs")
 const { userPostController } = require("../controllers/user-post-controller")
+const { userLoginController } = require("../controllers/user-get-login-controller")
 
 const isExistingUser = async (account_name, email) => {
     let result = await User.findAll({where: {[Op.or]: [
@@ -33,6 +33,19 @@ const processUserPost = async (req,res) => {
     }
 }
 
+const processUserLogin = async (req,res) => {
+    const {account_name, password } = req.body;
+    try {
+        if (!account_name || !password) throw Error(INVALID_LOGIN_PARAMS);
+        const result = await userLoginController(account_name, password);
+        return res.status(200).json(result)
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+
+}
+
 module.exports = {
-    processUserPost
+    processUserPost,
+    processUserLogin
 }
