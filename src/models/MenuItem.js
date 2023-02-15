@@ -33,6 +33,10 @@ module.exports = (sequelize) => {
         is_active: {
             type: DataTypes.BOOLEAN,
             defaultValue: true
+        },
+        url_image: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     })
 }
