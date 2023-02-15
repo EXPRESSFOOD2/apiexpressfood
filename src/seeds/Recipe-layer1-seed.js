@@ -23,22 +23,22 @@ module.exports = async function() {
     produced_amount: 1070,
     type_measure: "gr" });
     await Ingredient.create({name: "Masa de Pizza", layer: 1, type_measure: "gr", ingredients_all: JSON.stringify([
-    {id: 2, name: "Harina", amount: 0.5128},
-    {id: 15, name: "Levadura Fresca", amount: 0.0467},
-    {id: 1, name: "Agua", amount: 0.3364},
-    {id: 5, name: "Sal", amount: 0.0186},
-    {id: 16, name: "Aceite de Oliva", amount: 0.0373}])})
+    {id: 2, name: "Harina", layer: 0, amount: 0.5128},
+    {id: 15, name: "Levadura Fresca", layer: 0, amount: 0.0467},
+    {id: 1, name: "Agua", layer: 0, amount: 0.3364},
+    {id: 5, name: "Sal", layer: 0, amount: 0.0186},
+    {id: 16, name: "Aceite de Oliva", layer: 0, amount: 0.0373}])})
     await Recipe.create({   name: "Medallon de Carne 120gr",
     details: "Mezclar todo y a disfrutar",
     produced_amount: 10,
     type_measure: "un" })
     await Ingredient.create({name: "Medallon de Carne 120gr", layer: 1, type_measure: "gr", ingredients_all: JSON.stringify([
-        {id: 10, name: "Carne Molida", amount: 80},
-        {id: 3, name: "Huevo", amount: 0.6},
-        {id: 7, name: "Cebolla", amount: 26},
-        {id: 5, name: "Sal", amount: 0.2},
-        {id: 8, name: "Pimienta", amount: 0.6},
-        {id: 2, name: "Harina", amount: 12.6}
+        {id: 10, name: "Carne Molida", layer: 0, amount: 80},
+        {id: 3, name: "Huevo", layer: 0, amount: 0.6},
+        {id: 7, name: "Cebolla", layer: 0, amount: 26},
+        {id: 5, name: "Sal", layer: 0, amount: 0.2},
+        {id: 8, name: "Pimienta", layer: 0, amount: 0.6},
+        {id: 2, name: "Harina", layer: 0, amount: 12.6}
     ])})
 
 
