@@ -23,11 +23,13 @@ module.exports = async function() {
     produced_amount: 1070,
     type_measure: "gr" });
     await Ingredient.create({name: "Masa de Pizza", layer: 1, type_measure: "gr", ingredients_all: JSON.stringify([
+
     {id: 2, name: "Harina", layer: 0, amount: 0.5128},
     {id: 15, name: "Levadura Fresca", layer: 0, amount: 0.0467},
     {id: 1, name: "Agua", layer: 0, amount: 0.3364},
     {id: 5, name: "Sal", layer: 0, amount: 0.0186},
     {id: 16, name: "Aceite de Oliva", layer: 0, amount: 0.0373}])})
+
     await Recipe.create({   name: "Medallon de Carne 120gr",
     details: "Mezclar todo y a disfrutar",
     produced_amount: 10,
@@ -39,21 +41,22 @@ module.exports = async function() {
         {id: 5, name: "Sal", layer: 0, amount: 0.2},
         {id: 8, name: "Pimienta", layer: 0, amount: 0.6},
         {id: 2, name: "Harina", layer: 0, amount: 12.6}
+
     ])})
 
 
     await IngredientsRecipes.bulkCreate([
         {RecipeId: 1, IngredientId: 2, waste_rate: 3},
-        {RecipeId: 1, IngredientId: 15, waste_rate: 0},
+        {RecipeId: 1, IngredientId: 16, waste_rate: 0},
         {RecipeId: 1, IngredientId: 1, waste_rate: 0},
         {RecipeId: 1, IngredientId: 5, waste_rate: 0},
-        {RecipeId: 1, IngredientId: 16, waste_rate: 0},
+        {RecipeId: 1, IngredientId: 17, waste_rate: 0},
 
-        {RecipeId: 2, IngredientId: 10, waste_rate: 0},
+        {RecipeId: 2, IngredientId: 12, waste_rate: 0},
         {RecipeId: 2, IngredientId: 3, waste_rate: 0},
         {RecipeId: 2, IngredientId: 7, waste_rate: 5},
         {RecipeId: 2, IngredientId: 5, waste_rate: 0},
-        {RecipeId: 2, IngredientId: 8, waste_rate: 0},
+        {RecipeId: 2, IngredientId: 10, waste_rate: 0},
         {RecipeId: 2, IngredientId: 2, waste_rate: 0},
     ])
 };
