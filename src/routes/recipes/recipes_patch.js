@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
-const {  } = require("../../middleware/recipes_middleware")
+const { processRecipePatch } = require("../../middleware/recipes_middleware")
 
-router.patch("/", );
+router.patch("/", processRecipePatch);
 
 module.exports = router;

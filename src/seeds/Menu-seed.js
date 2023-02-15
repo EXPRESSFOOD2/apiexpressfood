@@ -1,3 +1,4 @@
+const { ConnectionAcquireTimeoutError } = require("sequelize");
 const { MenuItem } = require("../db")
 const lorem = `Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
 Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500,
@@ -17,6 +18,9 @@ const FAKE_MENU = [
     {name: "Menu Veggie Full", description: lorem, price: 1000, recomend_first: false,  is_active: true, url_image: "https://thumbs.dreamstime.com/z/covered-dish-icon-drop-shadow-silhouette-symbol-restaurant-food-serving-dish-platter-lid-negative-space-vector-illustration-125303590.jpg"},
 
 ]
+
+
+
 
 module.exports = function () {
     MenuItem.bulkCreate(FAKE_MENU)
