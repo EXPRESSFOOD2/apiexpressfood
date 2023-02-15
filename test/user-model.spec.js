@@ -10,7 +10,7 @@ const {
   INVALID_EMAIL_EMPTY,
 } = require("../src/models/utils/User-ErrorMSGs");
 
-xdescribe("User Model", () => {
+describe("User Model", () => {
   beforeAll(async () => {
     await conn.sync({ force: true });
   });

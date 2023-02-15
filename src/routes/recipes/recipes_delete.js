@@ -1,8 +1,8 @@
 const { Router } = require('express');
 const router = Router();
-const {  } = require("")
+const { processRecipeDelete } = require("../../middleware/recipes_middleware")
 
-router.delete("/",  );
+router.delete("/", processRecipeDelete);
 
 
 

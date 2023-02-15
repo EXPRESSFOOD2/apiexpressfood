@@ -2,7 +2,7 @@ const { conn } = require("../src/db");
 const { MenuItem } = conn.models;
 const { ERROR_NAME, ERROR_PRICE, ERROR_CREATE_NEW_MENU_ITEM} = require("../src/models/utils/MenuItem-ErrorMSGs");
 
-xdescribe("MenuItem Model", () => {
+describe("MenuItem Model", () => {
     beforeAll(async () => {
         await conn.sync({ force: true });
     });

@@ -1,9 +1,13 @@
 const { conn } = require("../db");
 const { Ingredient, Recipe } = conn.models;
 const { INVALID_RECIPE_NAME, DUPLICATED_RECIPE_NAME,INVALID_PRODUCED_AMOUNT, MIN_PROD_AMOUNT,
-        INVALID_INGREDIENTS_ARRAY, INVALID_DATA_TYPE_ID, INVALID_RECIPE_DETAIL, INVALID_TYPE_MEASURE } = require("../models/utils/Recipe-ErrorMSGs")
+        INVALID_INGREDIENTS_ARRAY, INVALID_DATA_TYPE_ID, INVALID_RECIPE_DETAIL, INVALID_TYPE_MEASURE,
+        INVALID_ID, } = require("../models/utils/Recipe-ErrorMSGs")
 const { MEASURES_SHORT } = require("../models/utils/constants")
 const { recipesPostController } = require("../controllers/recipe/recipe-post_controller")
+const { recipesGetController, recipesGetByIdController } = require("../controllers/recipe/recipe-get_controller")
+const { recipesDeleteController } = require("../controllers/recipe/recipe-delete_controller")
+const { recipesPatchController } = require("../controllers/recipe/recipe-patch_controller")
 
 const processRecipePost = async (req,res) => {
     const { name, details, produced_amount, type_measure, ingredArray } = req.body;
@@ -17,10 +21,43 @@ const processRecipePost = async (req,res) => {
     }
 }
 
+const processRecipePatch = async (req,res) => {
+    const {id, name, details } = req.body;
+    try {
+        if ( !(await Recipe.findByPk(id)) ) throw Error(INVALID_ID)
+        const result = await recipesPatchController(id, name, details);
+        return res.status(200).json( result )
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
+
+const processRecipeGet = async (req,res) => {
+    try {
+        const result = await recipesGetController();
+        return res.status(200).json( result )
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
+
+const processRecipeGetById = async (req,res) => {
+    const { id } = req.params;
+    try {
+        if ( isNaN(id) || id < 1) throw Error(INVALID_ID)
+        const result = await recipesGetByIdController(id)
+        if ( !result ) throw Error(INVALID_ID)
+        return res.status(200).json( result )
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
+
 const recipeNameExistInIngerients = async (name) => {
     let result = await Ingredient.findAll({where: {name}})
     return result.length ? true : false;
 }
+
 const recipeNameExistInRecipes = async (name) => {
     let result = await Recipe.findAll({where: {name}})
     return result.length ? true : false;
@@ -38,27 +75,23 @@ const validateRecipePost = async (name, details, produced_amount, type_measure, 
     if ( !MEASURES_SHORT.includes(type_measure) ) throw Error(INVALID_TYPE_MEASURE)
     return result;
 }
-/*
-const validateRecipeGet = () => {
-    let result = true
-    //* TODO
-    // Any idea?
-    return result;
+const processRecipeDelete = async (req,res) => {
+    const { id } = req.query;
+    try {
+        if ( id < 1) throw Error(INVALID_ID)
+        const result = await recipesDeleteController( id );
+        if ( result ) await Ingredient.destroy({where: {id}})
+        else throw Error(INVALID_ID)
+        return res.status(200).json( result )
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
 }
-
-const validateRecipeData = (name , detail) => {
-    if(!name.trim()) throw Error(INVALID_RECIPE_NAME);
-    if(!detail.trim()) throw Error(INVALID_RECIPE_DETAIL);
-    return true
-}
-const validateIdRecipe = (id) => {
-
-    if(!Number.isInteger(id)) throw Error(INVALID_DATA_TYPE_ID)
-
-    return true
-}
-*/
 module.exports = {
     processRecipePost,
+    processRecipeGet,
+    processRecipeGetById,
+    processRecipeDelete,
+    processRecipePatch
 
 }
