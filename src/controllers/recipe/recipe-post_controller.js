@@ -12,6 +12,8 @@ const recipesPostController = async (name, details, produced_amount, type_measur
 const createIngredient = async ({RecipeId, ingredArray, name, type_measure}) => {
     const layer = processLayer(ingredArray)
     const ingredients_all =  await buildIngredientsAll({ RecipeId, ingredArray })
+    //! TODO Sacar.. TEST
+    //console.log(ingredients_all);
     Ingredient.create({name, layer, type_measure, ingredients_all})
 }
 

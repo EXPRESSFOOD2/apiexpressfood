@@ -1,6 +1,6 @@
 const { Ingredient } = require("../../db");
 
-const deleteIngredient = async (ingredientsIds) => {
+const ingredientsDeleteController = async (ingredientsIds) => {
   try {
     
       await Ingredient.destroy({where: {id: ingredientsIds.map((ingredient)=>ingredient.id)}});
@@ -10,4 +10,4 @@ const deleteIngredient = async (ingredientsIds) => {
   }
 };
 
-module.exports = { deleteIngredient };
+module.exports = { ingredientsDeleteController };
