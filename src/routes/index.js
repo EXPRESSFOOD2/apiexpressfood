@@ -18,6 +18,13 @@ const ingredientsGetRouter = require("./ingredients/ingredients-get");
 const ingredientsDeleteRouter = require("./ingredients/ingredients-delete");
 const ingredientsPatchRouter = require("./ingredients/ingredients-patch");
 
+//* Menu Routes
+/*
+const menuPostRouter = require("./menu/menu-post");
+const menuGetRouter = require("./menu/menu-get");
+const menuDeleteRouter = require("./menu/menu-delete");
+const menuPatchRouter = require("./menu/menu-patch");
+*/
 //* Recipe
 router.use("/recipes/create", recipesPostRouter);
 router.use("/recipes/get", recipesGetRouter);
@@ -34,8 +41,13 @@ router.use("/ingredients/get", ingredientsGetRouter);
 router.use("/ingredients/update", ingredientsPatchRouter);
 router.use("/ingredients/delete", ingredientsDeleteRouter);
 
-//* Recipe
-//router.use("/recipes/get", )
+//* Menu
+/*
+router.use("/menu/create", menuPostRouter);
+router.use("/menu/get", menuGetRouter);
+router.use("/menu/update", menuPatchRouter);
+router.use("/menu/delete", menuDeleteRouter);
+*/
 
 module.exports = router;
 
