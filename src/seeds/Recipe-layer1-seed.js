@@ -44,6 +44,21 @@ module.exports = async function() {
 
     ])})
 
+    await Recipe.create({ name: "Ensalada DeLaCasa",
+    details: "Super Ensalada",
+    produced_amount: 10,
+    type_measure: "un" })
+    await Ingredient.create({name: "Ensalada DeLaCasa", layer: 1, type_measure: "un", ingredients_all: JSON.stringify([
+        {id: 8, name: "Tomate", layer: 0, amount: 100},
+        {id: 3, name: "Huevo", layer: 0, amount: 1},
+        {id: 7, name: "Cebolla", layer: 0, amount: 70},
+        {id: 5, name: "Sal", layer: 0, amount: 0.2},
+        {id: 10, name: "Pimienta", layer: 0, amount: 0.2},
+        {id: 9, name: "Lechuga", layer: 0, amount: 180},
+        {id: 17, name: "Aceite de Oliva", layer:0, amount: 40}
+
+    ])})
+
 
     await IngredientsRecipes.bulkCreate([
         {RecipeId: 1, IngredientId: 2, waste_rate: 3},
@@ -58,5 +73,14 @@ module.exports = async function() {
         {RecipeId: 2, IngredientId: 5, waste_rate: 0},
         {RecipeId: 2, IngredientId: 10, waste_rate: 0},
         {RecipeId: 2, IngredientId: 2, waste_rate: 0},
+
+        {RecipeId: 3, IngredientId: 8, waste_rate: 8},
+        {RecipeId: 3, IngredientId: 3, waste_rate: 0},
+        {RecipeId: 3, IngredientId: 7, waste_rate: 8},
+        {RecipeId: 3, IngredientId: 5, waste_rate: 0},
+        {RecipeId: 3, IngredientId: 10, waste_rate: 0},
+        {RecipeId: 3, IngredientId: 9, waste_rate: 12},
+        {RecipeId: 3, IngredientId: 17, waste_rate: 0},
     ])
+
 };
