@@ -34,7 +34,7 @@ const FAKE_MENU = [
 ]
 //(name, description, price, recomend_first, stock, is_active, url_image, ingredArray )
 const FAKE_MENU_RELATIONS = [
-    /*{MenuItemId: 1, IngredientId: 29, quantity: 1},
+    {MenuItemId: 1, IngredientId: 29, quantity: 1},
     {MenuItemId: 1, IngredientId: 20, quantity: 1},
     {MenuItemId: 2, IngredientId: 29, quantity: 2},
     {MenuItemId: 2, IngredientId: 20, quantity: 2},
@@ -52,7 +52,7 @@ const FAKE_MENU_RELATIONS = [
     {MenuItemId: 6, IngredientId: 21, quantity: 4},
     {MenuItemId: 6, IngredientId: 27, quantity: 4},
     {MenuItemId: 6, IngredientId: 22, quantity: 4},
-    {MenuItemId: 6, IngredientId: 29, quantity: 1},
+    {MenuItemId: 6, IngredientId: 28, quantity: 1},
 
     {MenuItemId: 7, IngredientId: 29, quantity: 4},
     {MenuItemId: 7, IngredientId: 21, quantity: 4},
@@ -63,7 +63,7 @@ const FAKE_MENU_RELATIONS = [
     {MenuItemId: 8, IngredientId: 21, quantity: 4},
     {MenuItemId: 8, IngredientId: 27, quantity: 4},
     {MenuItemId: 8, IngredientId: 22, quantity: 4},
-    {MenuItemId: 8, IngredientId: 29, quantity: 1},
+    {MenuItemId: 8, IngredientId: 28, quantity: 1},
 
     {MenuItemId: 9, IngredientId: 29, quantity: 4},
     {MenuItemId: 9, IngredientId: 21, quantity: 4},
@@ -74,7 +74,7 @@ const FAKE_MENU_RELATIONS = [
     {MenuItemId: 10, IngredientId: 21, quantity: 4},
     {MenuItemId: 10, IngredientId: 27, quantity: 4},
     {MenuItemId: 10, IngredientId: 22, quantity: 4},
-    {MenuItemId: 10, IngredientId: 29, quantity: 1},
+    {MenuItemId: 10, IngredientId: 28, quantity: 1},
 
     {MenuItemId: 11, IngredientId: 29, quantity: 4},
     {MenuItemId: 11, IngredientId: 21, quantity: 4},
@@ -85,7 +85,7 @@ const FAKE_MENU_RELATIONS = [
     {MenuItemId: 12, IngredientId: 21, quantity: 4},
     {MenuItemId: 12, IngredientId: 27, quantity: 4},
     {MenuItemId: 12, IngredientId: 22, quantity: 4},
-    {MenuItemId: 12, IngredientId: 29, quantity: 1},
+    {MenuItemId: 12, IngredientId: 28, quantity: 1},
 
     {MenuItemId: 13, IngredientId: 29, quantity: 4},
     {MenuItemId: 13, IngredientId: 21, quantity: 4},
@@ -96,7 +96,7 @@ const FAKE_MENU_RELATIONS = [
     {MenuItemId: 14, IngredientId: 21, quantity: 4},
     {MenuItemId: 14, IngredientId: 27, quantity: 4},
     {MenuItemId: 14, IngredientId: 22, quantity: 4},
-    {MenuItemId: 14, IngredientId: 29, quantity: 1},
+    {MenuItemId: 14, IngredientId: 28, quantity: 1},
 
     {MenuItemId: 15, IngredientId: 29, quantity: 4},
     {MenuItemId: 15, IngredientId: 21, quantity: 4},
@@ -107,7 +107,7 @@ const FAKE_MENU_RELATIONS = [
     {MenuItemId: 16, IngredientId: 21, quantity: 4},
     {MenuItemId: 16, IngredientId: 27, quantity: 4},
     {MenuItemId: 16, IngredientId: 22, quantity: 4},
-    {MenuItemId: 16, IngredientId: 29, quantity: 1},
+    {MenuItemId: 16, IngredientId: 28, quantity: 1},
 
     {MenuItemId: 17, IngredientId: 29, quantity: 4},
     {MenuItemId: 17, IngredientId: 21, quantity: 4},
@@ -118,7 +118,7 @@ const FAKE_MENU_RELATIONS = [
     {MenuItemId: 18, IngredientId: 21, quantity: 4},
     {MenuItemId: 18, IngredientId: 27, quantity: 4},
     {MenuItemId: 18, IngredientId: 22, quantity: 4},
-    {MenuItemId: 18, IngredientId: 29, quantity: 1},
+    {MenuItemId: 18, IngredientId: 28, quantity: 1},
 
     {MenuItemId: 19, IngredientId: 29, quantity: 4},
     {MenuItemId: 19, IngredientId: 21, quantity: 4},
@@ -129,11 +129,15 @@ const FAKE_MENU_RELATIONS = [
     {MenuItemId: 20, IngredientId: 21, quantity: 4},
     {MenuItemId: 20, IngredientId: 27, quantity: 4},
     {MenuItemId: 20, IngredientId: 22, quantity: 4},
-*/
+    {MenuItemId: 20, IngredientId: 28, quantity: 1},
+
 ]
 
 
 module.exports = async function () {
     await MenuItem.bulkCreate(FAKE_MENU)
-    await IngredientsMenuItems.bulkCreate(FAKE_MENU_RELATIONS)
+    setTimeout(( async () => {
+        await IngredientsMenuItems.bulkCreate(FAKE_MENU_RELATIONS)
+    }), 2000);
+
 }

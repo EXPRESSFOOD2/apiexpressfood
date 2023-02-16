@@ -6,7 +6,7 @@ const Menu = require("./Menu-seed")
 //const Seed = require('./');
 
 module.exports = async function() {
-    return await Promise.all([ // Returning and thus passing a Promise here
+    await Promise.all([ // Returning and thus passing a Promise here
         // Independent seeds first
          IngredientSeed()
        // MaterialSeed(),
@@ -18,8 +18,12 @@ module.exports = async function() {
     }).then(() => {
         RecipeSeed3()
     }).then(() => {
-        Menu()
-    }).then(() => {
         console.log('********** Successfully seeded db **********');
     });
+
+    await Promise.all([ // Returning and thus passing a Promise here
+        // Independent seeds first
+        Menu()
+       // MaterialSeed(),
+    ])
 }
