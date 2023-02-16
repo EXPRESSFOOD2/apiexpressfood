@@ -5,19 +5,18 @@ const RecipeSeed3 = require('./Recipe-layer3-seed');
 const Menu = require("./Menu-seed")
 //const Seed = require('./');
 
-module.exports = function() {
-    return Promise.all([ // Returning and thus passing a Promise here
+module.exports = async function() {
+    return await Promise.all([ // Returning and thus passing a Promise here
         // Independent seeds first
-        IngredientSeed(),
-       
+         IngredientSeed()
        // MaterialSeed(),
     ]).then(() => {
-        // More seeds that require IDs from the seeds above 
-        RecipeSeed1();
+        // More seeds that require IDs from the seeds above
+        RecipeSeed1()
     }).then(() => {
         RecipeSeed2()
     }).then(() => {
-        RecipeSeed3();
+        RecipeSeed3()
     }).then(() => {
         Menu()
     }).then(() => {
