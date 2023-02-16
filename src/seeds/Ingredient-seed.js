@@ -29,6 +29,6 @@ const FAKE_INGREDEINTS = [
     {name: "Te",layer: 0 , type_measure: "un"},
     ]
 
-module.exports = function() {
-    Ingredient.bulkCreate(FAKE_INGREDEINTS);
+module.exports = async function() {
+    await Ingredient.bulkCreate(FAKE_INGREDEINTS);
 };
