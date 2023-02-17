@@ -1,7 +1,8 @@
 const { MenuItem } = require("../../db");
 
 const menuItemsGetController = async () => {
-  const result = await MenuItem.findAll();
+  const result = await MenuItem.findAll({include: {
+    model: Ingredient }});
   return result;
 };
 const menuItemsGetByIdController = async (id) => {
