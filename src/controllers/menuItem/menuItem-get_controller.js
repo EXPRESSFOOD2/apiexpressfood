@@ -1,4 +1,4 @@
-const { MenuItem } = require("../../db");
+const { MenuItem, Ingredient } = require("../../db");
 
 const menuItemsGetController = async () => {
   const result = await MenuItem.findAll({include: {
