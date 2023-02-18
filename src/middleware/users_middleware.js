@@ -3,7 +3,7 @@ const { User } = conn.models;
 const { INVAME_NAME_OR_ACCOUNT, EMAIL_REGEX, INVALID_NAME, INVALID_LAST_NAME,
         ALPHA_REGEX, MIN_PASS_LENGTH, PASSWORD_TO_SHORT, INVALID_EMAIL,
         MIN_QUESTION_LENGTH, INVALID_QUESTION, MIN_ANSWER_LENGTH, INVALID_ANSWER, INVALID_LOGIN_PARAMS } = require("../models/utils/User-ErrorMSGs")
-const { userPostController } = require("../controllers/user/user-post_controller")
+const { userPostController, token } = require("../controllers/user/user-post_controller")
 const { userLoginController } = require("../controllers/user/user-get-login_controller")
 
 const isExistingUser = async (account_name, email) => {
@@ -19,7 +19,7 @@ const processUserPost = async (req,res) => {
     try {
         await validateUser(name, last_name, account_name, password, email, phone, password_question, password_answer);
         const result = await userPostController(name, last_name, account_name, password, email, phone, password_question, password_answer)
-        return res.status(200).json( result )
+        return res.status(201).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
@@ -46,7 +46,25 @@ const processUserLogin = async (req,res) => {
     }
 }
 
+const processActivateAccount = async (req,res) => {
+    const { token } = req.params;
+    console.log(token);
+    try {
+        let result = await User.findAll({where: { activation_token: token }})
+if(result.length){
+   await  User.update({ is_active: true }, { where: { id: result[0].id }})
+   let result2 = await User.findAll({where: { activation_token: token.split(":").at(-1) }})
+    return res.status(201).json( result2[0] )
+}else{
+    return res.status(404).json( {error: "invalid activation token"} )
+}
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
+
+
 module.exports = {
     processUserPost,
-    processUserLogin
+    processUserLogin,processActivateAccount
 }
