@@ -25,6 +25,10 @@ describe("User Model", () => {
       expect(columns).toContain("secret");
       expect(columns).toContain("phone");
 
+      expect(columns).toContain("is_active");
+      expect(columns).toContain("activation_token");
+
+
       // Comprobar los tipos de datos de las columnas
       expect(User.rawAttributes.id.type).toEqual(INTEGER());
       expect(User.rawAttributes.name.type).toEqual(STRING(70));
@@ -33,6 +37,9 @@ describe("User Model", () => {
       expect(User.rawAttributes.email.type).toEqual(STRING());
       expect(User.rawAttributes.secret.type).toEqual(TEXT());
       expect(User.rawAttributes.phone.type).toEqual(STRING());
+
+      expect(User.rawAttributes.is_active.type).toEqual(BOOLEAN());
+      expect(User.rawAttributes.activation_token.type).toEqual(STRING());
 
 
       //comprobar las restricciones de datos de las columnas
@@ -63,6 +70,10 @@ describe("User Model", () => {
       });
       expect(User.rawAttributes.secret.allowNull).toEqual(false);
       expect(User.rawAttributes.phone.allowNull).toEqual(true);
+
+      expect(User.rawAttributes.is_active.defaultValue).toEqual(false);
+      expect(User.rawAttributes.activation_token.allowNull).toEqual(false);
+
     });
   });
 

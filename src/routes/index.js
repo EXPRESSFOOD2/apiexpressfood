@@ -11,6 +11,7 @@ const recipesPatchRouter = require("./recipes/recipes_patch");
 //* User Routes
 const usersPostRouter = require("./users/users-post");
 const usersGetLoginRouter = require("./users/users-login");
+const usersGetActivateAccount = require("..//routes/users/user-get-activation");
 
 //* Ingredient Routes
 const ingredientsPostRouter = require("./ingredients/ingredients-post");
@@ -32,6 +33,7 @@ router.use("/recipes/update", recipesPatchRouter);
 
 //* User
 router.use("/users/create", usersPostRouter);
+router.use("/users/activate_account", usersGetActivateAccount);
 router.use("/users/login", usersGetLoginRouter);
 
 //* Ingredient
