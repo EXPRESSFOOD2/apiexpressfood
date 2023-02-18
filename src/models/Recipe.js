@@ -36,5 +36,5 @@ module.exports = (sequelize) => {
                 min: MIN_PROD_AMOUNT,
             }
         }
-    },{ sequelize })
+    },{ })
 }

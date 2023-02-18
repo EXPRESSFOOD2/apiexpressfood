@@ -42,6 +42,10 @@ module.exports = (sequelize) => {
             validate:{
                 isIn: [MEASURES_SHORT]
             }
+        },
+        ingredients_all: {
+            type: DataTypes.JSON,
+            allowNull: true,
         }
-    },{ sequelize })
+    },{ })
 }

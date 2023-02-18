@@ -1,6 +1,6 @@
-const { User, Password, Role, UsersRoles } = require('../db');
-const { hashFunction, validateAccountPassword } = require("./HashFunction/security");
-const { INVALID_LOGIN } = require("../models/utils/User-ErrorMSGs")
+const { User } = require('../../db');
+const { hashFunction, validateAccountPassword } = require("../HashFunction/security");
+const { INVALID_LOGIN } = require("../../models/utils/User-ErrorMSGs")
 
 const userLoginController = async (account_name, password) => {
  const user = await User.findOne({where: {account_name}})
