@@ -5,8 +5,8 @@ const menuItemsDeleteController = async (id) => {
     
       await MenuItem.destroy({where: {id}});
 
-  } catch (error) {
-    return error.message;
+  } catch (err) {
+    return err.message;
   }
 };
 
