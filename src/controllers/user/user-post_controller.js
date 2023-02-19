@@ -2,11 +2,11 @@ const { User, Password, UsersRoles } = require("../../db");
 const {
   generateSecret,
   hashFunction,
-  generateToken,
 } = require("../HashFunction/security");
 const nodemailer = require("nodemailer");
+const TOKEN_LENGTH = require("../../models/utils/constants")
 
-const token = generateToken();
+const token = generateSecret(TOKEN_LENGTH);
 const secret = generateSecret();
 
 const userPostController = async (
