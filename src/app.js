@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const passport = require('passport')
 
 require('./db.js');
 
@@ -23,6 +24,18 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS, PUT, DELETE');
   next();
 });
+
+//todo se realiza la logia del auth de terceros
+server.use(require('express-session')({
+  secret: 'secreto',
+  resave: false,
+  saveUninitialized: false
+}));
+server.use(passport.initialize());
+server.use(passport.session());
+
+
+
 
 server.use('/', routes);
 
