@@ -36,10 +36,10 @@ const validateUser = async (name, last_name, account_name, password, email, phon
 }
 
 const processUserLogin = async (req,res) => {
-    const {account_name, password } = req.body;
+    const {email, password } = req.body;
     try {
-        if (!account_name || !password) throw Error(INVALID_LOGIN_PARAMS);
-        const result = await userLoginController(account_name, password);
+        if (!email || !password) throw Error(INVALID_LOGIN_PARAMS);
+        const result = await userLoginController(email, password);
         return res.status(200).json(result)
     } catch (error) {
         return res.status(400).json({ error: error.message })
