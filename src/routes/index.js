@@ -25,6 +25,11 @@ const menuGetRouter = require("./menu/menu-get");
 const menuDeleteRouter = require("./menu/menu-delete");
 const menuPatchRouter = require("./menu/menu-patch");
 
+
+//! google route
+
+const authGoogle = require("./login-google");
+
 //* Recipe
 router.use("/recipes/create", recipesPostRouter);
 router.use("/recipes/get", recipesGetRouter);
@@ -35,6 +40,10 @@ router.use("/recipes/update", recipesPatchRouter);
 router.use("/users/create", usersPostRouter);
 router.use("/users/activate_account", usersGetActivateAccount);
 router.use("/users/login", usersGetLoginRouter);
+
+
+//! auth google
+router.use("/auth",authGoogle )
 
 //* Ingredient
 router.use("/ingredients/create", ingredientsPostRouter);
