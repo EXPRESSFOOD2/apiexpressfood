@@ -14,5 +14,4 @@ const userLoginController = async (email, password) => {
 
 module.exports = {
     userLoginController,
-
 }
