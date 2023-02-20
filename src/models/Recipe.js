@@ -35,6 +35,10 @@ module.exports = (sequelize) => {
                 },
                 min: MIN_PROD_AMOUNT,
             }
-        }
+        },
+        is_active: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
+        },
     },{ })
 }
