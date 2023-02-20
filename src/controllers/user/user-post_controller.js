@@ -19,7 +19,8 @@ const userPostController = async (
   phone,
   password_question,
   password_answer,
-  role_id = 1
+  role_id = 1,
+  profile_image
 ) => {
   try {
     const hashedPass = hashFunction(password, secret);
@@ -32,8 +33,9 @@ const userPostController = async (
       secret,
       phone,
       activation_token: token,
+      profile_image
     });
-    console.log(token);
+    //console.log(token);
     let user_id = newUser.id;
     let user_email = newUser.email;
 

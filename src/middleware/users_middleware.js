@@ -2,7 +2,8 @@ const { conn, Op } = require("../db");
 const { User } = conn.models;
 const { INVAME_NAME_OR_ACCOUNT, EMAIL_REGEX, INVALID_NAME, INVALID_LAST_NAME,
         ALPHA_REGEX, MIN_PASS_LENGTH, PASSWORD_TO_SHORT, INVALID_EMAIL,
-        MIN_QUESTION_LENGTH, INVALID_QUESTION, MIN_ANSWER_LENGTH, INVALID_ANSWER, INVALID_LOGIN_PARAMS } = require("../models/utils/User-ErrorMSGs")
+        MIN_QUESTION_LENGTH, INVALID_QUESTION, MIN_ANSWER_LENGTH, INVALID_ANSWER,
+        INVALID_LOGIN_PARAMS, DEFAULT_IMG } = require("../models/utils/User-ErrorMSGs")
 const { userPostController, token } = require("../controllers/user/user-post_controller")
 const { userLoginController } = require("../controllers/user/user-get-login_controller")
 
@@ -15,10 +16,10 @@ const isExistingUser = async (account_name, email) => {
 }
 
 const processUserPost = async (req,res) => {
-    const { name, last_name, account_name, password, email, phone, password_question, password_answer } = req.body;
+    const { name, last_name, account_name, password, email, phone, password_question, password_answer, profile_image = DEFAULT_IMG } = req.body;
     try {
         await validateUser(name, last_name, account_name, password, email, phone, password_question, password_answer);
-        const result = await userPostController(name, last_name, account_name, password, email, phone, password_question, password_answer)
+        const result = await userPostController(name, last_name, account_name, password, email, phone, password_question, password_answer, profile_image)
         return res.status(201).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })

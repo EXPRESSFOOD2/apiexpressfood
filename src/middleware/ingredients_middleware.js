@@ -11,7 +11,7 @@ const { ingredientsGetByIdController, ingredientsGetController } = require("../c
 
 const processIngredientPost = async (req,res) => {
 //name,layer:,type_measure:,ingredients_all:
-    const { name, layer ,type_measure, ingredients_all } = req.body
+    const { name, layer, type_measure, ingredients_all } = req.body
     try {
         await validateIngredient(name, layer ,type_measure, ingredients_all)
         const result = await ingredientsPostController(name, layer ,type_measure, ingredients_all)
