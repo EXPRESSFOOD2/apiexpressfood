@@ -48,7 +48,7 @@ const processUserLogin = async (req,res) => {
 
 const processActivateAccount = async (req,res) => {
     const { token } = req.params;
-    console.log(token);
+
     try {
         let result = await User.findAll({where: { activation_token: token }})
 if(result.length){

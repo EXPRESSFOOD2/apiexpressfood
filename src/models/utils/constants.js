@@ -3,5 +3,5 @@ module.exports = {
     MEASURES_LONG: ["Unidad", "Volumen", "Peso" ],
     ROLES_ENUM: ["Manager", "Cashier", "Kitchener", "Customer"],
     EMAIL_REGEX: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-    TOKEN_LENGTH: 10,
+    TOKEN_LENGTH: 16,
 }

@@ -46,6 +46,10 @@ module.exports = (sequelize) => {
         ingredients_all: {
             type: DataTypes.JSON,
             allowNull: true,
+        },
+        is_active: {
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
         }
     },{ })
 }

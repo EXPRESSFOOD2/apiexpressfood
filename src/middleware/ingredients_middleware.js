@@ -25,7 +25,7 @@ const processIngredientDelete = async (req,res) => {
     try {
         if ( id < 1) throw Error(INVALID_ID)
         const result = await ingredientsGetByIdController( id );
-        if ( result ) await Ingredient.destroy({where: {id}})
+        if ( result ) await Ingredient.update({is_acive: false},{where: {id}})
         else throw Error(CANT_FIND_INGREDIENT)
         return res.status(200).json( result )
     } catch (error) {

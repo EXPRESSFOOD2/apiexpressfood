@@ -31,23 +31,23 @@ const generateSecret = (length = 8) => {
     }
     return result;
 }
-/*
+
 const generateToken = () => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
     let counter = 0;
-    const length = 10;
+    const length = 16;
     while (counter < length) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
       counter += 1;
     }
     return result;
 }
-*/
+
 module.exports =  {
     hashFunction,
     generateSecret,
     validateAccountPassword,
-    //generateToken
+    generateToken
 }

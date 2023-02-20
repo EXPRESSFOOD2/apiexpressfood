@@ -1,13 +1,14 @@
 const { User, Password, UsersRoles } = require("../../db");
 const {
   generateSecret,
-  hashFunction,
+  hashFunction,generateToken
 } = require("../HashFunction/security");
 const nodemailer = require("nodemailer");
-const TOKEN_LENGTH = require("../../models/utils/constants")
 
-const token = generateSecret(TOKEN_LENGTH);
+
 const secret = generateSecret();
+const token = generateToken();
+
 
 const userPostController = async (
   name,
@@ -32,6 +33,7 @@ const userPostController = async (
       phone,
       activation_token: token,
     });
+    console.log(token);
     let user_id = newUser.id;
     let user_email = newUser.email;
 
