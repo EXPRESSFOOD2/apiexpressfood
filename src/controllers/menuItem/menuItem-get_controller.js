@@ -5,6 +5,11 @@ const menuItemsGetController = async () => {
     model: Ingredient }});
   return result;
 };
+const menuItemsGetRecommendedController = async () => {
+  const result = await MenuItem.findAll({include: {
+    model: Ingredient }, where:{recomend_first:true}});
+  return result;
+};
 const menuItemsGetByIdController = async (id) => {
   const result = await MenuItem.findByPk(id);
   return result;
@@ -12,5 +17,5 @@ const menuItemsGetByIdController = async (id) => {
 
 module.exports = {
   menuItemsGetController,
-  menuItemsGetByIdController
+  menuItemsGetByIdController,menuItemsGetRecommendedController
  };
