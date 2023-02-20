@@ -16,10 +16,13 @@ const isExistingUser = async (account_name, email) => {
 }
 
 const processUserPost = async (req,res) => {
-    const { name, last_name, account_name, password, email, phone, password_question, password_answer, profile_image = DEFAULT_IMG } = req.body;
+    const { name, last_name, account_name, password, email, phone, password_question, password_answer } = req.body;
+    let { profile_image } = req.body;
+
     try {
+        if (!profile_image || !profile_image.length) profile_image = DEFAULT_IMG;
         await validateUser(name, last_name, account_name, password, email, phone, password_question, password_answer);
-        const result = await userPostController(name, last_name, account_name, password, email, phone, password_question, password_answer, profile_image)
+        const result = await userPostController(name, last_name, account_name, password, email, phone, password_question, password_answer, profile_image )
         return res.status(201).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
