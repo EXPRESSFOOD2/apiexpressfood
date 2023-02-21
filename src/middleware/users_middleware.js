@@ -55,11 +55,11 @@ const processActivateAccount = async (req,res) => {
 
     try {
         let result = await User.findAll({where: { activation_token: token }})
-if(result.length){
-   await  User.update({ is_active: true }, { where: { id: result[0].id }})
-   let result2 = await User.findAll({where: { activation_token: token.split(":").at(-1) }})
-    return res.status(201).json( result2[0] )
-}else{
+        if(result.length){
+        await  User.update({ is_active: true }, { where: { id: result[0].id }})
+        let result2 = await User.findAll({where: { activation_token: token.split(":").at(-1) }})
+        return res.status(201).json( result2[0] )
+    }else{
     return res.status(404).json( {error: "invalid activation token"} )
 }
     } catch (error) {
