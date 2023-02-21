@@ -3,7 +3,7 @@ const { hashFunction, validateAccountPassword } = require("../HashFunction/secur
 const { INVALID_LOGIN } = require("../../models/utils/User-ErrorMSGs")
 
 const userLoginController = async (email, password) => {
- const user = await User.findOne({where: {email}})
+ const user = await User.findOne({where: {email:email}})
 
  if (user){
     const hashedPass = hashFunction(password, user.secret)
