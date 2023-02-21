@@ -25,6 +25,7 @@ const {
 } = require("../controllers/ingredient/ingredient-get_controller");
 const { where } = require("sequelize");
 
+
 const processIngredientPost = async (req, res) => {
   //name,layer:,type_measure:,ingredients_all:
   const { name, layer, type_measure, ingredients_all } = req.body;
@@ -55,6 +56,7 @@ const processIngredientDelete = async (req, res) => {
     return res.status(400).json({ error: error.message });
   }
 };
+
 
 const processIngredientGet = async (req, res) => {
   try {

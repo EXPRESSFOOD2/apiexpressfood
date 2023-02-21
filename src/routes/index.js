@@ -2,6 +2,8 @@
 const {Router} = require('express');
 const router = Router();
 
+//* Images Processor
+const processImage = require("./utils/getImageReturnUrl")
 //* Recipe Routes
 const recipesPostRouter = require("./recipes/recipes_post");
 const recipesGetRouter = require("./recipes/recipes_get");
@@ -27,8 +29,10 @@ const menuPatchRouter = require("./menu/menu-patch");
 
 
 //! google route
-
 const authGoogle = require("./login-google");
+
+//* Images Processor
+router.use("/processImage/post", processImage);
 
 //* Recipe
 router.use("/recipes/create", recipesPostRouter);

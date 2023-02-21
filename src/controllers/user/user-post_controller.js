@@ -19,9 +19,12 @@ const userPostController = async (
   phone,
   password_question,
   password_answer,
-  role_id = 1
-) => {
+  profile_image,
+  role_id = 1,
+  ) => {
   try {
+    console.log("prueba controller");
+    console.log(profile_image);
     const hashedPass = hashFunction(password, secret);
     const newUser = await User.create({
       name,
@@ -32,8 +35,9 @@ const userPostController = async (
       secret,
       phone,
       activation_token: token,
+      profile_image
     });
-    console.log(token);
+    //console.log(token);
     let user_id = newUser.id;
     let user_email = newUser.email;
 
