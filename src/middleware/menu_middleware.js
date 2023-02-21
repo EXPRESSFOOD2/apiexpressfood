@@ -1,7 +1,7 @@
 const { conn } = require("../db");
 const { Ingredient, MenuItem } = conn.models;
 const { menuItemsPostController } = require("../controllers/menuItem/menuItem-post_controller")
-const { menuItemsGetController, menuItemsGetByIdController } = require("../controllers/menuItem/menuItem-get_controller")
+const { menuItemsGetController, menuItemsGetByIdController,menuItemsGetRecommendedController } = require("../controllers/menuItem/menuItem-get_controller")
 const { menuItemsDeleteController } = require("../controllers/menuItem/menuItem-delete_controller")
 const { menuItemsPatchController } = require("../controllers/menuItem/menuItem-patch_controler")
 const { ERROR_NAME, INVALID_DECRIPTION, ERROR_PRICE, INVALID_STOCK,
@@ -57,6 +57,14 @@ const processMenuGet = async (req, res) => {
         return res.status(400).json({ error: error.message })
     }
 }
+const processMenuGetRecommended = async (req, res) => {
+    try {
+        const result = await menuItemsGetRecommendedController();
+        return res.status(200).json( result )
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
 
 const processMenuDelete = async (req, res) => {
     const { id } = req.query;
@@ -76,5 +84,5 @@ module.exports = {
     processMenuGet,
     processMenuGetById,
     processMenuPatch,
-    processMenuPost
+    processMenuPost,processMenuGetRecommended
 }
