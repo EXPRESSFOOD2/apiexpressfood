@@ -16,7 +16,7 @@ const validateAccountPassword = async (userId, hashedPass) => {
           { is_active: true }
         ]
       }})
-      return result && result.id > 0 ? "Conected!!! Logged!!" : INVALID_LOGIN;
+      return ( result && result.id > 0 ? true : false );
 }
 
 
