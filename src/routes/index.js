@@ -4,6 +4,10 @@ const router = Router();
 
 //* Images Processor
 const processImage = require("./utils/getImageReturnUrl")
+//* Cart
+const cartGetRouter = require("./utils/cart/carts_get")
+const cartPatchRouter = require("./utils/cart/carts_patch")
+
 //* Recipe Routes
 const recipesPostRouter = require("./recipes/recipes_post");
 const recipesGetRouter = require("./recipes/recipes_get");
@@ -33,6 +37,10 @@ const authGoogle = require("./login-google");
 
 //* Images Processor
 router.use("/processImage/post", processImage);
+
+//* Carts
+router.use("/carts/get", cartGetRouter );
+router.use("/carts/patch", cartPatchRouter );
 
 //* Recipe
 router.use("/recipes/create", recipesPostRouter);

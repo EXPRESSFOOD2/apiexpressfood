@@ -130,12 +130,14 @@
 >   *** Retorna: ***
 >       - Success: { id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt }
 >       - Error: Mensaje
+
 ### .../menu/get
 >   *** Espera: ***
 >       - METHOD: GET
 >   *** Retorna: ***
 >       - Success: 	[{ id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt, Tags: [{ id, name, createdAt, updatedAt, TagsMenuItems}, ... ] }, ...]
 >       - Error: Mensaje
+
 ### .../menu/get/:id
 >   *** Espera: ***
 >       - METHOD: GET
@@ -143,6 +145,7 @@
 >   *** Retorna: ***
 >       - Success: 	{ id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt, Tags: [{ id, name, createdAt, updatedAt, TagsMenuItems}, ... ] }
 >       - Error: Mensaje
+
 ### .../menu/update
 >   *** Espera: ***
 >       - METHOD: PATCH
@@ -151,6 +154,7 @@
 >   *** Retorna: ***
 >       - Success: { "1" }
 >       - Error: Mensaje
+
 ### .../menu/delete
 >   *** Espera: ***
 >       - METHOD: DELETE
@@ -159,4 +163,23 @@
 
 >   *** Retorna: ***
 >       - Success: {  }
+>       - Error: Mensaje
+
+# Cart
+### .../carts/get/:id
+>   *** Espera: ***
+>       - METHOD: GET
+>       - Params: { id }
+>       - Id de usuario
+>   *** Retorna: ***
+>       - Success: { my_cart }  // JSON
+>       - Error: Mensaje
+
+### .../carts/patch
+>   *** Espera: ***
+>       - METHOD: PATCH
+>       - Body: { id, my_cart }
+>       - Id de usuario y el JSON, probablemente ARRAY
+>   *** Retorna: ***
+>       - Success: { "1" }
 >       - Error: Mensaje
