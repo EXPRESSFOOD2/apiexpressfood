@@ -134,14 +134,14 @@
 >   *** Espera: ***
 >       - METHOD: GET
 >   *** Retorna: ***
->       - Success: 	[{ id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt }, { id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt }, ...]
+>       - Success: 	[{ id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt, Tags: [{ id, name, createdAt, updatedAt, TagsMenuItems}, ... ] }, ...]
 >       - Error: Mensaje
 ### .../menu/get/:id
 >   *** Espera: ***
 >       - METHOD: GET
 >       - Params: { id }
 >   *** Retorna: ***
->       - Success: 	[{ id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt }, { id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt }, ...]
+>       - Success: 	{ id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt, Tags: [{ id, name, createdAt, updatedAt, TagsMenuItems}, ... ] }
 >       - Error: Mensaje
 ### .../menu/update
 >   *** Espera: ***
