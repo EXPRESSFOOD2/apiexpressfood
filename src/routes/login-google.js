@@ -5,7 +5,7 @@ const router = Router()
 
 
 let user = {}
-
+console.log('tuki');
 passport.use(new GoogleStrategy({
     //! mis credentials desde google auth - proces.env
     clientID:"973297669282-73tu1bbggreld240ep6e3lnsn1i44lng.apps.googleusercontent.com",
@@ -46,11 +46,11 @@ router.get( '/google/callback',
       // ! ruta del front que redirija al login
         failureRedirect: '/auth/failure'}),function(req, res) {
     // Aquí podrías redirigir al usuario a una página de éxito
-  
+          console.log(req.user);
     //! guardamos la data de la sesion para enviar al front 
     user = req.user;
     //todo ruta del front para el boton
-    // res.redirect('http://localhost:3000/user');
+    res.redirect('http://localhost:3000');
     // res.redirect('/login/user');
     
     
@@ -73,12 +73,6 @@ router.get( '/google/callback',
   })
 
 
-// router.get('/logout', function(req, res, next){
-//   req.logout(function(err) {
-//     if (err) { return err; }
-//     res.redirect('/');
-//   });
-// });
 
 
 
