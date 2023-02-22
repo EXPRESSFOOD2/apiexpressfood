@@ -7,7 +7,8 @@ const userLoginController = async (email, password) => {
 
  if (user){
     const hashedPass = hashFunction(password, user.secret)
-    return await validateAccountPassword(user.id, hashedPass);
+    const valid = await validateAccountPassword(user.id, hashedPass);
+    return  valid? {valid,user}: {valid}
  }else throw Error(INVALID_LOGIN)
 
 }
