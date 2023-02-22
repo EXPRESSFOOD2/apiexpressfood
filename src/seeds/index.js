@@ -6,6 +6,7 @@ const Menu = require("./Menu-seed")
 const Role = require("./Role-seed")
 const Tag = require("./Tag-seed")
 const MenuTags = require("./MenuTags-seed")
+const User = require("./User-seed")
 //const Seed = require('./');
 
 module.exports = async function() {
@@ -28,6 +29,7 @@ module.exports = async function() {
     await Promise.all([ // Returning and thus passing a Promise here
         // Independent seeds first
         Menu(),
-        MenuTags()
+        MenuTags(),
+        User(),
     ])
 }
