@@ -60,7 +60,7 @@ const processActivateAccount = async (req,res) => {
         let result2 = await User.findAll({where: { activation_token: token }})
 
 
-        return res.status(201).redirect("http://localhost:3000/")
+        return res.status(201).redirect("http://localhost:3000/login")
     }else{
     return res.status(404).json( {error: "invalid activation token"} )
 }
