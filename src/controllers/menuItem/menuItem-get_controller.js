@@ -1,8 +1,10 @@
-const { MenuItem, Ingredient } = require("../../db");
+const { MenuItem, Ingredient, Tag } = require("../../db");
 
 const menuItemsGetController = async () => {
-  const result = await MenuItem.findAll({include: {
-    model: Ingredient }});
+  const result = await MenuItem.findAll({include: [
+    { model: Ingredient },
+    { model: Tag }
+  ]});
   return result;
 };
 const menuItemsGetRecommendedController = async () => {
@@ -11,11 +13,12 @@ const menuItemsGetRecommendedController = async () => {
   return result;
 };
 const menuItemsGetByIdController = async (id) => {
-  const result = await MenuItem.findByPk(id);
+  const result = await MenuItem.findByPk(id, {include:{ model: Tag }});
   return result;
 }
 
 module.exports = {
   menuItemsGetController,
-  menuItemsGetByIdController,menuItemsGetRecommendedController
+  menuItemsGetByIdController,
+  menuItemsGetRecommendedController
  };
