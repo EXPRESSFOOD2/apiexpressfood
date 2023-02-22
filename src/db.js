@@ -51,7 +51,9 @@ const { Ingredient,
   UsersRoles,
   Password,
   Tag,
-  TagsMenuItems } = sequelize.models;
+  TagsMenuItems,
+  Order,
+  OrdersMenu } = sequelize.models;
 
 //! Relationships
 Recipe.belongsToMany( Ingredient, { through: IngredientsRecipes });
@@ -65,6 +67,9 @@ User.hasOne( Role, { through: UsersRoles } );
 
 Tag.belongsToMany( MenuItem, { through: TagsMenuItems } )
 MenuItem.belongsToMany( Tag, { through: TagsMenuItems } )
+
+Order.belongsToMany( MenuItem, { through: OrdersMenu })
+MenuItem.belongsToMany( Order, { through: OrdersMenu })
 
 //!tuki
 
