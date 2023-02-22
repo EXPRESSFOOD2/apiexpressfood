@@ -23,8 +23,6 @@ const userPostController = async (
   role_id = 1,
   ) => {
   try {
-    console.log("prueba controller");
-    console.log(profile_image);
     const hashedPass = hashFunction(password, secret);
     const newUser = await User.create({
       name,
