@@ -25,9 +25,7 @@ const {
 } = require("../controllers/ingredient/ingredient-get_controller");
 const { where } = require("sequelize");
 
-
 const processIngredientPost = async (req, res) => {
-  //name,layer:,type_measure:,ingredients_all:
   const { name, layer, type_measure, ingredients_all } = req.body;
   try {
     await validateIngredient(name, layer, type_measure, ingredients_all);
@@ -48,7 +46,6 @@ const processIngredientDelete = async (req, res) => {
     if (id < 1) throw Error(INVALID_ID);
     const result = await ingredientsGetByIdController(id);
     if (result){  await Ingredient.update({is_active:false}, {where:{id:id}})
-    
     const result3 = await ingredientsGetByIdController(id);
    return res.status(200).json(result3)}
     else throw Error(CANT_FIND_INGREDIENT);
@@ -94,12 +91,7 @@ const isExistingIngredient = async (name) => {
   return result.length > 0 ? true : false;
 };
 
-const validateIngredient = async (
-  name,
-  layer,
-  type_measure,
-  ingredients_all
-) => {
+const validateIngredient = async ( name, layer, type_measure, ingredients_all ) => {
   if (await isExistingIngredient(name)) throw Error(DUPLICATED_NAME);
   if (await Recipe.findOne({ where: { name } }))
     throw Error(DUPLICATED_RECIPE_NAME);

@@ -6,5 +6,5 @@ module.exports = (sequelize) => {
             type: DataTypes.FLOAT,
             defaultValue: 0
           }
-    })
+    }, { timestamps: false })
 }

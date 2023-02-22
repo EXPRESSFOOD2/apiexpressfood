@@ -71,6 +71,11 @@ module.exports = (sequelize) => {
         profile_image: {
             type: DataTypes.STRING,
             allowNull: true
+        },
+        my_cart: {
+            type: DataTypes.JSON,
+            allowNull: true,
+            defaultValue: ""
         }
-    })
+    }, { timestamps: true, paranoid: true })
 }

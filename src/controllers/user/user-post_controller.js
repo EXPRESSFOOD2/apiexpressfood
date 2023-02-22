@@ -24,7 +24,7 @@ const userPostController = async (
   role_id = 1,
   ) => {
   try {
-   
+
     const hashedPass = hashFunction(password, secret);
     const newUser = await User.create({
       name,
