@@ -57,8 +57,10 @@ const processActivateAccount = async (req,res) => {
         let result = await User.findAll({where: { activation_token: token }})
         if(result.length){
         await  User.update({ is_active: true }, { where: { id: result[0].id }})
-        let result2 = await User.findAll({where: { activation_token: token.split(":").at(-1) }})
-        return res.status(201).json( result2[0] )
+        let result2 = await User.findAll({where: { activation_token: token }})
+
+
+        return res.status(201).redirect("http://localhost:3000/")
     }else{
     return res.status(404).json( {error: "invalid activation token"} )
 }

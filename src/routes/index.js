@@ -27,6 +27,9 @@ const menuGetRouter = require("./menu/menu-get");
 const menuDeleteRouter = require("./menu/menu-delete");
 const menuPatchRouter = require("./menu/menu-patch");
 
+//*Payments Routes
+const createPaymentRouter = require("../routes/payments/createPayment")
+
 
 //! google route
 const authGoogle = require("./login-google");
@@ -45,6 +48,8 @@ router.use("/users/create", usersPostRouter);
 router.use("/users/activate_account", usersGetActivateAccount);
 router.use("/users/login", usersGetLoginRouter);
 
+//!PAYPAL
+router.use("/payments/create", createPaymentRouter)
 
 //! auth google
 router.use("/auth",authGoogle )
