@@ -91,12 +91,7 @@ const isExistingIngredient = async (name) => {
   return result.length > 0 ? true : false;
 };
 
-const validateIngredient = async (
-  name,
-  layer,
-  type_measure,
-  ingredients_all
-) => {
+const validateIngredient = async ( name, layer, type_measure, ingredients_all ) => {
   if (await isExistingIngredient(name)) throw Error(DUPLICATED_NAME);
   if (await Recipe.findOne({ where: { name } }))
     throw Error(DUPLICATED_RECIPE_NAME);

@@ -16,6 +16,8 @@ const validateAccountPassword = async (userId, hashedPass) => {
           { is_active: true }
         ]
       }})
+      console.log(result);
+      console.log(userId + " HashPswd: "+hashedPass );
       return ( result && result.id > 0 ? true : false );
 }
 
