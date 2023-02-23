@@ -22,7 +22,8 @@ module.exports = (sequelize) => {
                 notEmpty: {
                     msg: INVALID_INGREDIENT_NAME
                 },
-            }
+            },
+            unique: "store_id-name"
         },
         layer: {
             type: DataTypes.INTEGER,
@@ -42,6 +43,24 @@ module.exports = (sequelize) => {
             validate:{
                 isIn: [MEASURES_SHORT]
             }
-        }
-    },{ sequelize })
+        },
+        ingredients_all: {
+            type: DataTypes.JSON,
+            allowNull: true,
+        },
+        store_id: {
+            //! TODO
+            // Eliminar DefaulValue y set AllowNull false
+            //type: DataTypes.UUIDV4,
+            type: DataTypes.STRING,
+            defaultValue: "f3bc0474-620c-429d-a46c-df2460c7725a",
+            allowNull: true,
+            unique: "store_id-name"
+        },
+        //! Se reemplaza por deletedAt
+        // is_active: {
+        //     type: DataTypes.BOOLEAN,
+        //     defaultValue: true
+        // },
+    }, { timestamps: true, paranoid: true })
 }

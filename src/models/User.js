@@ -59,6 +59,23 @@ module.exports = (sequelize) => {
         phone: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        is_active: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+        activation_token: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        profile_image: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        my_cart: {
+            type: DataTypes.JSON,
+            allowNull: true,
+            defaultValue: ""
         }
-    })
+    }, { timestamps: true, paranoid: true })
 }

@@ -16,15 +16,18 @@ const validateAccountPassword = async (userId, hashedPass) => {
           { is_active: true }
         ]
       }})
-      return result && result.id > 0 ? "Conected!!! Logged!!" : INVALID_LOGIN;
+      console.log(result);
+      console.log(userId + " HashPswd: "+hashedPass );
+      return ( result && result.id > 0 ? true : false );
 }
 
+
 const generateSecret = () => {
+    const length = 8;
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
     let counter = 0;
-    const length = 8;
     while (counter < length) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
       counter += 1;
@@ -32,8 +35,29 @@ const generateSecret = () => {
     return result;
 }
 
+const generateToken = () => {
+    /*let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    const length = 16;
+    while (counter < length) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;*/
+    return generateSecret()+generateSecret();
+}
+
+const getStoreId = () => {
+  //! TODO
+  // Revisar implementacion
+  return "f3bc0474-620c-429d-a46c-df2460c7725a"
+}
 module.exports =  {
     hashFunction,
     generateSecret,
-    validateAccountPassword
+    validateAccountPassword,
+    generateToken,
+    getStoreId,
 }

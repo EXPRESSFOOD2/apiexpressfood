@@ -4,6 +4,7 @@ module.exports = {
     INVALID_LAST_NAME: "The lastname must contain only Alphabetic characters and cant be empty",
     ALPHA_REGEX: /^[a-zA-Z íáúóéÍÁÓÚÉñÑ]*$/,
     INVALID_EMAIL: "Invalid Email Format",
+    INVALID_EMAIL_EMPTY:"mail cannot be empty",
     PASSWORD_TO_SHORT: "The password is to short, must have at least 8 characters",
     MIN_PASS_LENGTH: 8,
     EMAIL_REGEX: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
@@ -13,4 +14,7 @@ module.exports = {
     INVALID_ANSWER: "The answer is to short",
     INVALID_LOGIN_PARAMS: "Must provide, Account & Password",
     INVALID_LOGIN: "Invalid Account & Password or This Account Doesn't exist",
+    INVALID_ACCOUNT_NAME:"account name cannot be empty",
+    DEFAULT_IMG: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
+    
 }

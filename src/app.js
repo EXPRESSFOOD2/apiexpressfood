@@ -4,6 +4,15 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const passport = require('passport');
+const { cloudinary } = require("./utils/cloudinary");
+const http = require('http');
+
+
+
+
+
+
 
 require('./db.js');
 
@@ -20,9 +29,21 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Credentials', 'true');
   // eslint-disable-next-line max-len
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS, PUT, DELETE');
   next();
 });
+
+//todo se realiza la logia del auth de terceros
+server.use(require('express-session')({
+  secret: 'secreto',
+  resave: false,
+  saveUninitialized: false
+}));
+server.use(passport.initialize());
+server.use(passport.session());
+
+
+
 
 server.use('/', routes);
 
@@ -34,4 +55,6 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(status).send(message);
 });
 
-module.exports = server;
+const app = http.createServer(server)
+
+module.exports = app;
