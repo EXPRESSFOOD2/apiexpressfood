@@ -10,6 +10,6 @@ module.exports = {
     INVALID_DATA_TYPE_ID:"the data id must be an integer",
     INVALID_RECIPE_DETAIL:"Invalid Recipe detail: Can't be Empty",
     INVALID_TYPE_MEASURE: " is an invalid Measure Type",
-    INVALID_ID: "This ID does not exist or you have no authorization to access. ID: "
-
+    INVALID_ID: "This ID does not exist or you have no authorization to access. ID: ",
+    INVALID_ARRAY_CONTENT: "At least 1 of the elements does not belongs to the store"
 }

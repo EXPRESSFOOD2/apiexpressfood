@@ -14,6 +14,7 @@ return "ingredients deleted successfully"
 //* recipe_delete_controller.js
 //* 
 const ingredientsDeleteController2 = async(id, store_id) => {
+  //! bind con .then() para manejar Success y Error
   const ingredient = await Ingredient.findOne({where: {id, store_id}, paranoid: false})
   const simpleName = ingredient.name;
   //const label = ingredient.label;

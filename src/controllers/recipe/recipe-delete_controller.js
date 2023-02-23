@@ -5,6 +5,7 @@ const { generateOldName } = require("../Utils/aux_controller");
 
 
 const recipesDeleteController = async (id, store_id) => {
+    //! bind con .then() para manejar Success y Error
     const recipe = await Recipe.findOne({where: {id, store_id}})
     const ingredient = await Ingredient.findOne({where: {name: recipe.name, store_id}})
     const oldName = generateOldName(recipe.name);

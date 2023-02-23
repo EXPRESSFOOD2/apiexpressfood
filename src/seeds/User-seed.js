@@ -1,4 +1,4 @@
-const { User, Password, UsersRoles } = require('../db');
+const { User, Password, UsersRoles, Store } = require('../db');
 
 const FAKE_USERS = [
     { is_active: true, name: "Grupo", last_name: "Siete", account_name: "test123",
@@ -18,6 +18,7 @@ const FAKE_PSWD = [
     { user_id: 2, password: "123456nNAJO6NcjNhasheada", is_active: true, password_question: "Invierno o verano",
     password_answer: "Aprobamos el PF, garantizado" }
 ]
+
 module.exports = async function() {
     await User.bulkCreate(FAKE_USERS);
 
@@ -28,4 +29,5 @@ module.exports = async function() {
     setTimeout(( async () => {
         await Password.bulkCreate(FAKE_PSWD)
     }), 1200);
+
 };
