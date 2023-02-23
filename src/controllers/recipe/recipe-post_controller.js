@@ -1,20 +1,17 @@
 const { Recipe, Ingredient, IngredientsRecipes } = require('../../db');
 
-const recipesPostController = async (name, details, produced_amount, type_measure, ingredArray) => {
-    // RECIPE name, details, produced_amount,
-    const newRecipe = await Recipe.create({name, details, produced_amount})
 
-    // INGREDIENT name, layer,  type_measure, ingredients_all
-    await createIngredient({RecipeId: newRecipe.id, ingredArray, name, type_measure});
+const recipesPostController = async (name, details, produced_amount, type_measure, ingredArray, storeId ) => {
+    const newRecipe = await Recipe.create({ name, details, produced_amount, storeId }, {include: {model: Ingredient}})
+    await createIngredient({RecipeId: newRecipe.id, ingredArray, name, type_measure, storeId});
 
     return newRecipe;
 }
-const createIngredient = async ({RecipeId, ingredArray, name, type_measure}) => {
+
+const createIngredient = async ({RecipeId, ingredArray, name, type_measure, storeId }) => {
     const layer = processLayer(ingredArray)
     const ingredients_all =  await buildIngredientsAll({ RecipeId, ingredArray })
-    //! TODO Sacar.. TEST
-    //console.log(ingredients_all);
-    Ingredient.create({name, layer, type_measure, ingredients_all})
+    Ingredient.create({name, layer, type_measure, ingredients_all, storeId })
 }
 
 const buildIngredientsAll = async ({RecipeId, ingredArray}) => {
@@ -35,7 +32,6 @@ const buildIngredientsAll = async ({RecipeId, ingredArray}) => {
         }
         result.push({RecipeId, IngredientId: ing.id, waste_rate: ing.waste_rate});
     }
-
     IngredientsRecipes.bulkCreate(result)
 
     return await retorno;

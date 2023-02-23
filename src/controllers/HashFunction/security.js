@@ -47,9 +47,15 @@ const generateToken = () => {
     return result;
 }
 
+const getStoreId = () => {
+  //! TODO
+  // Revisar implementacion
+  return "f3bc0474-620c-429d-a46c-df2460c7725a"
+}
 module.exports =  {
     hashFunction,
     generateSecret,
     validateAccountPassword,
-    generateToken
+    generateToken,
+    getStoreId
 }

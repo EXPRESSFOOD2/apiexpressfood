@@ -1,12 +1,20 @@
+const { where } = require('sequelize');
 const { Recipe, Ingredient } = require('../../db');
 
-const recipesGetController = async () => {
-    const results = await Recipe.findAll({include: {
-            model: Ingredient }})
+//* Adds store_id
+const recipesGetController = async (store_id) => {
+    const results = await Recipe.findAll({ where: {store_id}, paranoid: false })
     return results;
 }
-const recipesGetByIdController = async (id) => {
-    const result = await Recipe.findByPk(id);
+//* Adds store_id
+const recipesGetByIdController = async (id, store_id) => {
+    const result = await Recipe.findOne({
+      where: {
+        id: id,
+        store_id,
+      }, include: { model: Ingredient },
+      paranoid: false
+    });
     return result;
   }
 
