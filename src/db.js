@@ -13,6 +13,8 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_DIALECT, DB_PORT, DB_SCHEMA, DB_DEPLOY
 //       native: false,
 //     },
 // );
+
+
 const sequelize = new Sequelize(DB_DEPLOY,
     {
       logging: false,

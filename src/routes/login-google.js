@@ -9,8 +9,8 @@ let user = {}
 console.log('tuki');
 passport.use(new GoogleStrategy({
     //! mis credentials desde google auth - proces.env
-    clientID:"973297669282-73tu1bbggreld240ep6e3lnsn1i44lng.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID:process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "http://localhost:3001/auth/google/callback" ,
     passReqToCallback   : true
   },
