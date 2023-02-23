@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
 const fs = require("fs");
-const html = fs.readFileSync("./confirmationemail.html", "utf8");
+const path = require("path");
+const htmlPath = path.join(__dirname, "message.html");
+const html = fs.readFileSync(htmlPath, "utf8");
 
 
 const sendActivationEmail = (email) => {
