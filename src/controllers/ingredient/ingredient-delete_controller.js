@@ -26,7 +26,6 @@ const ingredientsDeleteController2 = async(id, store_id) => {
   //! Queda recorrer por todos los ingredientes del store id cambiando el nombre
   await Ingredient.update({name: oldName}, {where: {id, store_id}})
   return await Ingredient.destroy({where: {id, store_id}});
-  
 }
 
 module.exports = { ingredientsDeleteController, ingredientsDeleteController2 };
