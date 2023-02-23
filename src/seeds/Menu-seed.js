@@ -138,6 +138,6 @@ module.exports = async function () {
     await MenuItem.bulkCreate(FAKE_MENU)
     setTimeout(( async () => {
         await IngredientsMenuItems.bulkCreate(FAKE_MENU_RELATIONS)
-    }), 2000);
+    }), 700);
 
 }

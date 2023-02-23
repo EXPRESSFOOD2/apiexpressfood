@@ -4,14 +4,17 @@ const RecipeSeed2 = require('./Recipe-layer2-seed');
 const RecipeSeed3 = require('./Recipe-layer3-seed');
 const Menu = require("./Menu-seed")
 const Role = require("./Role-seed")
+const Tag = require("./Tag-seed")
+const MenuTags = require("./MenuTags-seed")
+const User = require("./User-seed")
 //const Seed = require('./');
 
 module.exports = async function() {
     await Promise.all([ // Returning and thus passing a Promise here
         // Independent seeds first
-         IngredientSeed(),
-         Role()
-       // MaterialSeed(),
+        IngredientSeed(),
+        Role(),
+        Tag(),
     ]).then(() => {
         // More seeds that require IDs from the seeds above
         RecipeSeed1()
@@ -25,7 +28,8 @@ module.exports = async function() {
 
     await Promise.all([ // Returning and thus passing a Promise here
         // Independent seeds first
-        Menu()
-       // MaterialSeed(),
+        Menu(),
+        MenuTags(),
+        User(),
     ])
 }

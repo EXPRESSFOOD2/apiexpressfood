@@ -74,5 +74,6 @@ const processActivateAccount = async (req,res) => {
 
 module.exports = {
     processUserPost,
-    processUserLogin,processActivateAccount
+    processUserLogin,
+    processActivateAccount
 }

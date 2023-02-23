@@ -84,5 +84,6 @@ module.exports = {
     processMenuGet,
     processMenuGetById,
     processMenuPatch,
-    processMenuPost,processMenuGetRecommended
+    processMenuPost,
+    processMenuGetRecommended
 }
