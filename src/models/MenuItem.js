@@ -11,7 +11,8 @@ module.exports = (sequelize) => {
         },
         name: {
             type: DataTypes.STRING(70),
-            allowNull: false
+            allowNull: false,
+            unique: "store_id-name"
         },
         description: {
             type: DataTypes.TEXT,
@@ -37,6 +38,15 @@ module.exports = (sequelize) => {
         url_image: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        store_id: {
+            //! TODO
+            // Eliminar DefaulValue y default value
+            //type: DataTypes.UUIDV4,
+            type: DataTypes.STRING,
+            defaultValue: "f3bc0474-620c-429d-a46c-df2460c7725a",
+            allowNull: true,
+            unique: "store_id-name"
         }
     }, { timestamps: true, paranoid: true })
 }

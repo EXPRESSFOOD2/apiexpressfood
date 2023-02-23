@@ -1,19 +1,19 @@
 const { MenuItem, Ingredient, Tag } = require("../../db");
 
-const menuItemsGetController = async () => {
-  const result = await MenuItem.findAll({include: [
+const menuItemsGetController = async (store_id) => {
+  const result = await MenuItem.findAll({where: {store_id}, include: [
     { model: Ingredient },
     { model: Tag }
   ]});
   return result;
 };
-const menuItemsGetRecommendedController = async () => {
-  const result = await MenuItem.findAll({include: {
-    model: Ingredient }, where:{recomend_first:true}});
+const menuItemsGetRecommendedController = async (store_id) => {
+  const result = await MenuItem.findAll({include: [{
+    model: Ingredient }, { model: Tag }], where:{recomend_first:true, store_id}});
   return result;
 };
-const menuItemsGetByIdController = async (id) => {
-  const result = await MenuItem.findByPk(id, {include:{ model: Tag }});
+const menuItemsGetByIdController = async (id, store_id) => {
+  const result = await MenuItem.findOne({where: {id, store_id}, include:{ model: Tag }});
   return result;
 }
 

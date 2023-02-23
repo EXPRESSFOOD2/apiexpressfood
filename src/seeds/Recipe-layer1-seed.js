@@ -49,7 +49,8 @@ module.exports = async function() {
     produced_amount: 10,
     type_measure: "un" })
 
-    await Ingredient.create({name: "Ensalada DeLaCasa", layer: 1, type_measure: "un", ingredients_all: JSON.stringify([
+    await Ingredient.create(
+        {name: "Ensalada DeLaCasa", layer: 1, type_measure: "un", ingredients_all: JSON.stringify([
         {id: 8, name: "Tomate", layer: 0, amount: 100},
         {id: 3, name: "Huevo", layer: 0, amount: 1},
         {id: 7, name: "Cebolla", layer: 0, amount: 70},
@@ -57,9 +58,15 @@ module.exports = async function() {
         {id: 10, name: "Pimienta", layer: 0, amount: 0.2},
         {id: 9, name: "Lechuga", layer: 0, amount: 180},
         {id: 17, name: "Aceite de Oliva", layer:0, amount: 40}
-
     ])})
-
+    await Recipe.create({   name: "Acuoso",
+    details: ` algo `,
+    produced_amount: 1,
+    type_measure: "un", store_id: "abc" });
+    await Ingredient.create(
+        {name: "Acuoso", layer: 1, type_measure: "un", ingredients_all: JSON.stringify([
+    {id: 23, name: "Agua", layer: 0, amount: 0.0186},
+    {id: 24, name: "Agua Con Gas", layer: 0, amount: 0.0373} ]), store_id: "abc"})
 
     await IngredientsRecipes.bulkCreate([
         {RecipeId: 1, IngredientId: 2, waste_rate: 3},
@@ -85,3 +92,4 @@ module.exports = async function() {
     ])
 
 };
+

@@ -22,7 +22,8 @@ const validateAccountPassword = async (userId, hashedPass) => {
 }
 
 
-const generateSecret = (length = 8) => {
+const generateSecret = () => {
+    const length = 8;
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
@@ -35,7 +36,7 @@ const generateSecret = (length = 8) => {
 }
 
 const generateToken = () => {
-    let result = '';
+    /*let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
     let counter = 0;
@@ -44,12 +45,19 @@ const generateToken = () => {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
       counter += 1;
     }
-    return result;
+    return result;*/
+    return generateSecret()+generateSecret();
 }
 
+const getStoreId = () => {
+  //! TODO
+  // Revisar implementacion
+  return "f3bc0474-620c-429d-a46c-df2460c7725a"
+}
 module.exports =  {
     hashFunction,
     generateSecret,
     validateAccountPassword,
-    generateToken
+    generateToken,
+    getStoreId
 }

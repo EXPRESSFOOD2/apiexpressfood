@@ -27,6 +27,9 @@ const FAKE_INGREDEINTS = [
     
     {name: "Limonada",layer: 0 , type_measure: "un"},
     {name: "Te",layer: 0 , type_measure: "un"},
+    //! NO SON UUID!
+    {name: "Agua con gas", layer: 0 , type_measure: "ml", store_id: "abc"},
+    {name: "Agua", layer: 0 , type_measure: "ml", store_id: "abc"},
     ]
 
 module.exports = async function() {
