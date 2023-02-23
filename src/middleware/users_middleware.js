@@ -23,7 +23,9 @@ const processUserPost = async (req,res) => {
         if (!profile_image || !profile_image.length) profile_image = DEFAULT_IMG;
         await validateUser(name, last_name, account_name, password, email, phone, password_question, password_answer);
         const result = await userPostController(name, last_name, account_name, password, email, phone, password_question, password_answer, profile_image )
-        return res.status(201).json( result )
+     
+
+        return res.status(201).json(result)
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
