@@ -6,6 +6,8 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const passport = require('passport');
 const { cloudinary } = require("./utils/cloudinary");
+const http = require('http');
+
 
 
 
@@ -53,4 +55,6 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(status).send(message);
 });
 
-module.exports = server;
+const app = http.createServer(server)
+
+module.exports = app;
