@@ -9,7 +9,6 @@ const { ingredientsGetByIdController, ingredientsGetController } = require("../c
 const { ingredientsDeleteController2 } = require("../controllers/ingredient/ingredient-delete_controller")
 const { getStoreId } = require("../controllers/HashFunction/security")
 const { isItAnExistingModelByID, isItAnExistingModelByName } = require("../controllers/Utils/aux_controller")
-const { getStoreId } = require("../controllers/HashFunction/security");
 
 const processIngredientPost = async (req, res) => {
   try {
@@ -66,6 +65,7 @@ const processIngredientGet = async (req, res) => {
     return res.status(400).json({ error: error.message });
   }
 };
+
 const processIngredientGetById = async (req, res) => {
   try {
     //! TODO
@@ -101,7 +101,7 @@ const processIngredientPatch = async (req, res) => {
 
 
 const validateIngredient = async ( name, layer, type_measure, ingredients_all, store_id ) => {
-  if (await isItAnExistingModelByID(name, store_id, Ingredient )) throw Error(`${DUPLICATED_INGREDIENT_NAME}${name}`);
+  if (await isItAnExistingModelByName(name, store_id, Ingredient )) throw Error(`${DUPLICATED_INGREDIENT_NAME}${name}`);
   //if (await (name)) throw Error(DUPLICATED_RECIPE_NAME);
   if (!name.trim().length || !name) throw Error(INVALID_INGREDIENT_NAME);
   if (isNaN(layer)) throw Error(`${NOT_A_NUMERIC}${layer}`);

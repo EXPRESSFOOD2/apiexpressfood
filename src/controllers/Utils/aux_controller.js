@@ -1,7 +1,7 @@
 const { Recipe } = require("../../db");
 
 const isItAnExistingModelByID = async (id, store_id, model ) => {
-    let result = await model.findOne({where: {id, store_id}})
+    let result = await model.findAll({where: {id, store_id}})
     return result && result.length ? true : false;
 }
 const isItAnExistingModelByName = async (name, store_id, model ) => {

@@ -1,8 +1,8 @@
-const { Tag, Recipe, Ingredient } = require("../db");
+const { Tag } = require("../db");
 const { tagsPostController } = require("../controllers/tag/tag-post_controller")
 const { tagsPatchController } = require("../controllers/tag/tag-patch_controller")
 const { tagsGetController } = require("../controllers/tag/tag-get_controller")
-const { isItAnExistingModelByID } = require("../controllers/Utils/aux_controller")
+const { isItAnExistingModelByID, isItAnExistingModelByName } = require("../controllers/Utils/aux_controller")
 const { tagsDeleteController } = require("../controllers/tag/tag-delete_controller")
 const { getStoreId } = require("../controllers/HashFunction/security");
 const { INVALID_TAG_ID, DUPLICATED_TAG_NAME, INVALID_TAG_NAME } = require("../models/utils/Tag-ErrorMSGs") 
@@ -70,7 +70,7 @@ try {
     //*
     const { id } = req.query;
     if ( id < 1) throw Error(`${INVALID_ID}${id}`);
-    if ( !await isItAnExistingModelByID(id, store_id, Tag) ) throw Error(`${INVALID_TAG_ID}${id}`)
+    if ( !await isItAnExistingModelByID( id, store_id, Tag ) ) throw Error(`${INVALID_TAG_ID}${id}`)
     const result = await tagsDeleteController( id, store_id );
     return res.status(200).json( result )
 } catch (error) {
