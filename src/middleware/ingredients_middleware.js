@@ -1,5 +1,4 @@
-const { conn, Op } = require("../db");
-const { Ingredient } = conn.models;
+const { Ingredient, Recipe } = require("../db");
 const { INVALID_INGREDIENT_NAME, NOT_A_NUMERIC, DUPLICATED_INGREDIENT_NAME,
         INVALID_ID, MUST_CONTAINS_AN_ARRAY, INVALID_MEASURE_TYPE,
         CANT_FIND_INGREDIENT, INVALID_ARRAY,LAYER_BIGGER_ZERO } = require("../models/utils/Ingredient-ErrorMSGs");
@@ -9,8 +8,8 @@ const { ingredientsPostController } = require("../controllers/ingredient/ingredi
 const { ingredientsGetByIdController, ingredientsGetController } = require("../controllers/ingredient/ingredient-get_controller");
 const { ingredientsDeleteController2 } = require("../controllers/ingredient/ingredient-delete_controller")
 const { getStoreId } = require("../controllers/HashFunction/security")
-const { isItAnExistingIngredient, getRecipeBasicAttrsById, getActualDate, isItAnExistingRecipe, isItAnExistingRecipeByID, isItAnExistingIngredientByID } = require("../controllers/Utils/aux_controller")
-
+const { isItAnExistingModelByID, isItAnExistingModelByName } = require("../controllers/Utils/aux_controller")
+const { getStoreId } = require("../controllers/HashFunction/security");
 
 const processIngredientPost = async (req, res) => {
   try {
@@ -38,7 +37,7 @@ const processIngredientDelete = async (req, res) => {
     const { id } = req.params;
     if (id < 1) throw Error(`${INVALID_ID}${id}`);
     //! Retrabajado 
-    if ( !await isItAnExistingIngredientByID(id, store_id) ) throw Error(`${INVALID_ID}${id}`)
+    if ( !await isItAnExistingModelByID(id, store_id, Ingredient) ) throw Error(`${INVALID_ID}${id}`)
     const result = await ingredientsDeleteController2(id, store_id);
     return res.status(200).json(result)
     /*
@@ -92,7 +91,7 @@ const processIngredientPatch = async (req, res) => {
     const store_id = getStoreId();
     //*
     const { id, name, type_measure } = req.body;
-    if (!await isItAnExistingIngredientByID(id, store_id)) throw Error(`${INVALID_ID}${id}`);
+    if (!await isItAnExistingModelByID(id, store_id, Ingredient)) throw Error(`${INVALID_ID}${id}`);
     const result = await ingredientsPatchController(id, name, type_measure, store_id);
     return res.status(200).json(result);
   } catch (error) {
@@ -102,7 +101,7 @@ const processIngredientPatch = async (req, res) => {
 
 
 const validateIngredient = async ( name, layer, type_measure, ingredients_all, store_id ) => {
-  if (await isItAnExistingIngredient(name, store_id)) throw Error(`${DUPLICATED_INGREDIENT_NAME}${name}`);
+  if (await isItAnExistingModelByID(name, store_id, Ingredient )) throw Error(`${DUPLICATED_INGREDIENT_NAME}${name}`);
   //if (await (name)) throw Error(DUPLICATED_RECIPE_NAME);
   if (!name.trim().length || !name) throw Error(INVALID_INGREDIENT_NAME);
   if (isNaN(layer)) throw Error(`${NOT_A_NUMERIC}${layer}`);

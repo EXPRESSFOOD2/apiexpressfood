@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const { Recipe, Ingredient } = require('../../db');
 
 //* Adds store_id

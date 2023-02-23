@@ -1,36 +1,12 @@
+const { Recipe } = require("../../db");
 
-const { Ingredient, Recipe, MenuItem } = require("../../db");
-
-//! estas 3 Fn() se reducen a 1 si pasamos el model por attr
-const isItAnExistingIngredient = async (name, store_id) => {
-    let result = await Ingredient.findOne({where: {name, store_id}})
+const isItAnExistingModelByID = async (id, store_id, model ) => {
+    let result = await model.findOne({where: {id, store_id}})
     return result && result.length ? true : false;
 }
-
-const isItAnExistingMenuItem = async (name, store_id) => {
-    let result = await MenuItem.findOne({where: {name, store_id}})
+const isItAnExistingModelByName = async (name, store_id, model ) => {
+    let result = await model.findOne({where: {name, store_id}})
     return result && result.length ? true : false;
-}
-
-const isItAnExistingRecipe = async (name, store_id) => {
-    let result = await Recipe.findOne({where: {name, store_id}})
-    return  result && result.length ? true : false;
-}
-
-//! estas 3 Fn() se reducen a 1 si pasamos el model por attr
-const isItAnExistingIngredientByID = async (id, store_id) => {
-    let result = await Ingredient.findOne({where: {id, store_id}})
-    return result && result.length ? true : false;
-}
-
-const isItAnExistingRecipeByID = async (id, store_id) => {
-    let result = await Recipe.findAll({where: {id, store_id}});
-    return  result && result.length ? true : false;
-}
-
-const isItAnExistingMenuItemByID = async (id, store_id) => {
-    let result = await MenuItem.findAll({where: {id, store_id}});
-    return  result && result.length ? true : false;
 }
 
 const getRecipeBasicAttrsById = async (id, store_id) => {
@@ -68,12 +44,8 @@ const validateArraySameStore = async (arr, store_id, model) => {
 }
 
 module.exports = {
-    isItAnExistingIngredient,
-    isItAnExistingRecipe,
-    isItAnExistingMenuItem,
-    isItAnExistingRecipeByID,
-    isItAnExistingIngredientByID,
-    isItAnExistingMenuItemByID,
+    isItAnExistingModelByName,
+    isItAnExistingModelByID,
     getRecipeBasicAttrsById,
     getActualDate,
     generateOldName,
