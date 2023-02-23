@@ -4,6 +4,7 @@ const router = Router();
 
 //* Images Processor
 const processImage = require("./utils/getImageReturnUrl")
+
 //* Cart
 const cartGetRouter = require("./utils/cart/carts_get")
 const cartPatchRouter = require("./utils/cart/carts_patch")
@@ -31,8 +32,16 @@ const menuGetRouter = require("./menu/menu-get");
 const menuDeleteRouter = require("./menu/menu-delete");
 const menuPatchRouter = require("./menu/menu-patch");
 
+
+//* Tags Routes
+const tagsPostRouter = require("./tags/tags_post");
+const tagsGetRouter = require("./tags/tags_get");
+const tagsDeleteRouter = require("./tags/tags_delete");
+const tagsPatchRouter = require("./tags/tags_patch");
+=======
 //*Payments Routes
 const createPaymentRouter = require("../routes/payments/createPayment")
+
 
 
 //! google route
@@ -56,8 +65,15 @@ router.use("/users/create", usersPostRouter);
 router.use("/users/activate_account", usersGetActivateAccount);
 router.use("/users/login", usersGetLoginRouter);
 
+
+router.use("/tags/create", tagsPostRouter);
+router.use("/tags/get", tagsGetRouter);
+router.use("/tags/delete", tagsDeleteRouter);
+router.use("/tags/update", tagsPatchRouter);
+
 //!PAYPAL
 router.use("/payments/create", createPaymentRouter)
+
 
 //! auth google
 router.use("/auth",authGoogle )

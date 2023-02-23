@@ -59,5 +59,5 @@ module.exports =  {
     generateSecret,
     validateAccountPassword,
     generateToken,
-    getStoreId
+    getStoreId,
 }

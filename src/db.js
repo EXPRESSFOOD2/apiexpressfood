@@ -54,7 +54,8 @@ const { Ingredient,
   TagsMenuItems,
   Order,
   OrdersMenu,
-  Store } = sequelize.models;
+  Store,
+ } = sequelize.models;
 
 //! Relationships
 Recipe.belongsToMany( Ingredient, { through: IngredientsRecipes });
