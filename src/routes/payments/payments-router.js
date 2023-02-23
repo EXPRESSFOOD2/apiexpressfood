@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const router = Router();
-const { createPayment } = require("../..//controllers/Payments/createPayment")
-const { paymentsMiddleware } = require("../../middleware//payments-middleware")
+const { paymentsControllerPost } = require("../../controllers/Payments/payments-controller")
+const { paymentsMiddleware } = require("../../middleware/payments-middleware")
 
 
 router.post("/", paymentsMiddleware,  async(req, res)=>{
@@ -9,7 +9,7 @@ router.post("/", paymentsMiddleware,  async(req, res)=>{
 
     try {
 
-        const result  = await createPayment(product)
+        const result  = await paymentsControllerPost(product)
    
         return res.status(200).send(result.body.init_point)
     } catch (error) {

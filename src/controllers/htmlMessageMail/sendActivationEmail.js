@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 
-const sendActivationEmail = (email, token) => {
+const sendActivationEmail = (email) => {
   //CODIGO QUE ENVIA CORREO AL CLIENTE PARA LA ACTIVACION DE LA CUENTA
   const transporter = nodemailer.createTransport(
     "smtps://expressfoodhenry@gmail.com:ngvootjfbrkbefub@smtp.gmail.com"
@@ -89,21 +89,11 @@ const sendActivationEmail = (email, token) => {
                     padding: 20px 35px;
                   "
                 >
-                 Hola!! que bueno tenerte acá, para activar tu cuenta, da click en el boton de abajo:
+                 Gracias por registarte!.<br/>
+                 Bienvenid@ a Space Food!!
                 </p>
     
-                <a href="http://localhost:3001/users/activate_account/${token}">
-                  <button
-                    style="
-                      border: 0px;
-                      border-radius: 5px;
-                      padding: 11px 23px;
-                      color: #f5f5f5;
-                      background-color: #8f1414;
-                    "
-                  >
-                    Activar cuenta
-                  </button>
+               
                 </a>
               </div>
             </td>

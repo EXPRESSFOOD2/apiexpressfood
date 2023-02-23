@@ -40,7 +40,7 @@ const tagsDeleteRouter = require("./tags/tags_delete");
 const tagsPatchRouter = require("./tags/tags_patch");
 =======
 //*Payments Routes
-const createPaymentRouter = require("../routes/payments/createPayment")
+const PaymentRouter = require("../routes/payments/payments-router")
 
 
 
@@ -72,7 +72,7 @@ router.use("/tags/delete", tagsDeleteRouter);
 router.use("/tags/update", tagsPatchRouter);
 
 //!PAYPAL
-router.use("/payments/create", createPaymentRouter)
+router.use("/payments/create", PaymentRouter)
 
 
 //! auth google
