@@ -1,5 +1,5 @@
 const { conn, Op } = require("../db");
-const { User } = conn.models;
+const { User, Role } = conn.models;
 const { INVAME_NAME_OR_ACCOUNT, EMAIL_REGEX, INVALID_NAME, INVALID_LAST_NAME,
         ALPHA_REGEX, MIN_PASS_LENGTH, PASSWORD_TO_SHORT, INVALID_EMAIL,
         MIN_QUESTION_LENGTH, INVALID_QUESTION, MIN_ANSWER_LENGTH, INVALID_ANSWER,
@@ -23,7 +23,9 @@ const processUserPost = async (req,res) => {
         if (!profile_image || !profile_image.length) profile_image = DEFAULT_IMG;
         await validateUser(name, last_name, account_name, password, email, phone, password_question, password_answer);
         const result = await userPostController(name, last_name, account_name, password, email, phone, password_question, password_answer, profile_image )
-        return res.status(201).json( result )
+     
+
+        return res.status(201).json(result)
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
@@ -57,10 +59,33 @@ const processActivateAccount = async (req,res) => {
         let result = await User.findAll({where: { activation_token: token }})
         if(result.length){
         await  User.update({ is_active: true }, { where: { id: result[0].id }})
-        let result2 = await User.findAll({where: { activation_token: token.split(":").at(-1) }})
-        return res.status(201).json( result2[0] )
+        let result2 = await User.findAll({where: { activation_token: token }})
+
+
+        return res.status(201).redirect("http://localhost:3000/login")
     }else{
     return res.status(404).json( {error: "invalid activation token"} )
+}
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
+const processGetAllRoles = async (req,res) => {
+   
+
+    try {
+        let roles = await Role.findAll({
+            where: {
+              id: {
+                [Op.between]: [2,4]
+              }
+            }
+          });
+
+          roles = roles.map(({ id, name }) => ({ id, name }));
+        if(roles.length){
+        
+    return res.status(200).send( roles )
 }
     } catch (error) {
         return res.status(400).json({ error: error.message })
@@ -71,5 +96,5 @@ const processActivateAccount = async (req,res) => {
 module.exports = {
     processUserPost,
     processUserLogin,
-    processActivateAccount
+    processActivateAccount,processGetAllRoles
 }

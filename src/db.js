@@ -4,7 +4,7 @@ require('dotenv').config();
 const {Sequelize, Op } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_DIALECT, DB_PORT, DB_SCHEMA } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_DIALECT, DB_PORT, DB_SCHEMA, DB_DEPLOY } = process.env;
 
 const sequelize = new Sequelize(
     `${DB_DIALECT}://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_SCHEMA}`,
@@ -13,6 +13,14 @@ const sequelize = new Sequelize(
       native: false,
     },
 );
+
+
+// const sequelize = new Sequelize(DB_DEPLOY,
+//     {
+//       logging: false,
+//       native: false,
+//     },
+// );
 
 const basename = path.basename(__filename);
 
