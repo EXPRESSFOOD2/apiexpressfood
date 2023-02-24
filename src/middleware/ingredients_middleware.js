@@ -101,7 +101,7 @@ const processIngredientPatch = async (req, res) => {
 
 
 const validateIngredient = async ( name, layer, type_measure, ingredients_all, store_id ) => {
-  if (await isItAnExistingModelByName(name, store_id, Ingredient )) throw Error(`${DUPLICATED_INGREDIENT_NAME}${name}`);
+  if (await isItAnExistingModelByName(name, store_id, Ingredient )) throw Error(`${DUPLICATED_INGREDIENT_NAME} ${name}`);
   //if (await (name)) throw Error(DUPLICATED_RECIPE_NAME);
   if (!name.trim().length || !name) throw Error(INVALID_INGREDIENT_NAME);
   if (isNaN(layer)) throw Error(`${NOT_A_NUMERIC}${layer}`);
