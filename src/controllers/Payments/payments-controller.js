@@ -21,7 +21,7 @@ mercadopago.configure({public_key:process.env.MERCADOPAGO_PUBLIC_KEY, access_tok
 unit_price: product.price}
     ],
     back_urls:{
-        success: "http://localhost:3000",
+        success: "https://https://spacefood.up.railway.app/",
         failure: '',
         pending:'',
     },

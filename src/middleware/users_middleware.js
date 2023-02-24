@@ -1,5 +1,5 @@
 const { conn, Op } = require("../db");
-const { User } = conn.models;
+const { User, Role } = conn.models;
 const { INVAME_NAME_OR_ACCOUNT, EMAIL_REGEX, INVALID_NAME, INVALID_LAST_NAME,
         ALPHA_REGEX, MIN_PASS_LENGTH, PASSWORD_TO_SHORT, INVALID_EMAIL,
         MIN_QUESTION_LENGTH, INVALID_QUESTION, MIN_ANSWER_LENGTH, INVALID_ANSWER,
@@ -70,10 +70,31 @@ const processActivateAccount = async (req,res) => {
         return res.status(400).json({ error: error.message })
     }
 }
+const processGetAllRoles = async (req,res) => {
+   
+
+    try {
+        let roles = await Role.findAll({
+            where: {
+              id: {
+                [Op.between]: [2,4]
+              }
+            }
+          });
+
+          roles = roles.map(({ id, name }) => ({ id, name }));
+        if(roles.length){
+        
+    return res.status(200).send( roles )
+}
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
 
 
 module.exports = {
     processUserPost,
     processUserLogin,
-    processActivateAccount
+    processActivateAccount,processGetAllRoles
 }
