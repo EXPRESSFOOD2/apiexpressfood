@@ -1,3 +1,4 @@
+const passport = require("passport");
 const { User, Password, UsersRoles } = require("../../db");
 const {
   generateSecret,
@@ -48,7 +49,7 @@ const userPostController = async (
       password_question,
       password_answer,
     });
-    sendActivationEmail(user_email, token)
+    sendActivationEmail(user_email )
     
     return newUser;
   } catch (error) {

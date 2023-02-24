@@ -1,10 +1,13 @@
 // const request = require('request')
 const mercadopago = require('mercadopago');
 
+
+
+const paymentsControllerPost =async (product) =>{
+
+
+    
 mercadopago.configure({public_key:process.env.MERCADOPAGO_PUBLIC_KEY, access_token:process.env.MERCADOPAGO_ACCESS_TOKEN})
-
-
-const createPayment =async (product) =>{
         
     let preference = {
         items:[{
@@ -29,11 +32,11 @@ try {
     const result =  await mercadopago.preferences.create(preference)
    return result
 } catch (error) {
-    
+    return error.message
 }
    
 }
 
 
 
-module.exports = {createPayment}
+module.exports = {paymentsControllerPost}
