@@ -6,24 +6,22 @@ const router = Router()
 
 
 let user = {}
-console.log('tuki');
-passport.use(new GoogleStrategy({
-    //! mis credentials desde google auth - proces.env
 
-    clientID:process.env.GOOGLE_CLIENT_ID
+passport.use(new GoogleStrategy({
+    
+
+    clientID: process.env.GOOGLE_CLIENT_ID
     clientSecret: process.env.GOOGLE_CLIENT_SECRET
     // callbackURL: "http://localhost:3001/auth/google/callback" ,
     callbackURL: "https://apiexpressfood.up.railway.app/auth/google/callback" ,
 
-   // clientID:process.env.GOOGLE_CLIENT_ID,
-   // clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  //  callbackURL: "http://localhost:3001/auth/google/callback" ,
+   
 
     passReqToCallback   : true
   },
   function(request, accessToken, refreshToken, profile, done) {
-        // console.log(profile);
-        console.log(profile,'asdasda');
+       
+        
         
       
         return done(null,profile);
@@ -56,7 +54,7 @@ router.get( '/google/callback',
     passport.authenticate( 'google', {
       // ! ruta del front que redirija al login
         failureRedirect: '/auth/failure'}),function(req, res) {
-    console.log(req.user.id);
+    
     //! guardamos la data de la sesion para enviar al front 
     user = req.user;
     const payload = { 
@@ -67,7 +65,7 @@ router.get( '/google/callback',
   const secretOrPrivateKey = 'mi_clave_secreta_123';
   const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
-    console.log(token);
+    
   
     res.redirect(`https://spacefood.up.railway.app/?user=${JSON.stringify({userName : user.displayName,photo:user.photos[0].value,id:user.id})}`);
     
