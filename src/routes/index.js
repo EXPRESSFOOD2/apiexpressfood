@@ -59,10 +59,12 @@ router.use("/users/create", usersPostRouter);
 router.use("/users/activate_account", usersGetActivateAccount);
 router.use("/users/login", usersGetLoginRouter);
 
+//* Tags
 router.use("/tags/create", tagsPostRouter);
 router.use("/tags/get", tagsGetRouter);
 router.use("/tags/delete", tagsDeleteRouter);
 router.use("/tags/update", tagsPatchRouter);
+
 //! auth google
 router.use("/auth",authGoogle )
 
