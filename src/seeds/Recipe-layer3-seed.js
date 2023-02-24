@@ -1,4 +1,4 @@
-const { Recipe, Ingredient, IngredientsRecipes } = require('../db');
+const { Recipe, Ingredient, IngredientsRecipes, Order } = require('../db');
 /*
 
 */
@@ -70,6 +70,13 @@ module.exports = async function() {
         {RecipeId: 6, IngredientId: 11, waste_rate: 0},
         {RecipeId: 6, IngredientId: 8, waste_rate: 0},
         {RecipeId: 6, IngredientId: 7, waste_rate: 0},
-      
     ])
+
+    Order.create({total: 98, is_ready: false, client_data: "{\"numero\": 1}", store_id: "abc"})
+    Order.create({total: 114, is_ready: false, client_data: "{\"numero\": 1}", store_id: "abc"})
+    Order.create({total: 151, is_ready: false, client_data: "{\"numero\": 1}", store_id: "abc"})
+    Order.create({total: 153, is_ready: false, client_data: "{\"numero\": 1}", store_id: "abc"})
+    Order.create({total: 511, is_ready: false, client_data: "{\"numero\": 1}", store_id: "abc"})
+
+    
 };

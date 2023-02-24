@@ -49,6 +49,7 @@ const generateToken = () => {
     return generateSecret()+generateSecret();
 }
 
+
 const getStoreId = () => {
   //! TODO
   // Revisar implementacion
