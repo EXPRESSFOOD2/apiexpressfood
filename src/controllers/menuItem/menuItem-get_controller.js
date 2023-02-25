@@ -6,8 +6,10 @@ const menuItemsGetController = async (store_id) => {
     { model: Tag,
       attributes: ["name"],
     }],
-    attributes: {exclude: ["createdAt", "updatedAt", "deletedAt"] }
+    attributes: {exclude: ["createdAt", "updatedAt", "deletedAt"] },
+    order: [["recomend_first", "DESC"]]
   })
+
   const resultArray = result.map((item) => {
     const tagsArray = item.Tags.map((tag) => tag.name);
     return {
