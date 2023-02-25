@@ -1,5 +1,5 @@
 //const {menuItemsPostController} = require("../controllers/menuItem/menuItem-post_controller")
-const { MenuItem, IngredientsMenuItems } = require("../db")
+const { MenuItem, IngredientsMenuItems} = require("../db")
 const lorem = `Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto.
 Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500,
 cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería
@@ -10,6 +10,7 @@ cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido u
   como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.`;
 
 const FAKE_MENU = [
+
     {name: "Menu Veggie", description: lorem, price: 100, recomend_first: true, stock:30, is_active: true, url_image: "https://i.pinimg.com/originals/56/1d/c6/561dc63b846ef18e8e27fd096f1dabbd.jpg"},
     {name: "Menu Veggie x2", description: lorem, price: 101, recomend_first: true, stock:25, is_active: true, url_image: "https://www.cuponerapp.com/mexiconoce/wp-content/uploads/2018/05/cs.jpg"},
     {name: "Menu Veggie x3 ", description: lorem, price: 102, recomend_first: true, stock:15, is_active: false, url_image: "https://i.pinimg.com/236x/b8/c9/ed/b8c9ed3b166f01dc9976b8e217ddafbd--make-ahead-lunches-healthy-lunches.jpg"},
@@ -32,7 +33,9 @@ const FAKE_MENU = [
     {name: "Menu Veggie Full v8", description: lorem, price: 105, recomend_first: false, stock:19, is_active: false, url_image: "https://www.henkelman.com/media/416697/halo-halo.jpg"},
 
 
+
 ]
+
 //(name, description, price, recomend_first, stock, is_active, url_image, ingredArray )
 const FAKE_MENU_RELATIONS = [
     {MenuItemId: 1, IngredientId: 29, quantity: 1},

@@ -5,11 +5,13 @@
 ## CustomerApi  - Vistas a la perfeccion
                 - Volar Register ( dejarlo comentado, ruta inclusive )
                 - Modificar el Login con google, dejarlo visualmente aceptable ( Posible popUp lateral/superior )
+
                 - Agregar Alias al Pedido ( A114 )
+
                 - Carrito: Acumular Items // Enviar al server a Procesar // Posibilidad de forzar email
+
                 - Agregar "Agotado" si stock == 0
 
-                - Implementar Filtrado por TAGs // Agregar Rutas // Middleware // Controllers // Rehacer Redux Asociado
 
 ## ServerApi    - Procesar la Compra ...    Success: Generar Order => Redirect => vaciar Cart
                                             Error: No generas la orden, Avisar que salió mal
