@@ -63,6 +63,7 @@ const { Ingredient,
   Order,
   OrdersMenu,
   Store,
+  UsersStores,
  } = sequelize.models;
 
 //! Relationships
@@ -80,6 +81,9 @@ MenuItem.belongsToMany( Tag, { through: TagsMenuItems } )
 
 Order.belongsToMany( MenuItem, { through: OrdersMenu })
 MenuItem.belongsToMany( Order, { through: OrdersMenu })
+
+User.hasOne( Store, { through: UsersStores })
+Store.belongsTo( User, { through: UsersStores })   // Podría ser Many pero lo obtendremos por otro lado
 
 //!tuki
 

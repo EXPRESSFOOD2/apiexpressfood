@@ -6,7 +6,7 @@ const router = Router()
 
 
 let user = {}
-console.log('tuki');
+
 passport.use(new GoogleStrategy({
     //! mis credentials desde google auth - proces.env
 
