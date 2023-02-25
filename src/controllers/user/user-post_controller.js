@@ -9,7 +9,7 @@ const {sendActivationEmail} = require("../htmlMessageMail/sendActivationEmail")
 
 
 const secret = generateSecret();
-const token = generateToken();
+
 
 
 const userPostController = async (
@@ -19,10 +19,8 @@ const userPostController = async (
   password,
   email,
   phone,
-  password_question,
-  password_answer,
   profile_image,
-  role_id = 1,
+  role_id 
   ) => {
   try {
 
@@ -35,19 +33,18 @@ const userPostController = async (
       email,
       secret,
       phone,
-      activation_token: token,
+      
       profile_image
     });
 
     let user_id = newUser.id;
     let user_email = newUser.email;
-
+!role_id ? role_id = 1: role_id = role_id
     await UsersRoles.create({ RoleId: role_id, UserId: user_id });
     await Password.create({
       user_id,
       password: hashedPass,
-      password_question,
-      password_answer,
+    
     });
     sendActivationEmail(user_email )
     
@@ -59,5 +56,5 @@ const userPostController = async (
 
 module.exports = {
   userPostController,
-  token,
+
 };
