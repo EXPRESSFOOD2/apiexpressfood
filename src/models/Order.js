@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             validate: {
                 isDecimal: { msg: INVALID_PRICE },
-                isNull: { msg: INVALID_PRICE },
+                //isNull: { msg: INVALID_PRICE },
                 min: 0
             }
         },
@@ -44,7 +44,6 @@ module.exports = (sequelize) => {
         status: {
             type: DataTypes.ENUM,
             values: ["Canceled", "In Progress", "Ready", "Finished"],
-            //type: DataTypes.STRING,
             defaultValue: "In Progress",
             allowNull: true,
         }

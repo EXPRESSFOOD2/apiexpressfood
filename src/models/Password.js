@@ -21,13 +21,6 @@ module.exports = (sequelize) => {
             type: DataTypes.BOOLEAN,
             defaultValue: true,
         },
-        password_question: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        password_answer: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        }
+     
     })
 }
