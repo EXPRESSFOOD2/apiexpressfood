@@ -42,5 +42,19 @@ module.exports = (sequelize) => {
                 notEmpty: { msg: INVALID_STORE_DESC },
             },
         },
+        logo: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: "https://spacefood.up.railway.app/static/media/logo.1d65576293f6641075ed.jpg"
+        },
+        store_type: {
+            type: DataTypes.STRING,     //! Cambiar a ENUM
+            //values: ["Traveling Business", "Other"],
+            defaultValue: "Traveling Business",
+            allowNull: false
+        },
+        mercado_pago: {
+            type: DataTypes.STRING
+        }
     }, { timestamps: false, paranoid: true })
 }

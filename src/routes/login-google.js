@@ -6,12 +6,12 @@ const router = Router()
 
 
 let user = {}
-console.log('tuki');
+
 passport.use(new GoogleStrategy({
     //! mis credentials desde google auth - proces.env
 
-    clientID:process.env.GOOGLE_CLIENT_ID
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    clientID:process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     // callbackURL: "http://localhost:3001/auth/google/callback" ,
     callbackURL: "https://apiexpressfood.up.railway.app/auth/google/callback" ,
 

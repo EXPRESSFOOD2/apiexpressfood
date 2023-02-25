@@ -22,10 +22,35 @@ module.exports = (sequelize) => {
         is_ready: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
+            allowNull: true,
         },
         client_data: {
             type: DataTypes.JSON,
             allowNull: true,
+        },
+        code: {
+            type: DataTypes.STRING(4),
+            allowNull: true,
+            defaultValue: "A000"
+        },
+        store_id: {
+            //! TODO
+            // Eliminar DefaulValue y default value
+            //type: DataTypes.UUIDV4,
+            type: DataTypes.STRING,
+            defaultValue: "f3bc0474-620c-429d-a46c-df2460c7725a",
+            allowNull: true,
+        },
+        status: {
+            type: DataTypes.ENUM,
+            values: ["Canceled", "In Progress", "Ready", "Finished"],
+            //type: DataTypes.STRING,
+            defaultValue: "In Progress",
+            allowNull: true,
         }
-    },{ timestamps: true, paranoid: true })
+    },
+    {
+        timestamps: true,
+        paranoid: true,
+    })
 }

@@ -1,6 +1,24 @@
 const { Password, Op } = require('../../db');
 const { INVALID_LOGIN } = require("../../models/utils/User-ErrorMSGs")
 
+// const hashFunction = async (pass, secret) => {
+//   const iterations = 1001;
+//   const encoder = new TextEncoder();
+//   const data = encoder.encode(pass + secret);
+//   let hash = await crypto.subtle.digest('SHA-256', data);
+//     for (let i = 0; i < iterations; i++) {
+//       hash = await crypto.subtle.digest('SHA-256', hash);
+//     }
+//     return hash;
+//   /*Usage:
+//      //!  cambiar el tipo de dato para almacenar la contraseña ?!
+//     hashPassword(pass, secret).then((result) => {
+//         const resu =  new Uint8Array(result);
+//         const buffer = Buffer.from(uint8Array);   // Convierte en una cadena de texto
+//         return buffer;
+//     }
+// });*/
+// }
 
 const hashFunction = (pass, secret) => {
 
@@ -16,8 +34,6 @@ const validateAccountPassword = async (userId, hashedPass) => {
           { is_active: true }
         ]
       }})
-      console.log(result);
-      console.log(userId + " HashPswd: "+hashedPass );
       return ( result && result.id > 0 ? true : false );
 }
 
