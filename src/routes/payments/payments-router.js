@@ -13,6 +13,7 @@ router.post("/", paymentsMiddleware,  async(req, res)=>{
    
         return res.status(200).send(result.body.init_point)
     } catch (error) {
+ 
         return res.status(400).send(error)
     }
   
