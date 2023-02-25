@@ -13,14 +13,14 @@ const paymentsControllerPost = async (products) => {
   };
 
   for (let i = 0; i < products.length; i++) {
-    let preference = await getPrice(products[i].product_id);
+    let preference = await getPrice(products[i].id);
     productDataToMercadoPago.push({
       id: preference.id,
       tittle: preference.name,
       currency_id: "ARS",
       description: preference.description.slice(0, 255),
       category_id: "art",
-      quantity: products[i].quantity_product,
+      quantity: products[i].quantity,
       unit_price: preference.price,
     });
   }
@@ -33,8 +33,8 @@ const paymentsControllerPost = async (products) => {
   let preference = {
     items: productDataToMercadoPago,
     back_urls: {
-      success: "https://spacefood.up.railway.app/login",
-      failure: "https://spacefood.up.railway.app/",
+      success: "https://spacefood.up.railway.app",
+      failure: "",
       pending: "",
     },
     auto_return: "all",
