@@ -5,6 +5,7 @@ const {
 } = require("../HashFunction/security");
 const fs = require("fs");
 const path = require("path");
+const nodemailer = require("nodemailer");
 
 const filePath = path.join(__dirname, "../htmlMessageMail/message.html"); // construct the absolute file path
 const html = fs.readFileSync(filePath, "utf-8"); //
