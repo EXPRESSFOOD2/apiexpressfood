@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const router = Router();
 
 let user = {};
-console.log("tuki");
+
 passport.use(
   new GoogleStrategy(
     {
