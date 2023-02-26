@@ -64,14 +64,18 @@ router.get(
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
 
+    let rediectLocal =  `http://localhost:3000/?user=${JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+    })}`
+    let rediectDeploy =  `https://spacefood.up.railway.app/?user=${JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+    })}`
 
-    res.redirect(
-      `https://spacefood.up.railway.app/?user=${JSON.stringify({
-        userName: user.displayName,
-        photo: user.photos[0].value,
-        id: user.id,
-      })}`
-    );
+    res.redirect(  rediectLocal || rediectDeploy );
   }
 );
 
