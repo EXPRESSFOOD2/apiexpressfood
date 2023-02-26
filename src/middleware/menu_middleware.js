@@ -46,7 +46,8 @@ const processMenuPatch = async (req, res) => {
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
         //*
         const { id, name, description, price, recomend_first, stock, is_active, url_image } = req.body;
-        if ( !(await isItAnExistingMenuItemByID(id, store_id)) ) throw Error(ERROR_NOT_FOUND)
+        // if ( !(await isItAnExistingMenuItemByID(id, store_id)) ) throw Error(ERROR_NOT_FOUND)
+        //isItAnExistingMenuItemByID is not defined!
         const result = await menuItemsPatchController(id, name, description, price, recomend_first, stock, is_active, url_image, store_id);
         return res.status(200).json( result )
     } catch (error) {
