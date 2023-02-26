@@ -45,7 +45,7 @@ const getMailOptions = (user_email) => {
   return {
     from: "ExpressFood",
     to: user_email,
-    subject: "Activacion de cuenta",
+    subject: "Registro Existoso",
     html: html
   };
 }
@@ -53,5 +53,3 @@ const getMailOptions = (user_email) => {
 module.exports = {
   userPostController,
 };
-
-
