@@ -21,6 +21,7 @@ const paymentsMiddleware = (req, res, next) => {
       typeof product.quantity !== "number"
     )
       return  res.status(400).send("product_id and quantity properties must be a number");
+    if (typeof product.quantity < 1 ) return  res.status(400).send("Quantity must be bigger than 1");
   });
 
   next();
