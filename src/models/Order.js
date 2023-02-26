@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { INVALID_PRICE } = require("./utils/Order-ErrorMSGs");
+const { ORDER_STATUS } = require("./utils/constants")
 
 module.exports = (sequelize) => {
     sequelize.define('Order', {
@@ -38,9 +39,13 @@ module.exports = (sequelize) => {
         },
         status: {
             type: DataTypes.ENUM,
-            values: ["Canceled", "In Progress", "Ready", "Finished", "Unpaid"],
-            defaultValue: "Unpaid",
+            values: ORDER_STATUS,
+            defaultValue: ORDER_STATUS[0],
             allowNull: false,
+        },
+        payment_data: {
+            type: DataTypes.JSON,
+            allowNull: true
         }
     },
     {
