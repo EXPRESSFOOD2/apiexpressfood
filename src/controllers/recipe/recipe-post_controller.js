@@ -25,12 +25,12 @@ const buildIngredientsAll = async ({RecipeId, ingredArray}) => {
         }else {
             const getIngredient = await Ingredient.findByPk(ing.id);
             let list = JSON.parse(getIngredient.ingredients_all);
-            await Promise.all(list.map(elem => {
+            await Promise.all( list.map(elem => {
                 let withWasteRateAux = elem.amount * ing.per_recipe * ((100 + ing.waste_rate) / 100 )
                 retorno.push({id: elem.id, name: elem.name, layer: elem.layer, amount: withWasteRateAux})
             }))
         }
-        result.push({RecipeId, IngredientId: ing.id, waste_rate: ing.waste_rate});
+        result.push({RecipeId, IngredientId: ing.id, waste_rate: ing.waste_rate, per_recipe:  ing.per_recipe});
     }
     IngredientsRecipes.bulkCreate(result)
 

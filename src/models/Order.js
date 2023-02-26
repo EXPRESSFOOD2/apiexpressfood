@@ -22,6 +22,7 @@ module.exports = (sequelize) => {
         is_ready: {
             type: DataTypes.BOOLEAN,
             defaultValue: false,
+            allowNull: true,
         },
         client_data: {
             type: DataTypes.JSON,
@@ -44,7 +45,7 @@ module.exports = (sequelize) => {
             type: DataTypes.ENUM,
             values: ["Canceled", "In Progress", "Ready", "Finished"],
             defaultValue: "In Progress",
-            allowNull: false,
+            allowNull: true,
         }
     },
     {
