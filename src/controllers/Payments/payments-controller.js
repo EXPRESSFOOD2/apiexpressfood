@@ -15,7 +15,6 @@ const paymentsControllerPost = async (products, client_data = "alpharus2k@gmail.
   const store_id = getStoreId();
   let mercadoPagoSuccessUrl = getMercadoPagoSuccessUrl();
   let mercadoPagoFailureUrl = getMercadoPagoFailureUrl();
-   //! Cambiar por Function
   let code = await ordersPostController( products, client_data, store_id );
   let preference = buildMercadoPagoPreference(productDataToMercadoPago, mercadoPagoSuccessUrl, mercadoPagoFailureUrl, code)
 
@@ -28,12 +27,12 @@ const paymentsControllerPost = async (products, client_data = "alpharus2k@gmail.
   }
 };
 
-//! Ojito! Falta implementar el code
+
 const buildMercadoPagoPreference = (productDataToMercadoPago, mercadoPagoSuccessUrl, mercadoPagoFailureUrl, code) => {
   return {
     items: productDataToMercadoPago,
     back_urls: {
-      success: `${mercadoPagoSuccessUrl}`, // /?code=${code}&
+      success: `${mercadoPagoSuccessUrl}/?code=${code}&`,
       failure: `${mercadoPagoFailureUrl}`,
       pending: "",
     },
@@ -41,6 +40,7 @@ const buildMercadoPagoPreference = (productDataToMercadoPago, mercadoPagoSuccess
     binary_mode: true,
   };
 }
+
 
 const buildMercadoPagoObject = async (products) => {
   let productDataToMercadoPago = [];

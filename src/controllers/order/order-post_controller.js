@@ -1,14 +1,25 @@
 const{ Order, MenuItem } = require("../../db")
 
+
 const ordersPostController = async ( products, client_data, store_id ) => {
-    let menuItems = await getMenus(products);
-    let total =  menuItems.reduce((accumulator, menu) => accumulator + menu.price, 0);
+    let total = await getTotal(products);
     let searchResult = await Order.findAll({ limit: 1, where: {store_id}, order: [["createdAt", "DESC"]]})
     let code = !searchResult.length ? "A000" : processCode(searchResult[0].code);
-    const result = Order.create({ total, client_data, code, store_id })
-    // Order.addMenuItem(menuItems)
-    return result
+
+    const result = await Order.create({ total, client_data, code, store_id })
+    return result.id
+
 }
+    //Order.addMenuItem(menuItems)
+const getTotal = async (products) => {
+    let retorno = 0;
+    for (const prod of products) {
+      let menu = await MenuItem.findOne({where: { id: prod.id }});
+      retorno += menu.price * prod.quantity;
+    }
+    return retorno;
+  }
+
 const getMenus = async (products) => {
     let arrIds = products.map( prod => prod.id );
     return await MenuItem.findAll({where: { id: arrIds }})
@@ -26,3 +37,23 @@ module.exports = {
     ordersPostController,
     
 }
+
+/*
+const ordersPostController = async ( products, client_data, store_id ) => {
+    let total = await getTotal(products);
+    //let total =  menuItems.reduce((accumulator, menu) => accumulator + menu.price, 0);
+    let searchResult = await Order.findAll({ limit: 1, where: {store_id}, order: [["createdAt", "DESC"]]})
+    let code = !searchResult.length ? "A000" : processCode(searchResult[0].code);
+    const result = Order.create({ total, client_data, code, store_id })
+    //Order.addMenuItem(menuItems)
+    return result
+}
+const getTotal = async (products) => {
+    let retorno = 0;
+    await  products.map( prod => {
+        let menu =  MenuItem.findOne({where: { id: prod.id }})
+        retorno += menu.defaultValues.price * prod.quantity;
+    } );
+    return retorno;
+}
+*/
