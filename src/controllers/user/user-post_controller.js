@@ -5,10 +5,9 @@ const {
 } = require("../HashFunction/security");
 const nodemailer = require("nodemailer");
 
-
 const userPostController = async ( name, last_name, account_name, password, email, phone,
                                   password_question, password_answer, profile_image,  role_id = 1 ) => {
-                                                // Este role_id debería desaparecer
+                                                    // Este role_id debería desaparecer
   try {
     const secret = generateSecret();
     const token = generateToken();
@@ -26,18 +25,7 @@ const userPostController = async ( name, last_name, account_name, password, emai
       "smtps://expressfoodhenry@gmail.com:ngvootjfbrkbefub@smtp.gmail.com"
     );
     const mailOptions = getMailOptions(token, user_email);
-    /*
-    const mailOptions = {
-      from: "ExpressFood",
-      to: user_email,
-      subject: "Activacion de cuenta",
-      html: `Que bueno que estas aqui!, para nosotros es un gusto poder
-         brindarte los mejores platos para tu paladar!, no esperes mas!! da click al siguiente enlace
-         para activar tu cuenta y empezar a disfrutar de esta aventura
-         gastronomica!
-         enlance de activacion: localhost:3001/users/activate_account/${token}`,
-    };
-  */
+
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) return err.message;
     });
@@ -63,65 +51,3 @@ const getMailOptions = (token, user_email) => {
 module.exports = {
   userPostController,
 };
-
-
-/*const passport = require("passport");
-const { User, Password, UsersRoles } = require("../../db");
-const {
-  generateSecret,
-  hashFunction,generateToken
-} = require("../HashFunction/security");
-
-const {sendActivationEmail} = require("../htmlMessageMail/sendActivationEmail")
-
-
-const secret = generateSecret();
-
-
-
-const userPostController = async (
-  name,
-  last_name,
-  account_name,
-  password,
-  email,
-  phone,
-  profile_image,
-  role_id 
-  ) => {
-  try {
-
-    const hashedPass = hashFunction(password, secret);
-    const newUser = await User.create({
-      name,
-      last_name,
-      account_name,
-      password,
-      email,
-      secret,
-      phone,
-      
-      profile_image
-    });
-
-    let user_id = newUser.id;
-    let user_email = newUser.email;
-!role_id ? role_id = 1: role_id = role_id
-    await UsersRoles.create({ RoleId: role_id, UserId: user_id });
-    await Password.create({
-      user_id,
-      password: hashedPass,
-    
-    });
-    sendActivationEmail(user_email )
-    
-    return newUser;
-  } catch (error) {
-    return error.message;
-  }
-};
-
-module.exports = {
-  userPostController,
-};
-

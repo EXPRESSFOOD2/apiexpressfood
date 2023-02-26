@@ -19,11 +19,6 @@ module.exports = (sequelize) => {
                 min: 0
             }
         },
-        is_ready: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
-            allowNull: true,
-        },
         client_data: {
             type: DataTypes.JSON,
             allowNull: true,
@@ -39,13 +34,13 @@ module.exports = (sequelize) => {
             //type: DataTypes.UUIDV4,
             type: DataTypes.STRING,
             defaultValue: "f3bc0474-620c-429d-a46c-df2460c7725a",
-            allowNull: true,
+            allowNull: false,
         },
         status: {
             type: DataTypes.ENUM,
-            values: ["Canceled", "In Progress", "Ready", "Finished"],
-            defaultValue: "In Progress",
-            allowNull: true,
+            values: ["Canceled", "In Progress", "Ready", "Finished", "Unpaid"],
+            defaultValue: "Unpaid",
+            allowNull: false,
         }
     },
     {
