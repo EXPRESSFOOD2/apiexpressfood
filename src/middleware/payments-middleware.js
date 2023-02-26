@@ -1,21 +1,28 @@
+const { validateArraySameStore } = require("../controllers/Utils/aux_controller");
+const { getStoreId } = require("../controllers/HashFunction/security")
+const { MenuItem } = require("../db");
+
 const paymentsMiddleware = (req, res, next) => {
   const products = req.body;
+  //! Store id es TEST
+  const store_id = getStoreId();
+                        
+  if (!Array.isArray(products)) return res.status(400).send( "Request body must be an array");
+  if (!products.length) return  res.status(400).send("Request body must contain at least one product");
 
-  // if (!Array.isArray(products)) return res.status(400).send( "Request body must be an array");
-  // if (!products.length) return  res.status(400).send("Request body must contain at least one product");
-  // products.forEach((product) => {
-  //   if (typeof product !== "object") return  res.status(400).send("Request body must be an objects Array");
-  //   if (
-  //     !product.hasOwnProperty("id_product") ||
-  //     !product.hasOwnProperty("quantity_product")
-  //   )
-  //     return  res.status(400).send("Each product must have a id_product property and quantity_product property");
-  //   if (
-  //     typeof product.id_product !== "number" ||
-  //     typeof product.quantity_product !== "number"
-  //   )
-  //     return  res.status(400).send("product_id and quantity_product properties must be a number");
-  // });
+  if ( !validateArraySameStore(products,store_id,MenuItem)) return  res.status(400).send("Products belongs to diferent Stores!");
+
+  products.forEach((product) => {
+    if (typeof product !== "object") return  res.status(400).send("Request body must be an objects Array");
+    if ( !product.hasOwnProperty("id") || !product.hasOwnProperty("quantity") )
+      return  res.status(400).send("Each product must have a id property and quantity property");
+    if (
+      typeof product.id !== "number" ||
+      typeof product.quantity !== "number"
+    )
+      return  res.status(400).send("product_id and quantity properties must be a number");
+    if (product.quantity < 1 ) return  res.status(400).send("Quantity must be bigger than 1");
+  });
 
   next();
 };

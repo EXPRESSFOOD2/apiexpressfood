@@ -1,5 +1,5 @@
 const { conn, Op } = require("../db");
-const { User } = conn.models;
+const { User, Role } = conn.models;
 const { INVAME_NAME_OR_ACCOUNT, EMAIL_REGEX, INVALID_NAME, INVALID_LAST_NAME,
         ALPHA_REGEX, MIN_PASS_LENGTH, PASSWORD_TO_SHORT, INVALID_EMAIL,
         MIN_QUESTION_LENGTH, INVALID_QUESTION, MIN_ANSWER_LENGTH, INVALID_ANSWER,
@@ -16,13 +16,13 @@ const isExistingUser = async (account_name, email) => {
 }
 
 const processUserPost = async (req,res) => {
-    const { name, last_name, account_name, password, email, phone, password_question, password_answer } = req.body;
+    const { name, last_name, account_name, password, email, phone, role_id  } = req.body;
     let { profile_image } = req.body;
 
     try {
         if (!profile_image || !profile_image.length) profile_image = DEFAULT_IMG;
-        await validateUser(name, last_name, account_name, password, email, phone, password_question, password_answer);
-        const result = await userPostController(name, last_name, account_name, password, email, phone, password_question, password_answer, profile_image )
+        await validateUser(name, last_name, account_name, password, email, phone, role_id);
+        const result = await userPostController(name, last_name, account_name, password, email, phone,  profile_image )
      
 
         return res.status(201).json(result)
@@ -31,14 +31,13 @@ const processUserPost = async (req,res) => {
     }
 }
 
-const validateUser = async (name, last_name, account_name, password, email, phone, password_question, password_answer) => {
+const validateUser = async (name, last_name, account_name, password, email, phone, ) => {
     if (await isExistingUser(account_name, email)) throw Error(INVAME_NAME_OR_ACCOUNT);
     if (!name.trim() || !ALPHA_REGEX.test(name)) throw Error( INVALID_NAME);
     if (!last_name.trim().length || !ALPHA_REGEX.test(last_name)) throw Error( INVALID_LAST_NAME);
     if (password.trim().length < MIN_PASS_LENGTH ) throw Error(PASSWORD_TO_SHORT);
     if (!EMAIL_REGEX.test(email)) throw Error(INVALID_EMAIL);
-    if (!password_question || password_question.length < MIN_QUESTION_LENGTH) throw Error(INVALID_QUESTION);
-    if (!password_answer || password_answer.length < MIN_ANSWER_LENGTH) throw Error(INVALID_ANSWER);
+    
 }
 
 const processUserLogin = async (req,res) => {
@@ -70,10 +69,31 @@ const processActivateAccount = async (req,res) => {
         return res.status(400).json({ error: error.message })
     }
 }
+const processGetAllRoles = async (req,res) => {
+   
+
+    try {
+        let roles = await Role.findAll({
+            where: {
+              id: {
+                [Op.between]: [2,4]
+              }
+            }
+          });
+
+          roles = roles.map(({ id, name }) => ({ id, name }));
+        if(roles.length){
+        
+    return res.status(200).send( roles )
+}
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
 
 
 module.exports = {
     processUserPost,
     processUserLogin,
-    processActivateAccount
+    processActivateAccount,processGetAllRoles
 }

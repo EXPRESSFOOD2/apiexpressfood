@@ -1,54 +1,60 @@
-const {Router} = require('express');
-const passport = require('passport');
-const GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
-const jwt = require('jsonwebtoken')
-const router = Router()
 
 
-let user = {}
+const { Router } = require("express");
+const passport = require("passport");
+const GoogleStrategy = require("passport-google-oauth2").Strategy;
+const jwt = require("jsonwebtoken");
+const router = Router();
 
-passport.use(new GoogleStrategy({
-    
+let user = {};
 
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    // callbackURL: "http://localhost:3001/auth/google/callback" ,
-    callbackURL: "https://apiexpressfood.up.railway.app/auth/google/callback" ,
+passport.use(
+  new GoogleStrategy(
+    {
+      //! mis credentials desde google auth - proces.env
 
-   
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: process.env.GOOOGLE_CALLBACK_URL_LOCAL ||  process.env.GOOOGLE_CALLBACK_URL_DEPLOY,
+     
 
-    passReqToCallback   : true
-  },
-  function(request, accessToken, refreshToken, profile, done) {
-       
-        
-        
-      
-        return done(null,profile);
-        
-        // todo aca se puede capturar y guardar en la bd 
-        // User.findOrCreate({ googleId: profile.id }, function (err, user) {
-            //   return done(err, user);
-  // });
-  }
-  ));
+      passReqToCallback: true,
+    },
+    function (request, accessToken, refreshToken, profile, done) {
+      // console.log(profile);
+      console.log(profile, "asdasda");
 
-  passport.serializeUser((user, done) => {
-    done(null, user.id);
-  });
-  
-  passport.deserializeUser((user, done) => {
-    
-      done(null, user);
-    
-  });
- 
-  
+      return done(null, profile);
 
+      // todo aca se puede capturar y guardar en la bd
+      // User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      //   return done(err, user);
+      // });
+    }
+  )
+);
 
-router.get('/google',
-  passport.authenticate('google', { scope: [ 'email', 'profile' ] }
-));
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+
+router.get(
+  "/google",
+  passport.authenticate("google", { scope: ["email", "profile"] })
+);
+
+router.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    // ! ruta del front que redirija al login
+    failureRedirect: "/auth/failure",
+  }),
+  function (req, res) {
+
 
 router.get( '/google/callback',
     passport.authenticate( 'google', {
@@ -56,54 +62,59 @@ router.get( '/google/callback',
         failureRedirect: '/auth/failure'}),function(req, res) {
     
     //! guardamos la data de la sesion para enviar al front 
+
     user = req.user;
-    const payload = { 
+    const payload = {
       userId: user.id,
       username: user.displayName,
-      email: user.emails[0].value
-  };
-  const secretOrPrivateKey = 'mi_clave_secreta_123';
-  const token = jwt.sign(payload, secretOrPrivateKey);
+      email: user.emails[0].value,
+    };
+    const secretOrPrivateKey = "mi_clave_secreta_123";
+    const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
-    
-  
-    res.redirect(`https://spacefood.up.railway.app/?user=${JSON.stringify({userName : user.displayName,photo:user.photos[0].value,id:user.id})}`);
-    
-    
-   
-  });
-  
-  
-  router.get('/google_user', (req, res) => {
-      
-    const accessToken = jwt.sign(
-      {
-         id: user.id,
-         name: user.name,
-         email: user.email,
-         avatar: user.avatar,
-         provider: 'google'
-      },
-      'aquivaeltoken',
-      { expiresIn: "3d" }
-  )
-
-  const { password, ...others } = user._doc 
-   //! con use efect para realizar el cargue de la info al front
-   console.log(accessToken);
-   res.send(user)
-
-  });
 
 
-  router.get('/failure', (req, res) => {
-  
-    res.send('Error en la autenticacion')
-  })
+    let rediectLocal =  `http://localhost:3000/?user=${JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+    })}`
+    let rediectDeploy =  `https://spacefood.up.railway.app/?user=${JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+    })}`
 
+    res.redirect( `http://localhost:3000/?user=${JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+    })}` );
+  }
+);
 
+router.get("/google_user", (req, res) => {
+  const accessToken = jwt.sign(
+    {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      avatar: user.avatar,
+      provider: "google",
+    },
+    "aquivaeltoken",
+    { expiresIn: "3d" }
+  );
 
+  const { password, ...others } = user._doc;
+  //! con use efect para realizar el cargue de la info al front
+  console.log(accessToken);
+  res.send(user);
+});
 
+router.get("/failure", (req, res) => {
+  res.send("Error en la autenticacion");
+});
 
+module.exports = router;
 
-module.exports = router

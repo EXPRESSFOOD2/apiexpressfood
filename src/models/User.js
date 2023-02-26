@@ -64,10 +64,7 @@ module.exports = (sequelize) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         },
-        activation_token: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
+    
         profile_image: {
             type: DataTypes.STRING,
             allowNull: true

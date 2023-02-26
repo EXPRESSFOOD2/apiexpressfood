@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const { INVALID_PRICE } = require("./utils/Order-ErrorMSGs");
+const { ORDER_STATUS } = require("./utils/constants")
 
 module.exports = (sequelize) => {
     sequelize.define('Order', {
@@ -15,17 +16,40 @@ module.exports = (sequelize) => {
             allowNull: false,
             validate: {
                 isDecimal: { msg: INVALID_PRICE },
-                isNull: { msg: INVALID_PRICE },
+                //isNull: { msg: INVALID_PRICE },
                 min: 0
             }
-        },
-        is_ready: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
         },
         client_data: {
             type: DataTypes.JSON,
             allowNull: true,
+        },
+        code: {
+            type: DataTypes.STRING(4),
+            allowNull: true,
+            defaultValue: "A000"
+        },
+        store_id: {
+            //! TODO
+            // Eliminar DefaulValue y default value
+            //type: DataTypes.UUIDV4,
+            type: DataTypes.STRING,
+            defaultValue: "f3bc0474-620c-429d-a46c-df2460c7725a",
+            allowNull: false,
+        },
+        status: {
+            type: DataTypes.ENUM,
+            values: ORDER_STATUS,
+            defaultValue: ORDER_STATUS[0],
+            allowNull: false,
+        },
+        payment_data: {
+            type: DataTypes.JSON,
+            allowNull: true
         }
-    },{ timestamps: true, paranoid: true })
+    },
+    {
+        timestamps: true,
+        paranoid: true,
+    })
 }

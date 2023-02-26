@@ -1,42 +1,69 @@
 // const request = require('request')
-const mercadopago = require('mercadopago');
+const { MenuItem } = require("../../db");
+const mercadopago = require("mercadopago");
+const { getMercadoPagoSuccessUrl, getMercadoPagoFailureUrl, getStoreId } = require("../HashFunction/security")
+const { ordersPostController } = require("../order/order-post_controller")
+
+                                                              //! FAKE USER DATA
+const paymentsControllerPost = async (products, client_data = "alpharus2k@gmail.com") => {
+  let productDataToMercadoPago = await buildMercadoPagoObject(products);
+
+  mercadopago.configure({
+    public_key: process.env.MERCADOPAGO_PUBLIC_KEY,
+    access_token: process.env.MERCADOPAGO_ACCESS_TOKEN,
+  });
+  const store_id = getStoreId();
+  let mercadoPagoSuccessUrl = getMercadoPagoSuccessUrl();
+  let mercadoPagoFailureUrl = getMercadoPagoFailureUrl();
+  let code = await ordersPostController( products, client_data, store_id );
+  let preference = buildMercadoPagoPreference(productDataToMercadoPago, mercadoPagoSuccessUrl, mercadoPagoFailureUrl, code)
+
+  try {
+    const result = await mercadopago.preferences.create(preference);
+
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
 
 
-
-const paymentsControllerPost =async (product) =>{
-
-
-    
-mercadopago.configure({public_key:process.env.MERCADOPAGO_PUBLIC_KEY, access_token:process.env.MERCADOPAGO_ACCESS_TOKEN})
-        
-    let preference = {
-        items:[{
-            id:123,
-            tittle:product.tittle,
-            currency_id: 'ARS',
-            picture_url: product.image,
-            description: product.description,
-            category_id: 'art',
-            quantity:1,
-unit_price: product.price}
-    ],
-    back_urls:{
-        success: "http://localhost:3000",
-        failure: '',
-        pending:'',
+const buildMercadoPagoPreference = (productDataToMercadoPago, mercadoPagoSuccessUrl, mercadoPagoFailureUrl, code) => {
+  return {
+    items: productDataToMercadoPago,
+    back_urls: {
+      success: `${mercadoPagoSuccessUrl}/?code=${code}&`,
+      failure: `${mercadoPagoFailureUrl}`,
+      pending: "",
     },
-    auto_return: 'approved',
-    binary_mode: true
-    }
-try {
-    const result =  await mercadopago.preferences.create(preference)
-   return result
-} catch (error) {
-    return error.message
-}
-   
+    auto_return: "all",
+    binary_mode: true,
+  };
 }
 
 
+const buildMercadoPagoObject = async (products) => {
+  let productDataToMercadoPago = [];
+  for (let i = 0; i < products.length; i++) {
+    let preference = await getData(products[i].id);
+    productDataToMercadoPago.push({
+      id: preference.id,
+      tittle: preference.name,
+      currency_id: "ARS",
+      description: preference.description.slice(0, 255),
+      category_id: "art",
+      quantity: products[i].quantity,
+      unit_price: preference.price,
+    });
+  }
+  return productDataToMercadoPago;
+}
 
-module.exports = {paymentsControllerPost}
+// función para obtener el precio de un producto dado su ID y otros datos necesarios
+const getData = async (productId) => {
+  const product = await MenuItem.findByPk(productId);
+  return product.dataValues;
+};
+
+
+module.exports = { paymentsControllerPost };
