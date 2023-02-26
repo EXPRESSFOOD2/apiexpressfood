@@ -8,7 +8,7 @@ const paymentsMiddleware = (req, res, next) => {
 
   if (!Array.isArray(products)) return res.status(400).send( "Request body must be an array");
   if (!products.length) return  res.status(400).send("Request body must contain at least one product");
-  if (validateArraySameStore(products,store_id,MenuItem)) return  res.status(400).send("Products belongs to diferent Stores!");
+  // if (validateArraySameStore(products,store_id,MenuItem)) return  res.status(400).send("Products belongs to diferent Stores!");
   products.forEach((product) => {
     if (typeof product !== "object") return  res.status(400).send("Request body must be an objects Array");
     if (
