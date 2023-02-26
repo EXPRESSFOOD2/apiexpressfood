@@ -1,7 +1,7 @@
 const { User, Password, UsersRoles } = require("../../db");
 const {
   generateSecret,
-  hashFunction,generateToken
+  hashFunction
 } = require("../HashFunction/security");
 const nodemailer = require("nodemailer");
 
@@ -11,10 +11,9 @@ const userPostController = async ( name, last_name, account_name, password, emai
                                                 // Este role_id debería desaparecer
   try {
     const secret = generateSecret();
-    const token = generateToken();
     const hashedPass = hashFunction(password, secret);
     const newUser = await User.create({name, last_name, account_name, password, email,
-                                      secret, phone, activation_token: token, profile_image });
+                                      secret, phone, activation_token:  profile_image });
     let user_id = newUser.id;
     let user_email = newUser.email;
 
@@ -25,7 +24,7 @@ const userPostController = async ( name, last_name, account_name, password, emai
     const transporter = nodemailer.createTransport(
       "smtps://expressfoodhenry@gmail.com:ngvootjfbrkbefub@smtp.gmail.com"
     );
-    const mailOptions = getMailOptions(token, user_email);
+    const mailOptions = getMailOptions( user_email);
     /*
     const mailOptions = {
       from: "ExpressFood",
@@ -47,7 +46,7 @@ const userPostController = async ( name, last_name, account_name, password, emai
   }
 };
 
-const getMailOptions = (token, user_email) => {
+const getMailOptions = ( user_email) => {
   return {
     from: "ExpressFood",
     to: user_email,
@@ -56,7 +55,7 @@ const getMailOptions = (token, user_email) => {
        brindarte los mejores platos para tu paladar!, no esperes mas!! da click al siguiente enlace
        para activar tu cuenta y empezar a disfrutar de esta aventura
        gastronomica!
-       enlance de activacion: localhost:3001/users/activate_account/${token}`,
+       enlance de activacion: localhost:3001/users/activate_account`
   };
 }
 
