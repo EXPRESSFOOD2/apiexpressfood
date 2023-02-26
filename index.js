@@ -19,7 +19,7 @@ conn.sync({alter: true}).then(() => {
 */
 const io = new Server(server,{
   cors: {
-    origin: `['http://localhost:3000', 'http://localhost:3001']`
+    origin: process.env.SOCKET_ALLOW_ORIGINS_LOCAL || process.env.SOCKET_ALLOW_ORIGINS_DEPLOY 
   }
 })
 
