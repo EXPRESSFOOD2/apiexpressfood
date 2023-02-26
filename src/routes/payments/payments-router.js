@@ -3,7 +3,7 @@ const router = Router();
 const { paymentsControllerPost } = require("../../controllers/Payments/payments-controller")
 const { paymentsSuccessProcess } = require("../../controllers/Payments/payments-success-controler")
 const { paymentsMiddleware } = require("../../middleware/payments-middleware")
-
+const { paymentsFailureProcess } = require("../../controllers/Payments/payments-failure-controler")
 
 router.post("/create", paymentsMiddleware,  async(req, res)=>{
     const product = req.body
@@ -21,14 +21,14 @@ router.get("/success", async(req, res)=>{
     //! Probar Modificar
     let redirectUrl = await paymentsSuccessProcess(successResponse) //!AQUI SE INVOCA EL CONTROLADOR DE LA LOGICA CON DB PASANDOLE VARIABLEE PRODUCT
     //! Console.log
-
+    //console.log(redirectUrl);
     res.status(200).redirect(redirectUrl)
         
     }
  );
 router.get("/fail", async(req, res)=>{
     const failureResponse = req.query
-    
+    let redirectUrl = await paymentsFailureProcess(failureResponse)
     res.status(400).redirect(redirectUrl)
     }
  );
