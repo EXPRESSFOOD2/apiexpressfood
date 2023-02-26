@@ -14,8 +14,8 @@ passport.use(
 
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3002/auth/google/callback",
-      // callbackURL: "https://apiexpressfood.up.railway.app/auth/google/callback" ,
+      callbackURL: process.env.GOOOGLE_CALLBACK_URL_LOCAL ||  process.env.GOOOGLE_CALLBACK_URL_DEPLOY,
+     
 
       passReqToCallback: true,
     },
@@ -66,14 +66,18 @@ router.get(
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
 
+    let rediectLocal =  `http://localhost:3000/?user=${JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+    })}`
+    let rediectDeploy =  `https://spacefood.up.railway.app/?user=${JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+    })}`
 
-    res.redirect(
-      `https://spacefood.up.railway.app/?user=${JSON.stringify({
-        userName: user.displayName,
-        photo: user.photos[0].value,
-        id: user.id,
-      })}`
-    );
+    res.redirect(  rediectLocal || rediectDeploy );
   }
 );
 
