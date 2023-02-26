@@ -10,10 +10,9 @@ const filePath = path.join(__dirname, "../htmlMessageMail/message.html"); // con
 const html = fs.readFileSync(filePath, "utf-8"); //
 
 
-
 const userPostController = async ( name, last_name, account_name, password, email, phone,
                                   password_question, password_answer, profile_image,  role_id = 1 ) => {
-                                                // Este role_id debería desaparecer
+                                                    // Este role_id debería desaparecer
   try {
     const secret = generateSecret();
     
@@ -30,7 +29,9 @@ const userPostController = async ( name, last_name, account_name, password, emai
     const transporter = nodemailer.createTransport(
       "smtps://expressfoodhenry@gmail.com:ngvootjfbrkbefub@smtp.gmail.com"
     );
+
     const mailOptions = getMailOptions( user_email);
+
 
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) return err.message;

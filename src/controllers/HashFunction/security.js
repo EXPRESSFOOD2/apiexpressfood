@@ -26,7 +26,6 @@ const hashFunction = (pass, secret) => {
 }
 
 const validateAccountPassword = async (userId, hashedPass) => {
-    
     const result = await Password.findOne({where: {
         [Op.and]: [
           { user_id: userId },
@@ -53,16 +52,28 @@ const generateSecret = () => {
 
 
 
+const getMercadoPagoFailureUrl = () => {
+  return process.env.PAYMENT_FAIL_LOCAL_URL || process.env.PAYMENT_FAIL_DEPLOY_URL;
+}
+
+
+const getMercadoPagoSuccessUrl = () => {
+  return process.env.PAYMENT_SUCCESS_LOCAL_URL || process.env.PAYMENT_SUCCESS_DEPLOY_URL;
+}
+
 
 const getStoreId = () => {
   //! TODO
   // Revisar implementacion
   return "f3bc0474-620c-429d-a46c-df2460c7725a"
 }
+
+
 module.exports =  {
     hashFunction,
     generateSecret,
     validateAccountPassword,
-
+    getMercadoPagoSuccessUrl,
+    getMercadoPagoFailureUrl,
     getStoreId,
 }
