@@ -14,8 +14,8 @@ passport.use(
 
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3002/auth/google/callback",
-      // callbackURL: "https://apiexpressfood.up.railway.app/auth/google/callback" ,
+      callbackURL: process.env.GOOOGLE_CALLBACK_URL_LOCAL ||  process.env.GOOOGLE_CALLBACK_URL_DEPLOY,
+     
 
       passReqToCallback: true,
     },
