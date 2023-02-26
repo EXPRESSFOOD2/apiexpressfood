@@ -1,10 +1,11 @@
 const { User, Password, UsersRoles } = require("../../db");
 const {
   generateSecret,
-  hashFunction,
+  hashFunction
 } = require("../HashFunction/security");
 const fs = require("fs");
 const path = require("path");
+const nodemailer = require("nodemailer");
 
 const filePath = path.join(__dirname, "../htmlMessageMail/message.html"); // construct the absolute file path
 const html = fs.readFileSync(filePath, "utf-8"); //
@@ -15,10 +16,9 @@ const userPostController = async ( name, last_name, account_name, password, emai
                                                     // Este role_id debería desaparecer
   try {
     const secret = generateSecret();
-    
     const hashedPass = hashFunction(password, secret);
     const newUser = await User.create({name, last_name, account_name, password, email,
-                                      secret, phone, profile_image });
+                                      secret, phone, activation_token:  profile_image });
     let user_id = newUser.id;
     let user_email = newUser.email;
 
@@ -32,7 +32,6 @@ const userPostController = async ( name, last_name, account_name, password, emai
 
     const mailOptions = getMailOptions( user_email);
 
-
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) return err.message;
     });
@@ -41,7 +40,6 @@ const userPostController = async ( name, last_name, account_name, password, emai
     return error.message;
   }
 };
-
 const getMailOptions = (user_email) => {
   return {
     from: "ExpressFood",

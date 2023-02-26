@@ -5,8 +5,10 @@ const ordersPostController = async ( products, client_data, store_id ) => {
     let total = await getTotal(products);
     let searchResult = await Order.findAll({ limit: 1, where: {store_id}, order: [["createdAt", "DESC"]]})
     let code = !searchResult.length ? "A000" : processCode(searchResult[0].code);
+
     const result = await Order.create({ total, client_data, code, store_id })
     return result.id
+
 }
     //Order.addMenuItem(menuItems)
 const getTotal = async (products) => {

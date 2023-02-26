@@ -11,7 +11,7 @@ router.post("/create", paymentsMiddleware,  async(req, res)=>{
         const result  = await paymentsControllerPost(product)
         return res.status(200).send(result.body.init_point)
     } catch (error) {
-        return res.status(400).send(error)
+        return res.status(400).send(error.message)
     }
     }
 );
