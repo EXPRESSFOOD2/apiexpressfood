@@ -1,7 +1,7 @@
 // const request = require('request')
 const { MenuItem } = require("../../db");
 const mercadopago = require("mercadopago");
-const { get } = require("../../routes/payments/payments-router");
+
 
 const paymentsControllerPost = async (products) => {
   let productDataToMercadoPago = [];
@@ -33,8 +33,8 @@ const paymentsControllerPost = async (products) => {
   let preference = {
     items: productDataToMercadoPago,
     back_urls: {
-      success: "https://spacefood.up.railway.app",
-      failure: "",
+      success: process.env.PAYMENT_SUCCESS_LOCAL_URL || process.env.PAYMENT_SUCCESS_DEPLOY_URL,
+      failure: process.env.PAYMENT_FAIL_LOCAL_URL || process.env.PAYMENT_FAIL_DEPLOY_URL,
       pending: "",
     },
     auto_return: "all",
