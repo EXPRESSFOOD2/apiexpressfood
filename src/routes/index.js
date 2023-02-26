@@ -77,7 +77,7 @@ router.use("/tags/update", tagsPatchRouter);
 
 
 //!PAYPAL
-router.use("/payments/create", PaymentRouter)
+router.use("/payments", PaymentRouter)
 //! auth google
 router.use("/auth",authGoogle )
 

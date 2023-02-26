@@ -1,6 +1,6 @@
 const server = require('./src/app.js');
 const {conn} = require('./src/db.js');
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 const Seed = require("./src/seeds/index")
 const { Server } = require('socket.io')
 
@@ -19,7 +19,7 @@ conn.sync({alter: true}).then(() => {
 */
 const io = new Server(server,{
   cors: {
-    origin: 'http://localhost:3000'
+    origin: `['http://localhost:3000', 'http://localhost:3001']`
   }
 })
 

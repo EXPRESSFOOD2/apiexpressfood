@@ -36,7 +36,7 @@ const menuItemsGetRecommendedController = async (store_id) => {
 };
 
 const menuItemsGetByIdController = async (id, store_id) => {
-  const result = await MenuItem.findOne({where: {id, store_id}, include:{ model: Tag }});
+  const result = await MenuItem.findOne({where: {id, store_id}, include:[{ model: Tag  }, { model: Ingredient  }]});
   return result;
 }
 

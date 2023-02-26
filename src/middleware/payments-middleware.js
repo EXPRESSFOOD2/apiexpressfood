@@ -1,7 +1,6 @@
 const paymentsMiddleware = (req, res, next) => {
   const products = req.body;
 
-
   if (!Array.isArray(products)) return res.status(400).send( "Request body must be an array");
   if (!products.length) return  res.status(400).send("Request body must contain at least one product");
   products.forEach((product) => {
@@ -15,7 +14,7 @@ const paymentsMiddleware = (req, res, next) => {
       typeof product.id !== "number" ||
       typeof product.quantity !== "number"
     )
-      return  res.status(400).send("id and quantity properties must be a number");
+      return  res.status(400).send("product_id and quantity properties must be a number");
   });
 
   next();
