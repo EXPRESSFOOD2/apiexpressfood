@@ -1,4 +1,5 @@
 
+
 const { Router } = require("express");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
@@ -54,8 +55,14 @@ router.get(
   }),
   function (req, res) {
 
-  
-    //! guardamos la data de la sesion para enviar al front
+
+router.get( '/google/callback',
+    passport.authenticate( 'google', {
+      // ! ruta del front que redirija al login
+        failureRedirect: '/auth/failure'}),function(req, res) {
+    
+    //! guardamos la data de la sesion para enviar al front 
+
     user = req.user;
     const payload = {
       userId: user.id,
@@ -65,6 +72,7 @@ router.get(
     const secretOrPrivateKey = "mi_clave_secreta_123";
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
+
 
     let rediectLocal =  `http://localhost:3000/?user=${JSON.stringify({
       userName: user.displayName,
@@ -109,3 +117,4 @@ router.get("/failure", (req, res) => {
 });
 
 module.exports = router;
+
