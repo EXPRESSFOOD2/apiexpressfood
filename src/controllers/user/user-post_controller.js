@@ -3,12 +3,17 @@ const {
   generateSecret,
   hashFunction
 } = require("../HashFunction/security");
+const fs = require("fs");
+const path = require("path");
 const nodemailer = require("nodemailer");
+
+const filePath = path.join(__dirname, "../htmlMessageMail/message.html"); // construct the absolute file path
+const html = fs.readFileSync(filePath, "utf-8"); //
 
 
 const userPostController = async ( name, last_name, account_name, password, email, phone,
                                   password_question, password_answer, profile_image,  role_id = 1 ) => {
-                                                // Este role_id debería desaparecer
+                                                    // Este role_id debería desaparecer
   try {
     const secret = generateSecret();
     const hashedPass = hashFunction(password, secret);
@@ -24,19 +29,9 @@ const userPostController = async ( name, last_name, account_name, password, emai
     const transporter = nodemailer.createTransport(
       "smtps://expressfoodhenry@gmail.com:ngvootjfbrkbefub@smtp.gmail.com"
     );
+
     const mailOptions = getMailOptions( user_email);
-    /*
-    const mailOptions = {
-      from: "ExpressFood",
-      to: user_email,
-      subject: "Activacion de cuenta",
-      html: `Que bueno que estas aqui!, para nosotros es un gusto poder
-         brindarte los mejores platos para tu paladar!, no esperes mas!! da click al siguiente enlace
-         para activar tu cuenta y empezar a disfrutar de esta aventura
-         gastronomica!
-         enlance de activacion: localhost:3001/users/activate_account/${token}`,
-    };
-  */
+
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) return err.message;
     });
@@ -45,22 +40,15 @@ const userPostController = async ( name, last_name, account_name, password, emai
     return error.message;
   }
 };
-
-const getMailOptions = ( user_email) => {
+const getMailOptions = (user_email) => {
   return {
     from: "ExpressFood",
     to: user_email,
-    subject: "Activacion de cuenta",
-    html: `Que bueno que estas aqui!, para nosotros es un gusto poder
-       brindarte los mejores platos para tu paladar!, no esperes mas!! da click al siguiente enlace
-       para activar tu cuenta y empezar a disfrutar de esta aventura
-       gastronomica!
-       enlance de activacion: localhost:3001/users/activate_account`
+    subject: "Registro Existoso",
+    html: html
   };
 }
 
 module.exports = {
   userPostController,
 };
-
-
