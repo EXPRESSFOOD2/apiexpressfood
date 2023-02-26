@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const router = Router();
 
 let user = {};
-console.log("tuki");
+
 passport.use(
   new GoogleStrategy(
     {
@@ -54,7 +54,7 @@ router.get(
   }),
   function (req, res) {
 
-    console.log(req.user.id);
+  
     //! guardamos la data de la sesion para enviar al front
     user = req.user;
     const payload = {
@@ -77,7 +77,11 @@ router.get(
       id: user.id,
     })}`
 
-    res.redirect( rediectDeploy );
+    res.redirect( `http://localhost:3000/?user=${JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+    })}` );
   }
 );
 
