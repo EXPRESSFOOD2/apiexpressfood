@@ -113,6 +113,4 @@ router.get("/google_user", (req, res) => {
 router.get("/failure", (req, res) => {
   res.send("Error en la autenticacion");
 });
-
 module.exports = router;
-
