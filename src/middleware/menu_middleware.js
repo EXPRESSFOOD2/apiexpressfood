@@ -28,7 +28,7 @@ const processMenuPost = async (req, res) => {
 
 const validateMenuItem = async ( name,description,price,recomend_first,stock,is_active, url_image, ingredArray, store_id ) => {
     if ( !name || !name.trim().length ) throw Error(ERROR_NAME);
-    */if ( isItAnExistingModelByName(name, store_id, MenuItem) ) throw Error(`${DUPLICATED_MENU_NAME}${name}`);;*/
+    /*if ( isItAnExistingModelByName(name, store_id, MenuItem) ) throw Error(`${DUPLICATED_MENU_NAME}${name}`);;*/
     if ( !description || !description.trim().length) throw Error(INVALID_DECRIPTION);
     //if ( !isNaN(parseInt(price)) ) throw Error(ERROR_PRICE.PRICE_IS_STRING)
     if ( price <= 0) throw Error(ERROR_PRICE.ERROR_PRICE_LESS_0)
