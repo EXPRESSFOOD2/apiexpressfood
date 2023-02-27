@@ -1,3 +1,4 @@
+const { or } = require("sequelize");
 const { Order } = require("../../db");
 const { ORDER_STATUS } = require("../../models/utils/constants")
 const {sendEmail} = require('../htmlMessageMail/sendActivationEmail')
@@ -9,6 +10,10 @@ const paymentsSuccessProcess = async (successResponse) => {
                                   { where: { id: successResponse.code } });
   let order = await Order.findOne({where: {id: successResponse.code}})
   //! ACA vA el ENVIO DE EMAIL
+
+const email = order.dataValues.client_data.email
+const orderCode = order.dataValues.code
+sendEmail(email, orderCode)
   return `${redirectUrl}${order.code}`
 };
 
