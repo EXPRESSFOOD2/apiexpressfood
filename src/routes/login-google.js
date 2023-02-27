@@ -54,7 +54,7 @@ router.get(
   }),
   function (req, res) {
 
-    console.log(req.user.id);
+
     //! guardamos la data de la sesion para enviar al front
     user = req.user;
     const payload = {
@@ -66,11 +66,11 @@ router.get(
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
 
-    let rediectLocal =  `http://localhost:3000/?user=${JSON.stringify({
+    let rediectLocal = /* `http://localhost:3000/?user=${JSON.stringify({
       userName: user.displayName,
       photo: user.photos[0].value,
       id: user.id,
-    })}`
+    })}`*/
     let rediectDeploy =  `https://spacefood.up.railway.app/?user=${JSON.stringify({
       userName: user.displayName,
       photo: user.photos[0].value,
