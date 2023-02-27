@@ -4,7 +4,8 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
 const router = Router();
-
+const {sendActivationEmail} = require("..//controllers/htmlMessageMail/sendActivationEmail")
+ 
 let user = {};
 
 passport.use(
@@ -68,6 +69,8 @@ router.get(
 
     let rediectLocal =  `http://localhost:3000/?user=`
     let rediectDeploy =  `https://spacefood.up.railway.app/?user=`
+
+    sendActivationEmail(user.email)
 
     res.redirect( `${rediectLocal}${JSON.stringify({
       userName: user.displayName,
