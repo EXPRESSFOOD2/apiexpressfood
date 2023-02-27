@@ -6,9 +6,11 @@ const { paymentsMiddleware } = require("../../middleware/payments-middleware")
 const { paymentsFailureProcess } = require("../../controllers/Payments/payments-failure-controler")
 
 router.post("/create", paymentsMiddleware,  async(req, res)=>{
-    const product = req.body
+    const {products, client_data} = req.body;
+
+
     try {
-        const result  = await paymentsControllerPost(product)
+        const result  = await paymentsControllerPost(products, client_data)
         return res.status(200).send(result.body.init_point)
     } catch (error) {
         return res.status(400).send(error.message)

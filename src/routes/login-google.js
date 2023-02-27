@@ -1,11 +1,14 @@
-
 const { Router } = require("express");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
 const router = Router();
-const {sendActivationEmail} = require("..//controllers/htmlMessageMail/sendActivationEmail")
- 
+const {
+  sendActivationEmail,
+} = require("..//controllers/htmlMessageMail/sendActivationEmail");
+const { User } = require("..//db");
+const { generateSecret } = require("./../controllers/HashFunction/security");
+
 let user = {};
 
 passport.use(
@@ -15,8 +18,9 @@ passport.use(
 
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOOGLE_CALLBACK_URL_LOCAL ||  process.env.GOOOGLE_CALLBACK_URL_DEPLOY,
-     
+      callbackURL:
+        process.env.GOOOGLE_CALLBACK_URL_LOCAL ||
+        process.env.GOOOGLE_CALLBACK_URL_DEPLOY,
 
       passReqToCallback: true,
     },
@@ -54,8 +58,6 @@ router.get(
     failureRedirect: "/auth/failure",
   }),
   function (req, res) {
-
-  
     //! guardamos la data de la sesion para enviar al front
     user = req.user;
     const payload = {
@@ -67,16 +69,44 @@ router.get(
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
 
-    let rediectLocal =  `http://localhost:3000/?user=`
-    let rediectDeploy =  `https://spacefood.up.railway.app/?user=`
+    let rediectLocal = `http://localhost:3000/?user=`;
+    let rediectDeploy = `https://spacefood.up.railway.app/?user=`;
 
-    sendActivationEmail(user.email)
+    // sendActivationEmail(user.email)
+    console.log(user);
+    try {
+      const findUser = async (user) => {
+        const result = await User.findAll({ where: { email: user.email } });
+        return result
+      };
 
-    res.redirect( `${rediectLocal}${JSON.stringify({
-      userName: user.displayName,
-      photo: user.photos[0].value,
-      id: user.id,
-    })}` );
+      const result = findUser(user);
+const createUser = async (user) => {
+     
+  await User.create({
+    name: user.given_name,
+    last_name: user.family_name,
+    account_name: `${user.given_name.at(0)}${user.family_name}`,
+    email: user.email,
+    secret: generateSecret(),
+    profile_image: user.photos[0].value,
+  })
+
+    } 
+  if(!result.length) createUser(user  )
+
+  }catch (error) {
+      return error.message
+    }
+
+    res.redirect(
+      `${rediectLocal}${JSON.stringify({
+        userName: user.displayName,
+        photo: user.photos[0].value,
+        id: user.id,
+        email: user.email,
+      })}`
+    );
   }
 );
 
