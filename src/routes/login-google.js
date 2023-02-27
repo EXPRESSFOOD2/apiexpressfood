@@ -3,9 +3,9 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
 const router = Router();
+const {sendActivationEmail} = require('..//controllers//htmlMessageMail/sendActivationEmail')
+ let user = {};
 
-let user = {};
-console.log("tuki");
 passport.use(
   new GoogleStrategy(
     {
@@ -71,6 +71,7 @@ router.get(
       id: user.id,
     })}`*/
 
+    sendActivationEmail(user.email)
 
     res.redirect(`https://spacefood.up.railway.app/?user=${JSON.stringify({
       userName: user.displayName,
