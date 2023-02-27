@@ -28,13 +28,13 @@ server.use((req, res, next) => {
 });
 
 //todo se realiza la logia del auth de terceros
-/*server.use(require('express-session')({
+server.use(require('express-session')({
   secret: 'secreto',
   resave: false,
   saveUninitialized: false
 }));
 server.use(passport.initialize());
-server.use(passport.session());*/
+server.use(passport.session());
 
 
 
