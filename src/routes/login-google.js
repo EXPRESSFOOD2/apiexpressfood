@@ -83,7 +83,7 @@ router.get( '/google/callback',
       id: user.id,
     })}`
 
-    res.redirect( `http://localhost:3000/?user=${JSON.stringify({
+    res.redirect( `http://localhost:3002/?user=${JSON.stringify({
       userName: user.displayName,
       photo: user.photos[0].value,
       id: user.id,
