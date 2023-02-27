@@ -3,9 +3,10 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
 const router = Router();
-
+const {sendActivationEmail} = require("..//controllers/htmlMessageMail/sendActivationEmail")
+ 
 let user = {};
-console.log("tuki");
+
 passport.use(
   new GoogleStrategy(
     {
@@ -52,8 +53,10 @@ router.get(
     failureRedirect: "/auth/failure",
   }),
   function (req, res) {
+
     //! Console Log!!!
     console.log(req.user.id);
+
     //! guardamos la data de la sesion para enviar al front
     user = req.user;
     const payload = {
@@ -65,18 +68,16 @@ router.get(
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
 
-    let rediectLocal =  `http://localhost:3000/?user=${JSON.stringify({
-      userName: user.displayName,
-      photo: user.photos[0].value,
-      id: user.id,
-    })}`
-    let rediectDeploy =  `https://spacefood.up.railway.app/?user=${JSON.stringify({
-      userName: user.displayName,
-      photo: user.photos[0].value,
-      id: user.id,
-    })}`
+    let rediectLocal =  `http://localhost:3000/?user=`
+    let rediectDeploy =  `https://spacefood.up.railway.app/?user=`
 
-    res.redirect(  rediectLocal || rediectDeploy );
+    sendActivationEmail(user.email)
+
+    res.redirect( `${rediectLocal}${JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+    })}` );
   }
 );
 
