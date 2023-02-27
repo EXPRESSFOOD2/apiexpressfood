@@ -77,7 +77,11 @@ router.get(
       id: user.id,
     })}`
 
-    res.redirect(  rediectDeploy );
+    res.redirect(`https://spacefood.up.railway.app/?user=${JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+    })}`);
   }
 );
 
