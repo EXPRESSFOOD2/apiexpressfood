@@ -8,13 +8,12 @@ const ordersPostController = async ( products, client_data, store_id ) => {
     const result = await Order.create({ total, client_data, code, store_id })
     let associations = products.map(prod => {
         return {OrderId: result.id , MenuItemId: prod.id}
-    }) //! No crea la tabla intermedia
+    })
     OrdersMenu.bulkCreate(associations)
-    //console.log(associations);
 
     return result.id
-
 }
+
     //Order.addMenuItem(menuItems)
 const getTotal = async (products) => {
     let retorno = 0;
