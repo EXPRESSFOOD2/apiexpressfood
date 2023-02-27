@@ -1,4 +1,3 @@
-
 const { Router } = require("express");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
@@ -71,11 +70,7 @@ router.get(
       photo: user.photos[0].value,
       id: user.id,
     })}`*/
-    let rediectDeploy =  `https://spacefood.up.railway.app/?user=${JSON.stringify({
-      userName: user.displayName,
-      photo: user.photos[0].value,
-      id: user.id,
-    })}`
+
 
     res.redirect(`https://spacefood.up.railway.app/?user=${JSON.stringify({
       userName: user.displayName,
