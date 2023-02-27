@@ -25,9 +25,6 @@ passport.use(
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
-      // console.log(profile);
-      console.log(profile, "asdasda");
-
       return done(null, profile);
 
       // todo aca se puede capturar y guardar en la bd
@@ -73,31 +70,34 @@ router.get(
     let rediectLocal = `http://localhost:3000/?user=`;
     let rediectDeploy = `https://spacefood.up.railway.app/?user=`;
 
-    // sendActivationEmail(user.email)
-    console.log(user);
     try {
-      const findUser = async (user) => {
-        const result = await User.findAll({ where: { email: user.email } });
-        return result
+      const processUserLogin = async (user) => {
+        const findUser = async (user) => {
+          const result = await User.findAll({ where: { email: user.email } });
+          return result;
+        };
+        const result = await findUser(user);
+
+        const createUser = async (user) => {
+          await User.create({
+            name: user.given_name,
+            last_name: user.family_name,
+            account_name: `${user.given_name.at(0)}${user.family_name}`,
+            email: user.email,
+            secret: generateSecret(),
+            profile_image: user.photos[0].value,
+          });
+        };
+        console.log(result);
+        if (!result.length) {
+          createUser(user);
+          sendActivationEmail(user.email);
+        }
+
+        processUserLogin(user);
       };
-
-      const result = findUser(user);
-const createUser = async (user) => {
-     
-  await User.create({
-    name: user.given_name,
-    last_name: user.family_name,
-    account_name: `${user.given_name.at(0)}${user.family_name}`,
-    email: user.email,
-    secret: generateSecret(),
-    profile_image: user.photos[0].value,
-  })
-
-    } 
-  if(!result.length) createUser(user  )
-
-  }catch (error) {
-      return error.message
+    } catch (error) {
+      return error.message;
     }
 
     res.redirect(
@@ -126,7 +126,7 @@ router.get("/google_user", (req, res) => {
 
   const { password, ...others } = user._doc;
   //! con use efect para realizar el cargue de la info al front
-  console.log(accessToken);
+
   res.send(user);
 });
 
