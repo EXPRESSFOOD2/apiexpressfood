@@ -20,7 +20,7 @@ passport.use(
     },
     function (request, accessToken, refreshToken, profile, done) {
       // console.log(profile);
-      console.log(profile, "asdasda");
+
 
       return done(null, profile);
 
@@ -70,8 +70,6 @@ router.get(
       photo: user.photos[0].value,
       id: user.id,
     })}`*/
-
-    sendActivationEmail(user.email)
 
     res.redirect(`https://spacefood.up.railway.app/?user=${JSON.stringify({
       userName: user.displayName,
