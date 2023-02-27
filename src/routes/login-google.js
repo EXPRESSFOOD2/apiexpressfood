@@ -58,6 +58,7 @@ router.get(
     failureRedirect: "/auth/failure",
   }),
   function (req, res) {
+
     //! guardamos la data de la sesion para enviar al front
     user = req.user;
     const payload = {
