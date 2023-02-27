@@ -108,7 +108,7 @@ const sendActivationEmail = (email, others) => {
                   "
                 >
                   Gracias por tu compra
-                  ¡valora el producto!
+                  ¡valora nuestros productos!
                 </p>
                 <a href=${rediectLocal}/reviews/${others}>
                   <button style="padding: 5px 17px; border-radius: 5px; border: 0px; background-color: #8f1414; color: #f5f5f5; ">Valorar</button>
