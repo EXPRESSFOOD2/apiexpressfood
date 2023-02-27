@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const routes = require('./routes/index.js');
 const passport = require('passport');
 const { cloudinary } = require("./utils/cloudinary");
-const http = require('http');
+
 
 require('./db.js');
 
@@ -45,10 +45,8 @@ server.use('/', routes);
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   const status = err.status || 500;
   const message = err.message || err;
-  console.error(err);
   res.status(status).send(message);
 });
 
-const app = http.createServer(server)
 
 module.exports = app;
