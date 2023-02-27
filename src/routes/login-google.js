@@ -1,4 +1,4 @@
-const { Router } = require("express");
+/*const { Router } = require("express");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
@@ -113,4 +113,4 @@ router.get("/google_user", (req, res) => {
 router.get("/failure", (req, res) => {
   res.send("Error en la autenticacion");
 });
-module.exports = router;
+module.exports = router;*/
