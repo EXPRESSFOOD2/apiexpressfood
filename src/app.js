@@ -8,12 +8,6 @@ const passport = require('passport');
 const { cloudinary } = require("./utils/cloudinary");
 const http = require('http');
 
-
-
-
-
-
-
 require('./db.js');
 
 const server = express();
