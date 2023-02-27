@@ -1,3 +1,4 @@
+
 const { Router } = require("express");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
@@ -5,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const router = Router();
 
 let user = {};
-
+console.log("tuki");
 passport.use(
   new GoogleStrategy(
     {
@@ -53,14 +54,8 @@ router.get(
   }),
   function (req, res) {
 
-
-router.get( '/google/callback',
-    passport.authenticate( 'google', {
-      // ! ruta del front que redirija al login
-        failureRedirect: '/auth/failure'}),function(req, res) {
-    
-    //! guardamos la data de la sesion para enviar al front 
-
+    console.log(req.user.id);
+    //! guardamos la data de la sesion para enviar al front
     user = req.user;
     const payload = {
       userId: user.id,
@@ -70,7 +65,6 @@ router.get( '/google/callback',
     const secretOrPrivateKey = "mi_clave_secreta_123";
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
-
 
     let rediectLocal =  `http://localhost:3000/?user=${JSON.stringify({
       userName: user.displayName,
@@ -83,11 +77,7 @@ router.get( '/google/callback',
       id: user.id,
     })}`
 
-    res.redirect( `http://localhost:3002/?user=${JSON.stringify({
-      userName: user.displayName,
-      photo: user.photos[0].value,
-      id: user.id,
-    })}` );
+    res.redirect(  rediectLocal || rediectDeploy );
   }
 );
 
@@ -113,4 +103,5 @@ router.get("/google_user", (req, res) => {
 router.get("/failure", (req, res) => {
   res.send("Error en la autenticacion");
 });
+
 module.exports = router;
