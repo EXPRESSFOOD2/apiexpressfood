@@ -64,15 +64,10 @@ module.exports = (sequelize) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         },
-    
         profile_image: {
             type: DataTypes.STRING,
-            allowNull: true
-        },
-        my_cart: {
-            type: DataTypes.JSON,
-            allowNull: true,
-            defaultValue: ""
+            allowNull: false,
+            defaultValue: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
         }
     }, { timestamps: true, paranoid: true })
 }

@@ -7,6 +7,7 @@ const paymentsSuccessProcess = async (successResponse) => {
   await Order.update( { status: ORDER_STATUS[1], payment_data: successResponse },
                                   { where: { id: successResponse.code } });
   let order = await Order.findOne({where: {id: successResponse.code}})
+  //! ACA vA el ENVIO DE EMAIL
   return `${redirectUrl}${order.code}`
 };
 

@@ -4,5 +4,5 @@ module.exports = {
     ROLES_ENUM: ["Manager", "Cashier", "Kitchener", "Customer"],
     EMAIL_REGEX: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
     TOKEN_LENGTH: 16,
-    ORDER_STATUS: ["Unpaid", "In Progress", "Canceled", "Ready", "Finished" ]
+    ORDER_STATUS: [ "Unpaid", "In Progress", "Canceled", "Ready", "Finished" ]
 }

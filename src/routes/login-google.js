@@ -1,4 +1,3 @@
-
 const { Router } = require("express");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
@@ -55,7 +54,9 @@ router.get(
   }),
   function (req, res) {
 
-  
+    //! Console Log!!!
+    console.log(req.user.id);
+
     //! guardamos la data de la sesion para enviar al front
     user = req.user;
     const payload = {
