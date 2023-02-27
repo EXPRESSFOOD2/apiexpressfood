@@ -5,7 +5,7 @@ const htmlPath = path.join(__dirname, "message.html");
 const html = fs.readFileSync(htmlPath, "utf8");
 
 
-const sendActivationEmail = (email, others) => {
+const sendEmail = (email, others) => {
   //CODIGO QUE ENVIA CORREO AL CLIENTE PARA LA ACTIVACION DE LA CUENTA
 
   let rediectLocal =  `http://localhost:3000`
@@ -131,4 +131,4 @@ const sendActivationEmail = (email, others) => {
   });
 };
 
-module.exports = { sendActivationEmail };
+module.exports = { sendEmail };

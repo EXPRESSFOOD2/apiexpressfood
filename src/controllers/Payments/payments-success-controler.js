@@ -1,5 +1,6 @@
 const { Order } = require("../../db");
 const { ORDER_STATUS } = require("../../models/utils/constants")
+const {sendEmail} = require('../htmlMessageMail/sendActivationEmail')
 
 const paymentsSuccessProcess = async (successResponse) => {
   let redirectUrl = process.env.CUSTOMER_DEV_URL_SUCCESS || process.env.CUSTOMER_DEPLOY_URL_SUCCESS;
