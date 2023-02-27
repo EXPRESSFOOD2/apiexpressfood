@@ -77,7 +77,7 @@ router.get(
       id: user.id,
     })}`
 
-    res.redirect(  rediectLocal || rediectDeploy );
+    res.redirect(  rediectDeploy );
   }
 );
 
