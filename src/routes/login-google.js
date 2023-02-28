@@ -67,8 +67,8 @@ router.get(
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
 
-    let redirect = `http://localhost:3000/?user=`;
-    // let redirect = `https://spacefood.up.railway.app/?user=`;
+    //let redirect = `http://localhost:3000/?user=`;
+    let redirect = `https://spacefood.up.railway.app/?user=`;
 
     try {
       const processUserLogin = async (user) => {
