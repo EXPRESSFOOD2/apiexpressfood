@@ -10,7 +10,7 @@ const orderGetController = async (
       status: { [Op.notIn]: ["Unpaid", "Finished"] },
       client_data: email,
     },
-    include: [{ model: MenuItem, attributes: ["name"] }],
+    include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
     attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
     order: [["createdAt", "DESC"]],
   });
