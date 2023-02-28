@@ -5,12 +5,15 @@ const htmlPath = path.join(__dirname, "message.html");
 const html = fs.readFileSync(htmlPath, "utf8");
 
 
+
 const sendEmail = (email, others) => {
+
   //CODIGO QUE ENVIA CORREO AL CLIENTE PARA LA ACTIVACION DE LA CUENTA
 
   let rediectLocal =  `http://localhost:3000`
     let rediectDeploy =  `https://spacefood.up.railway.app`
   const transporter = nodemailer.createTransport(
+
     "smtps://spacefoodhenry@gmail.com:tpfxmmhnwjjflwfj@smtp.gmail.com"
   );
 
@@ -126,9 +129,14 @@ const sendEmail = (email, others) => {
    
   };
 !others ? mailOptions = mailRegistration : mailOptions = mailSuccessPayment
+
+  
+
   transporter.sendMail(mailOptions, (err, info) => {
-    if (err) console.log(err);
+    // if (err) console.log(err);
+  
   });
 };
 
 module.exports = { sendEmail };
+

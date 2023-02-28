@@ -3,6 +3,7 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
 const router = Router();
+
 const {
   sendActivationEmail,
 } = require("..//controllers/htmlMessageMail/sendActivationEmail");
@@ -25,6 +26,8 @@ passport.use(
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
+
+
       return done(null, profile);
 
       // todo aca se puede capturar y guardar en la bd
@@ -56,6 +59,7 @@ router.get(
   }),
   function (req, res) {
 
+
     //! guardamos la data de la sesion para enviar al front
     user = req.user;
     const payload = {
@@ -66,6 +70,7 @@ router.get(
     const secretOrPrivateKey = "mi_clave_secreta_123";
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
+
 
     let rediectLocal = `http://localhost:3000/?user=`;
     let rediectDeploy = `https://spacefood.up.railway.app/?user=`;
@@ -101,13 +106,14 @@ router.get(
     }
 
     res.redirect(
-      `${rediectLocal}${JSON.stringify({
+      `${rediectDeploy}${JSON.stringify({
         userName: user.displayName,
         photo: user.photos[0].value,
         id: user.id,
         email: user.email,
       })}`
     );
+
   }
 );
 

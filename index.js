@@ -6,7 +6,9 @@ const Seed = require("./src/seeds/index");
 
 //! importamos las funciones sockets
 
+
 const socketPrueba = require("./src/socket/socket-prueba");
+
 
 // Syncing all the models at once.
 /*
