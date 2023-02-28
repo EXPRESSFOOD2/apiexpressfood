@@ -26,7 +26,7 @@ const orderGetByIdController = async (
 ) => {
   const result = await Order.findOne({
     where: { id, store_id, client_data: email },
-    include: [{ model: MenuItem, attributes: ["name"] }],
+    include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
   });
   return result;
 };
