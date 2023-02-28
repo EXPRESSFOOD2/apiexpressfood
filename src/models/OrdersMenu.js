@@ -2,5 +2,7 @@ const { DataTypes } = require("sequelize");
 
 
 module.exports = (sequelize) => {
-    sequelize.define('OrdersMenu', {},{ timestamps: false })
+    sequelize.define('OrdersMenu', {
+   
+    },{ timestamps: false })
 }

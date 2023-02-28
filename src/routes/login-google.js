@@ -88,7 +88,7 @@ router.get(
             profile_image: user.photos[0].value,
           });
         };
-        console.log(result);
+      
         if (!result.length) {
           createUser(user);
           sendActivationEmail(user.email);

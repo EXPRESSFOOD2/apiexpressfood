@@ -16,10 +16,11 @@ const processOrderPatch = async (req, res) => {
     }
 }
 const processOrderGet = async (req, res) => {
+    const email = req.body
     try {
         //! Rever
         const store_id = getStoreId();
-        const result  = await orderGetController(store_id)
+        const result  = await orderGetController(store_id, email)
         return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
@@ -28,7 +29,7 @@ const processOrderGet = async (req, res) => {
 }
 const processOrderGetById= async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         //! Rever
         const store_id = getStoreId();
         const result  = await orderGetByIdController(id, store_id)
