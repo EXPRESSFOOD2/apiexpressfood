@@ -7,7 +7,7 @@ const orderGetController = async (
   const result = await Order.findAll({
     where: {
       store_id,
-      status: { [Op.notIn]: ["Unpaid", "Finished"] },
+      status: { [Op.notIn]: ["Unpaid"] },
       client_data: email,
     },
     include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
