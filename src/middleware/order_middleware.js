@@ -16,11 +16,11 @@ const processOrderPatch = async (req, res) => {
     }
 }
 const processOrderGet = async (req, res) => {
-    const email = req.body
+    const client_data = req.body
     try {
         //! Rever
         const store_id = getStoreId();
-        const result  = await orderGetController(store_id, email)
+        const result  = await orderGetController(store_id, client_data)
         return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
