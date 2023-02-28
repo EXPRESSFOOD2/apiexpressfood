@@ -2,6 +2,9 @@
 const {Router} = require('express');
 const router = Router();
 
+//* Order
+const orderPatchRouter = require("./orders/order-patch")
+const orderGetRouter = require("./orders/order-get")
 //* Images Processor
 const processImage = require("./utils/getImageReturnUrl")
 
@@ -69,7 +72,6 @@ router.use("/users/login", usersGetLoginRouter);
 
 
 //* Tags
-
 router.use("/tags/create", tagsPostRouter);
 router.use("/tags/get", tagsGetRouter);
 router.use("/tags/delete", tagsDeleteRouter);
@@ -92,6 +94,10 @@ router.use("/menu/create", menuPostRouter);
 router.use("/menu/get", menuGetRouter);
 router.use("/menu/update", menuPatchRouter);
 router.use("/menu/delete", menuDeleteRouter);
+
+//* Order
+router.use("/orders/update", orderPatchRouter);
+router.use("/orders/get", orderGetRouter);
 
 
 module.exports = router;

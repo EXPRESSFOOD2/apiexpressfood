@@ -3,7 +3,7 @@ const { getStoreId } = require("../controllers/HashFunction/security")
 const { MenuItem } = require("../db");
 
 const paymentsMiddleware = (req, res, next) => {
-  const products = req.body;
+  const {products, client_data} = req.body;
   //! Store id es TEST
   const store_id = getStoreId();
                         

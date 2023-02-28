@@ -4,7 +4,10 @@ const {
   hashFunction
 } = require("../HashFunction/security");
 
-const {sendActivationEmail} = require('../htmlMessageMail/sendActivationEmail')
+
+const filePath = path.join(__dirname, "../htmlMessageMail/message.html"); // construct the absolute file path
+const html = fs.readFileSync(filePath, "utf-8"); //
+const {sendEmail} = require('..//htmlMessageMail/sendActivationEmail')
 
 
 
@@ -23,7 +26,8 @@ const userPostController = async ( name, last_name, account_name, password, emai
     await Password.create({ user_id, password: hashedPass, password_question, password_answer });
 
     //CODIGO QUE ENVIA CORREO AL CLIENTE PARA LA ACTIVACION DE LA CUENTA
-    sendActivationEmail(user_email)
+
+   sendEmail(user_email)
     return newUser;
   } catch (error) {
     return error.message;

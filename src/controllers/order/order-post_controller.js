@@ -1,20 +1,22 @@
 const{ Order, MenuItem, OrdersMenu } = require("../../db")
 
 
-const ordersPostController = async ( products, client_data, store_id ) => {
+const ordersPostController = async ( products, client_data, store_id ="f3bc0474-620c-429d-a46c-df2460c7725a" ) => {
     let total = await getTotal(products);
     let searchResult = await Order.findAll({ limit: 1, where: {store_id}, order: [["createdAt", "DESC"]]})
     let code = !searchResult.length ? "A000" : processCode(searchResult[0].code);
     const result = await Order.create({ total, client_data, code, store_id })
     let associations = products.map(prod => {
-        return {OrderId: result.id , MenuItemId: prod.id}
-    }) //! No crea la tabla intermedia
-    OrdersMenu.bulkCreate(associations)
-    //console.log(associations);
+        
+        return {OrderId: result.dataValues.id , MenuItemId: prod.id}
+    })
 
-    return result.id
+    console.log(associations);
+   await OrdersMenu.bulkCreate(associations)
 
+    return result.dataValues.id
 }
+
     //Order.addMenuItem(menuItems)
 const getTotal = async (products) => {
     let retorno = 0;

@@ -3,8 +3,14 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
 const router = Router();
-const {sendActivationEmail} = require('..//controllers//htmlMessageMail/sendActivationEmail')
- let user = {};
+
+const {
+  sendActivationEmail,
+} = require("..//controllers/htmlMessageMail/sendActivationEmail");
+const { User } = require("..//db");
+const { generateSecret } = require("./../controllers/HashFunction/security");
+
+let user = {};
 
 passport.use(
   new GoogleStrategy(
@@ -13,13 +19,13 @@ passport.use(
 
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: process.env.GOOOGLE_CALLBACK_URL_LOCAL ||  process.env.GOOOGLE_CALLBACK_URL_DEPLOY,
-     
+      callbackURL:
+        process.env.GOOOGLE_CALLBACK_URL_LOCAL ||
+        process.env.GOOOGLE_CALLBACK_URL_DEPLOY,
 
       passReqToCallback: true,
     },
     function (request, accessToken, refreshToken, profile, done) {
-      // console.log(profile);
 
 
       return done(null, profile);
@@ -65,17 +71,49 @@ router.get(
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
 
-    let rediectLocal = /* `http://localhost:3000/?user=${JSON.stringify({
-      userName: user.displayName,
-      photo: user.photos[0].value,
-      id: user.id,
-    })}`*/
 
-    res.redirect(`https://spacefood.up.railway.app/?user=${JSON.stringify({
-      userName: user.displayName,
-      photo: user.photos[0].value,
-      id: user.id,
-    })}`);
+    let rediectLocal = `http://localhost:3000/?user=`;
+    let rediectDeploy = `https://spacefood.up.railway.app/?user=`;
+
+    try {
+      const processUserLogin = async (user) => {
+        const findUser = async (user) => {
+          const result = await User.findAll({ where: { email: user.email } });
+          return result;
+        };
+        const result = await findUser(user);
+
+        const createUser = async (user) => {
+          await User.create({
+            name: user.given_name,
+            last_name: user.family_name,
+            account_name: `${user.given_name.at(0)}${user.family_name}`,
+            email: user.email,
+            secret: generateSecret(),
+            profile_image: user.photos[0].value,
+          });
+        };
+      
+        if (!result.length) {
+          createUser(user);
+          sendActivationEmail(user.email);
+        }
+
+        processUserLogin(user);
+      };
+    } catch (error) {
+      return error.message;
+    }
+
+    res.redirect(
+      `${rediectDeploy}${JSON.stringify({
+        userName: user.displayName,
+        photo: user.photos[0].value,
+        id: user.id,
+        email: user.email,
+      })}`
+    );
+
   }
 );
 
@@ -94,7 +132,7 @@ router.get("/google_user", (req, res) => {
 
   const { password, ...others } = user._doc;
   //! con use efect para realizar el cargue de la info al front
-  console.log(accessToken);
+
   res.send(user);
 });
 
