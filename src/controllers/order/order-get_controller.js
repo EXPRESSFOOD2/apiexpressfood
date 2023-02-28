@@ -20,10 +20,12 @@ const orderGetController = async (
 
 const orderGetByIdController = async (
   id,
-  store_id = "f3bc0474-620c-429d-a46c-df2460c7725a"
+  store_id = "f3bc0474-620c-429d-a46c-df2460c7725a",
+  email
+
 ) => {
   const result = await Order.findOne({
-    where: { id, store_id },
+    where: { id, store_id, client_data: email },
     include: [{ model: MenuItem, attributes: ["name"] }],
   });
   return result;

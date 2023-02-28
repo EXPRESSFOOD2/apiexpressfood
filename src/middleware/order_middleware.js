@@ -30,9 +30,10 @@ const processOrderGet = async (req, res) => {
 const processOrderGetById= async (req, res) => {
     try {
         const { id } = req.params;
+        const  email  = req.body;
         //! Rever
         const store_id = getStoreId();
-        const result  = await orderGetByIdController(id, store_id)
+        const result  = await orderGetByIdController(id, store_id, email)
         return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
