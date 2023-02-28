@@ -5,8 +5,6 @@ const {
 } = require("../HashFunction/security");
 
 
-const filePath = path.join(__dirname, "../htmlMessageMail/message.html"); // construct the absolute file path
-const html = fs.readFileSync(filePath, "utf-8"); //
 const {sendEmail} = require('..//htmlMessageMail/sendActivationEmail')
 
 
