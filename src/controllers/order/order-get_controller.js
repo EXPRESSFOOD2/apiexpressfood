@@ -1,6 +1,5 @@
 const { MenuItem, Order, Op } = require("../../db");
 
-
 const orderGetController = async (store_id) => {
   const result = await Order.findAll({
     where: { store_id, status: { [Op.notIn]: ['Unpaid', 'Finished'] } },
@@ -16,6 +15,7 @@ const orderGetController = async (store_id) => {
 const orderGetByIdController = async (id, store_id) => {
   const result = await Order.findOne({
     where: { id, store_id },
+    include: {model: MenuItem },
   });
   return result;
 };

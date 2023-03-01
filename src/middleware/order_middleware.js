@@ -28,7 +28,7 @@ const processOrderGet = async (req, res) => {
 }
 const processOrderGetById= async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         //! Rever
         const store_id = getStoreId();
         const result  = await orderGetByIdController(id, store_id)
