@@ -6,7 +6,7 @@ const html = fs.readFileSync(htmlPath, "utf8");
 
 
 
-const sendEmail = (email, others) => {
+const sendEmail = (email, orderCode, orderId) => {
 
   //CODIGO QUE ENVIA CORREO AL CLIENTE PARA LA ACTIVACION DE LA CUENTA
 
@@ -27,7 +27,7 @@ const sendEmail = (email, others) => {
   const mailSuccessPayment = {
     from: "ExpressFood",
     to: email,
-    subject: `Numero de orden ${others}`,
+    subject: `Numero de orden ${orderCode}`,
     html: `<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -113,7 +113,7 @@ const sendEmail = (email, others) => {
                   Gracias por tu compra
                   ¡valora nuestros productos!
                 </p>
-                <a href=${rediectLocal}/reviews/${others}>
+                <a href=${rediectLocal}/reviews/${orderId}>
                   <button style="padding: 5px 17px; border-radius: 5px; border: 0px; background-color: #8f1414; color: #f5f5f5; ">Valorar</button>
                 </a>
                 <p style="font-family: sans-serif; font-size: 13px; color: #7a7a7a">

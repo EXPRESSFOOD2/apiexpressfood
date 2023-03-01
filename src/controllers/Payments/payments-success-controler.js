@@ -12,8 +12,9 @@ const paymentsSuccessProcess = async (successResponse) => {
   //! ACA vA el ENVIO DE EMAIL
 
 const email = order.dataValues.client_data.email
-const orderCode = order.dataValues.code
-sendEmail(email, orderCode)
+const orderCode = order.dataValues.id
+const orderId = order.dataValues.code
+sendEmail(email, orderCode, orderId)
   return `${redirectUrl}${order.code}`
 };
 
