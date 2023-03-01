@@ -1,11 +1,13 @@
 const { MenuItem, Order, Op } = require("../../db");
 
+
 const orderGetController = async (
   store_id = "f3bc0474-620c-429d-a46c-df2460c7725a",
   email
 ) => {
   let result 
   email ?  result = await Order.findAll({
+    //! limit: 120,
     where: {
       store_id,
       status: { [Op.notIn]: ["Unpaid"] },
@@ -17,13 +19,12 @@ const orderGetController = async (
   }) :  result = await Order.findAll({
     where: {
       store_id,
-      status: { [Op.notIn]: ["Unpaid"] },
-  
+      status: { [Op.notIn]: ["Unpaid", "Finished"] },
     },
     include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
     attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
     order: [["createdAt", "DESC"]],
-  }) 
+  })
 
   return result;
 };
@@ -42,7 +43,11 @@ email ? result = await Order.findOne({
 :
    result = await Order.findOne({
     where: { id, store_id },
+<<<<<<< HEAD
+    include: {model: MenuItem },
+=======
     include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
+>>>>>>> 883e8580121ef3007430891c44616141115d2a5e
   });
   return result;
 };

@@ -5,6 +5,7 @@ const router = Router();
 //* Order
 const orderPatchRouter = require("./orders/order-patch")
 const orderGetRouter = require("./orders/order-get")
+
 //* Images Processor
 const processImage = require("./utils/getImageReturnUrl")
 
@@ -36,20 +37,22 @@ const menuGetRouter = require("./menu/menu-get");
 const menuDeleteRouter = require("./menu/menu-delete");
 const menuPatchRouter = require("./menu/menu-patch");
 
-
 //* Tags Routes
 const tagsPostRouter = require("./tags/tags_post");
 const tagsGetRouter = require("./tags/tags_get");
 const tagsDeleteRouter = require("./tags/tags_delete");
 const tagsPatchRouter = require("./tags/tags_patch");
 
-//*Payments Routes
-const PaymentRouter = require("../routes/payments/payments-router")
+//* Payments Routes
+const PaymentRouter = require("./payments/payments-router")
 
-
+//* Reviews Routes
+const processReviewPost = require("./review/reviews-router")
 
 //! google route
 const authGoogle = require("./login-google");
+
+// RUTAS //
 
 //* Images Processor
 router.use("/processImage/post", processImage);
@@ -99,6 +102,8 @@ router.use("/menu/delete", menuDeleteRouter);
 router.use("/orders/update", orderPatchRouter);
 router.use("/orders/get", orderGetRouter);
 
+//* Review
+router.use("/review/post", processReviewPost);
 
 module.exports = router;
 
