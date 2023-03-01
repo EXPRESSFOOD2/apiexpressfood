@@ -1,26 +1,58 @@
 const { MenuItem, Order, Op } = require("../../db");
 
-const orderGetController = async (store_id) => {
-  const result = await Order.findAll({
-    where: { store_id, status: { [Op.notIn]: ['Unpaid', 'Finished'] } },
-    include: [{ model: MenuItem, attributes: ["name"] } ],
+
+const orderGetController = async (
+  store_id = "f3bc0474-620c-429d-a46c-df2460c7725a",
+  email
+) => {
+  let result 
+  email ?  result = await Order.findAll({
+    //! limit: 120,
+    where: {
+      store_id,
+      status: { [Op.notIn]: ["Unpaid"] },
+      client_data: email,
+    },
+    include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
     attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
     order: [["createdAt", "DESC"]],
-  });
+  }) :  result = await Order.findAll({
+    where: {
+      store_id,
+      status: { [Op.notIn]: ["Unpaid", "Finished"] },
+    },
+    include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
+    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+    order: [["createdAt", "DESC"]],
+  })
 
   return result;
 };
 
+const orderGetByIdController = async (
+  id,
+  store_id = "f3bc0474-620c-429d-a46c-df2460c7725a",
+  email
 
-const orderGetByIdController = async (id, store_id) => {
-  const result = await Order.findOne({
+) => {
+let result
+email ? result = await Order.findOne({
+  where: { id, store_id, client_data: email },
+  include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
+})
+:
+   result = await Order.findOne({
     where: { id, store_id },
+<<<<<<< HEAD
     include: {model: MenuItem },
+=======
+    include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
+>>>>>>> 883e8580121ef3007430891c44616141115d2a5e
   });
   return result;
 };
 
 module.exports = {
-    orderGetController,
-    orderGetByIdController
+  orderGetController,
+  orderGetByIdController,
 };

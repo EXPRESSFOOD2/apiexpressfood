@@ -3,6 +3,7 @@ const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
 const router = Router();
+
 const {
   sendActivationEmail,
 } = require("..//controllers/htmlMessageMail/sendActivationEmail");
@@ -55,7 +56,6 @@ router.get(
     failureRedirect: "/auth/failure",
   }),
   function (req, res) {
-
     //! guardamos la data de la sesion para enviar al front
     user = req.user;
     const payload = {
@@ -66,9 +66,6 @@ router.get(
     const secretOrPrivateKey = "mi_clave_secreta_123";
     const token = jwt.sign(payload, secretOrPrivateKey);
     //todo ruta del front para el boton
-
-    let rediectLocal = `http://localhost:3000/?user=`;
-    let rediectDeploy = `https://spacefood.up.railway.app/?user=`;
 
     try {
       const processUserLogin = async (user) => {
@@ -88,7 +85,7 @@ router.get(
             profile_image: user.photos[0].value,
           });
         };
-        console.log(result);
+
         if (!result.length) {
           createUser(user);
           sendActivationEmail(user.email);
@@ -100,14 +97,16 @@ router.get(
       return error.message;
     }
 
-    res.redirect(
-      `${rediectLocal}${JSON.stringify({
-        userName: user.displayName,
-        photo: user.photos[0].value,
-        id: user.id,
-        email: user.email,
-      })}`
-    );
+    const userDataQuery = JSON.stringify({
+      userName: user.displayName,
+      photo: user.photos[0].value,
+      id: user.id,
+      email: user.email,
+    });
+   let redirect = `http://localhost:3000/?user=`;
+    //let redirect = `https://spacefood.up.railway.app/?user=`;
+    
+    res.redirect(`${redirect}${userDataQuery}`);
   }
 );
 
