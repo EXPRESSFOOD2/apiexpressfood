@@ -44,22 +44,9 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Ingredient,
-  Recipe,
-  IngredientsRecipes,
-  IngredientsMenuItems,
-  MenuItem,
-  Role,
-  User,
-  UsersRoles,
-  Password,
-  Tag,
-  TagsMenuItems,
-  Order,
-  OrdersMenu,
-  Store,
-  UsersStores,
- } = sequelize.models;
+const { Ingredient, Recipe, IngredientsRecipes, IngredientsMenuItems, MenuItem,
+  Role, User, UsersRoles, Password, Tag, TagsMenuItems, Order, OrdersMenu,
+  Store, UsersStores, Review, OrderMenuItemReview } = sequelize.models;
 
 //! Relationships
 Recipe.belongsToMany( Ingredient, { through: IngredientsRecipes });
@@ -76,9 +63,14 @@ MenuItem.belongsToMany( Tag, { through: TagsMenuItems } )
 
 Order.belongsToMany( MenuItem, { through: OrdersMenu })
 MenuItem.belongsToMany( Order, { through: OrdersMenu })
+Review.belongsTo(OrdersMenu);
+OrdersMenu.hasMany(Review);
+MenuItem.hasMany(Review);
+Review.belongsTo(MenuItem);
 
 User.hasOne( Store, { through: UsersStores })
 Store.belongsTo( User, { through: UsersStores })   // Podría ser Many pero lo obtendremos por otro lado
+
 
 //!tuki
 
