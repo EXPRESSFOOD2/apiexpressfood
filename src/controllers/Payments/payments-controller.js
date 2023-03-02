@@ -16,7 +16,7 @@ const paymentsControllerPost = async (products, client_data) => {
   let mercadoPagoFailureUrl = getMercadoPagoFailureUrl();
   let code = await ordersPostController( products, client_data, store_id );
   let preference = buildMercadoPagoPreference(productDataToMercadoPago, mercadoPagoSuccessUrl, mercadoPagoFailureUrl, code)
-  console.log(preference);
+
 
   try {
     const result = await mercadopago.preferences.create(preference);

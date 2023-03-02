@@ -1,5 +1,5 @@
 const{ Order, MenuItem, OrdersMenu } = require("../../db")
-const {sendEmail} = require('../htmlMessageMail/sendActivationEmail')
+
 
 
 const ordersPostController = async ( products, client_data, store_id ="f3bc0474-620c-429d-a46c-df2460c7725a" ) => {

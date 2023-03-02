@@ -7,6 +7,7 @@ const Role = require("./Role-seed")
 const Tag = require("./Tag-seed")
 const MenuTags = require("./MenuTags-seed")
 const User = require("./User-seed")
+const Orders = require("./Orders-seed")
 //const Seed = require('./');
 
 
@@ -25,13 +26,18 @@ module.exports = async function() {
         RecipeSeed3()
     }).then(() => {
         console.log('********** Successfully seeded db **********');
-    });
+    }).then(()=>{
+        
+    })
 
     await Promise.all([ // Returning and thus passing a Promise here
         // Independent seeds first
         Menu(),
         MenuTags(),
         User(),
-    ])
+     
+    ]).then(()=>{
+        Orders()
+    })
     
 }
