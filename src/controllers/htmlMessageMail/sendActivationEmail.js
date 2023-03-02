@@ -128,12 +128,12 @@ const sendEmail = (email, orderCode, orderId) => {
     `,
    
   };
-!others ? mailOptions = mailRegistration : mailOptions = mailSuccessPayment
+!orderCode ? mailOptions = mailRegistration : mailOptions = mailSuccessPayment
 
   
 
   transporter.sendMail(mailOptions, (err, info) => {
-    // if (err) console.log(err);
+    if (err) console.log(err.message);
   
   });
 };

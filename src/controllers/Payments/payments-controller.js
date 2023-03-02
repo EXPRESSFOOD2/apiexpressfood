@@ -4,8 +4,7 @@ const mercadopago = require("mercadopago");
 const { getMercadoPagoSuccessUrl, getMercadoPagoFailureUrl, getStoreId } = require("../HashFunction/security")
 const { ordersPostController } = require("../order/order-post_controller")
 
-                                                              //! FAKE USER DATA
-const paymentsControllerPost = async (products, client_data = "alpharus2k@gmail.com") => {
+const paymentsControllerPost = async (products, client_data) => {
   let productDataToMercadoPago = await buildMercadoPagoObject(products);
 
   mercadopago.configure({
@@ -17,6 +16,7 @@ const paymentsControllerPost = async (products, client_data = "alpharus2k@gmail.
   let mercadoPagoFailureUrl = getMercadoPagoFailureUrl();
   let code = await ordersPostController( products, client_data, store_id );
   let preference = buildMercadoPagoPreference(productDataToMercadoPago, mercadoPagoSuccessUrl, mercadoPagoFailureUrl, code)
+  console.log(preference);
 
   try {
     const result = await mercadopago.preferences.create(preference);
