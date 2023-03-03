@@ -6,5 +6,10 @@ module.exports = (sequelize) => {
             primaryKey: true,
             autoIncrement: true
           },
+        quantity: {
+            type: DataTypes.INTEGER,
+            defaultValue: 1,
+            allowNull: false
+        }
     },{ timestamps: false })
 }
