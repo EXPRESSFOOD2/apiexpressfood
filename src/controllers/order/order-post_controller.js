@@ -7,7 +7,7 @@ const ordersPostController = async ( products, client_data, store_id ) => {
     let searchResult = await Order.findAll({ limit: 1, where: {store_id}, order: [["createdAt", "DESC"]]})
     let code = !searchResult.length ? "A000" : processCode(searchResult[0].code);
     const result = await Order.create({ total, client_data, code, store_id })
-    let associations = await products.map(prod => {
+    let associations = products.map(prod => {
         return {OrderId: result.dataValues.id , MenuItemId: prod.id, quantity: prod.quantity}
     })
 
