@@ -1,4 +1,4 @@
-const { MenuItem, Ingredient, Tag, TagsMenuItems } = require("../../db");
+const { MenuItem, Ingredient, Tag, Review, Order} = require("../../db");
 
 const menuItemsGetController = async (store_id) => {
   const result = await MenuItem.findAll({
@@ -25,7 +25,10 @@ const menuItemsGetController = async (store_id) => {
       Ingredients: item.Ingredients,
     };
   });
+  
+
   return resultArray;
+
 };
 
 const menuItemsGetRecommendedController = async (store_id) => {

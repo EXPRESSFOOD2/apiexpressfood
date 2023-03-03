@@ -2,11 +2,11 @@
 const {Router} = require('express');
 const router = Router();
 
-//* Store
-/*
-const storePostRouter = require("./stores/store-post")
-const storePatchRouter = require("./stores/store-patch")
-*/
+//* Order
+const orderPatchRouter = require("./orders/order-patch")
+const orderGetRouter = require("./orders/order-get")
+const orderGetBalanceRouter = require("./orders/order-get_balance")
+
 //* Images Processor
 const processImage = require("./utils/getImageReturnUrl")
 
@@ -28,18 +28,11 @@ const recipesGetRouter = require("./recipes/recipes_get");
 const recipesDeleteRouter = require("./recipes/recipes_delete");
 const recipesPatchRouter = require("./recipes/recipes_patch");
 
-
 //!         -   -   -   -   -           !//
-
-//* Order
-const orderPatchRouter = require("./orders/order-patch")
-const orderGetRouter = require("./orders/order-get")
 
 //* Cart
 const cartGetRouter = require("./utils/cart/carts_get")
 const cartPatchRouter = require("./utils/cart/carts_patch")
-
-
 
 //* User Routes
 const usersPostRouter = require("./users/users-post");
@@ -52,30 +45,31 @@ const menuGetRouter = require("./menu/menu-get");
 const menuDeleteRouter = require("./menu/menu-delete");
 const menuPatchRouter = require("./menu/menu-patch");
 
-
-//* Payments Routes
+//* Payments Routes     *
 const PaymentRouter = require("./payments/payments-router")
 
 //* Reviews Routes
 const processReviewPost = require("./review/reviews-router")
 
-//! google route
+//! google route    *
 const authGoogle = require("./login-google");
 
 
+//!                                                                 
 // RUTAS //
 //* Images Processor
 router.use("/processImage/post", processImage);
+
+
 
 //* Carts
 router.use("/carts/get", cartGetRouter );
 router.use("/carts/patch", cartPatchRouter );
 
-//!PAYPAL
+//!PAYPAL           *
 router.use("/payments", PaymentRouter)
-//! auth google
+//! auth google     *
 router.use("/auth",authGoogle )
-
 
 
 //* Menu
@@ -87,6 +81,7 @@ router.use("/menu/delete", menuDeleteRouter);
 //* Order
 router.use("/orders/update", orderPatchRouter);
 router.use("/orders/get", orderGetRouter);
+router.use("/orders/getBalance", orderGetBalanceRouter);
 
 //* Review
 router.use("/review/post", processReviewPost);

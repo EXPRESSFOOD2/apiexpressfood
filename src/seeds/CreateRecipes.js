@@ -6,7 +6,7 @@ const details = "Medallon de carne especial"
 const produced_amount = 8
 const type_measure= "un"
 const ingredArray = [
-        {id: 12, name: "Carne Molida", layer: 0, waste_rate: 0, amount: 80},
+        {id: 12, name: "Carne Molida", layer: 0, waste_rate: 0, amount: 130},
         {id: 3, name: "Huevo", layer: 0, waste_rate: 0, amount: 0.6},
         {id: 7, name: "Cebolla", layer: 0, waste_rate: 12,amount: 26},
         {id: 5, name: "Sal", layer: 0, waste_rate: 0, amount: 0.2},

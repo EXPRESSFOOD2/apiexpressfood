@@ -15,7 +15,9 @@ module.exports = async function() {
         
     }).then(() => {
         console.log('********** Successfully seeded db **********');
-    });
+    }).then(()=>{
+        
+    })
 
 
 }
