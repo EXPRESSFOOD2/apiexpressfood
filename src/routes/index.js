@@ -6,7 +6,6 @@ const router = Router();
 const orderPatchRouter = require("./orders/order-patch")
 const orderGetRouter = require("./orders/order-get")
 const orderGetBalanceRouter = require("./orders/order-get_balance")
-
 //* Images Processor
 const processImage = require("./utils/getImageReturnUrl")
 
@@ -82,7 +81,6 @@ router.use("/menu/delete", menuDeleteRouter);
 router.use("/orders/update", orderPatchRouter);
 router.use("/orders/get", orderGetRouter);
 router.use("/orders/getBalance", orderGetBalanceRouter);
-
 //* Review
 router.use("/review/post", processReviewPost);
 
