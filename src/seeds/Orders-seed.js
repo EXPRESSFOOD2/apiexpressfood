@@ -216,7 +216,16 @@ module.exports = async function () {
 
   setTimeout( async() => {
 
-    await Order.bulkCreate(FAKE_ORDERS)
+    // await Order.bulkCreate(FAKE_ORDERS)
+for (let i = 0; i < FAKE_CARTS.length; i++) {
+try {
+  await ordersPostController(FAKE_CARTS[1].products, FAKE_USERS[1].client_data, "f3bc0474-620c-429d-a46c-df2460c7725a")
+ 
+} catch (error) {
+  console.log(error.message);
+}
+ 
+}
 
   }, 5000);
 };
