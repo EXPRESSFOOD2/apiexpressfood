@@ -4,7 +4,7 @@ const orderGetBalanceController = async ( store_id, startDate = "2022-06-02", en
   const orders = await Order.findAll({
     where: {
       store_id,
-      //status: { [Op.in]: ["Finished"] },
+      status: { [Op.in]: ["Finished"] },
       createdAt: {
         [Op.between]: [startDate, endDate]
       }
