@@ -11,7 +11,7 @@ const paymentsSuccessProcess = async (successResponse) => {
   let order = await Order.findOne({where: {id: successResponse.code}})
 
 
-  return `${redirectUrl}${order.id}`
+  return `${redirectUrl}${order.code}`
 };
 
 module.exports = { paymentsSuccessProcess };
