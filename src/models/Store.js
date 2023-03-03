@@ -11,10 +11,11 @@ module.exports = (sequelize) => {
             primaryKey: true,
             validate: {
               isUUID: 4,
-            }
+            },
+            field: "store_id"
           },
         name: {
-            type: DataTypes.STRING(80),
+            type: DataTypes.STRING(120),
             allowNull: false,
             unique: true,
             validate: {
@@ -27,6 +28,7 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING(70),
             allowNull: false,
             unique: true,
+            references: { model: 'Stores', key: 'short_name' },
             validate: {
                 notNull: { msg: INVALID_STORE_SHORT_NAME },
                 notEmpty: { msg: INVALID_STORE_SHORT_NAME },
@@ -35,7 +37,7 @@ module.exports = (sequelize) => {
             unique: { msg: DUPLICATED_SHORT_NAME }
         },
         description: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             validate: {
                 notNull: { msg: INVALID_STORE_DESC },
@@ -48,13 +50,28 @@ module.exports = (sequelize) => {
             defaultValue: "https://spacefood.up.railway.app/static/media/logo.1d65576293f6641075ed.jpg"
         },
         store_type: {
-            type: DataTypes.STRING,     //! Cambiar a ENUM
-            //values: ["Traveling Business", "Other"],
+            type: DataTypes.ENUM,
+            values: ["Traveling Business", "Other"],
             defaultValue: "Traveling Business",
             allowNull: false
         },
         mercado_pago: {
-            type: DataTypes.STRING
+            type: DataTypes.JSON,
+            allowNull: true
+        },
+        ownerId: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        is_active: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: true
         }
-    }, { timestamps: false, paranoid: true })
+    },
+    {
+        timestamps: false,
+        paranoid: true,
+        indexes: [{ fields: ['short_name'] }],
+    }
+    )
 }

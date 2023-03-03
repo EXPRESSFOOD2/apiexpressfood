@@ -43,11 +43,7 @@ email ? result = await Order.findOne({
 :
    result = await Order.findOne({
     where: { id, store_id },
-<<<<<<< HEAD
-    include: {model: MenuItem },
-=======
     include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
->>>>>>> 883e8580121ef3007430891c44616141115d2a5e
   });
   return result;
 };

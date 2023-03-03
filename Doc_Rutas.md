@@ -1,80 +1,3 @@
-# Images Processor
-### .../processImage/post
->   *** Espera: ***
->       - Body: { imageStr: String }    imageStr es archivo de Imagen parseado a String
->   *** Retorna: ***
->       - Success: URL de la imagen
->       - Error: Mensaje
-
-# Recipe
-### .../recipes/create
->   *** Espera: ***
->       - Body: { name: String , details: String, produced_amount: Double, type_measure: String, ingredArray: [
-                    { id: Integer, name: String, per_recipe: Double, waste_rate: Double},
-                    { id: Integer, name: String, per_recipe: Double, waste_rate: Double}, ...
-                ]}
->   *** Retorna: ***
->       - Success: Object Recipe { id, name, details, produced_amount, updatedAt, createdAt }
->       - Error: Mensaje
-
-### .../recipes/get"
->   *** Espera: ***
->       - 
->   *** Retorna: ***
->       - Success: Todos los Recipes + Ingredients + Tabla intermedia:
-            { id, name, details, produced_amount, is_active, createdAt, updatedAt, Ingredients: [
-                { id, name,  layer, type_measure, ingredients_all: JSON ARRAY, is_active, createdAt, updatedAt, IngredientsRecipes: {
-                waste_rate, createdAt, updatedAt, RecipeId, IngredientId }
-                }, ... ]
-            }
->       - Error: Mensaje
-### .../recipes/get/:id"
->   *** Espera: ***
->       - Params: { id: Integer }
->   *** Retorna: ***
->       - Success: Object Recipe { id, name, details, produced_amount, updatedAt, createdAt }
->       - Error: Mensaje
-### .../recipes/delete"
->   *** Espera: ***
->       - Query: { id }
->       - También borrará el Ingrediente con el mismo nombre
->   *** Retorna: ***
->       - Success: { "1" }
->       - Error: Mensaje
-### .../recipes/update"
->   *** Espera: ***
->       - METHOD: PATCH
->       - Body: { id, name, details }
->       - Actualmente cambia nombre y details sin más preambulos
->   *** Retorna: ***
->       - Success: { "1" }
->       - Error: Mensaje
-
-# User
-### .../users/create"
->   *** Espera: ***
->       - METHOD: POST
->       - Body: { name, last_name, account_name, password, email, phone, password_question, password_answer, profile_image }
->   *** Retorna: ***
->       - Success: { is_active, id, name, last_name, account_name, email, secret, phone, activation_token, profile_image, updatedAt, createdAt}
->       - Abrá que eliminar la información sensible
->       - Error: Mensaje
-### .../users/activate_account
->   *** Espera: ***
->       - METHOD: GET
->       - Params: { token }
->   *** Retorna: ***
->       - Success: { id, name, last_name, account_name, email, secret, phone, is_active,activation_token, profile_image, createdAt,updatedAt }
->       - Abrá que eliminar la información sensible
->       - Error: Mensaje
-### .../users/login"
->   *** Espera: ***
->       - Body: { email, password }
->       - METHOD: POST
->   *** Retorna: ***
->       - Success: { Boolean }
->       - Error: Mensaje
-
 # auth google
 ### .../auth
 >   *** Espera: ***
@@ -84,27 +7,122 @@
 >       - 
 >       - 
 
+
+# Cart
+### .../carts/get/:id
+>   *** Espera: ***
+>       - METHOD: GET
+>       - Params: { id }
+>       - Id de usuario
+>   *** Retorna: ***
+>       - Success: { my_cart }  // JSON
+>       - Error: Mensaje
+
+### .../carts/patch
+>   *** Espera: ***
+>       - METHOD: PATCH
+>       - Body: { id, my_cart }
+>       - Id de usuario y el JSON, probablemente ARRAY
+>   *** Retorna: ***
+>       - Success: { "1" }
+>       - Error: Mensaje
+
+
+
+--------------------------------- NEW --------------------------------
+# USERS
+### .../users/create"
+>   *** Espera: ***
+>       - METHOD: POST
+>       - Body: { name, last_name, account_name, password, email, phone, role_id, profile_image }
+>   *** Retorna: ***
+>       - Success: { profile_image, id, name, last_name, account_name, email, phone,
+                    roleId, updatedAt, createdAt, deletedAt }
+>       - Error: Mensaje
+### .../users/login"
+>   *** Espera: ***
+>       - Body: { email, password }
+>       - METHOD: POST
+>   *** Retorna: ***
+>       - Success: { valid, user: { id, name, last_name, email, phone, profile_image, roleId }, storeName }
+>       - Error: Mensaje
+
+
+# ROLES
+### .../roles/get"
+>   *** Espera: ***
+>       - METHOD: GET
+>   *** Retorna: ***
+>       - Success: [{id, name},{id, name},{id, name}]
+>       - Error: Mensaje
+
+
+# CLOUDINARY - Images Processor
+### .../processImage/post
+>   *** Espera: ***
+>       - Body: { imageStr: String }    imageStr es archivo de Imagen parseado a String
+>   *** Retorna: ***
+>       - Success: URL de la imagen
+>       - Error: Mensaje
+
+
+# TAGS
+### .../tags/create
+>   *** Espera: ***
+>       - METHOD: POST
+>       - Body:  { name }
+>       - Headers: { storeName }
+>   *** Retorna: ***
+>       - Success: { id, name }
+>       - Error: Message
+
+### .../tags/delete
+>   *** Espera: ***
+>       - METHOD: DELETE
+>       - Query:  { id }
+>       - Headers: { storeName }
+>   *** Retorna: ***
+>       - Success: 1
+>       - Error: Message
+
+### .../tags/get
+>   *** Espera: ***
+>       - METHOD: GET
+>       - Headers: { storeName }
+>   *** Retorna: ***
+>       - Success: [{id,name},{id,name}...]
+>       - Error: Message
+
+### .../tags/update
+>   *** Espera: ***
+>       - METHOD: PATCH
+>       - { id, name }
+>       - Headers: { storeName }
+>   *** Retorna: ***
+>       - Success: { 1 }
+>       - Error: Message
+
+
 # Ingredient
 ### .../ingredients/create
 >   *** Espera: ***
 >       - METHOD: POST
 >       - Body: { name: String, layer: Integer, type_measure: String, ingredients_all: JSON ARRAY }
 >   *** Retorna: ***
->       - Success: { is_active, id, name, layer, type_measure, ingredients_all, updatedAt, createdAt }
+>       - Success: { id, name, layer, type_measure, ingredients_all }
 >       - Error: Mensaje
 ### .../ingredients/get
 >   *** Espera: ***
 >       - METHOD: GET
-
 >   *** Retorna: ***
->       - Success: [{ id, name, layer, type_measure, ingredients_all,is_active, createdAt, updatedAt }, { id, name, layer, type_measure, ingredients_all,is_active, createdAt, updatedAt }, ...]
+>       - Success: [{ id, name, layer, type_measure, ingredients_all }, { id, name, layer, type_measure, ingredients_all }, ...]
 >       - Error: Mensaje
 ### .../ingredients/get/:id
 >   *** Espera: ***
 >       - METHOD: GET
 >       - Params: { id }
 >   *** Retorna: ***
->       - Success: { id, name, layer, type_measure, ingredients_all,is_active, createdAt, updatedAt }
+>       - Success: { id, name, layer, type_measure, ingredients_all  }
 >       - Error: Mensaje
 ### .../ingredients/update
 >   *** Espera: ***
@@ -117,10 +135,66 @@
 >   *** Espera: ***
 >       - METHOD: DELETE
 >       - Params: { id }
->       - Internamente cambia el estado is_active: false // Retrabajar despues de Setear PARANOID
+>       - Internamente cambia el name agregandole OLD + caracteres Random y aplica borrado logico
+>           Nota: Posibilidad de agregar cambio en los JSON en todas las recetas que usan esto
 >   *** Retorna: ***
->       - Success: { id, name, layer, type_measure, ingredients_all,is_active, createdAt, updatedAt }
+>       - Success: { 1 }
 >       - Error: Mensaje
+
+
+# Recipe
+### .../recipes/create
+>   *** Espera: ***
+>       - Method: POST
+>       - Body: { name: String , details: String, produced_amount: Double, type_measure: String, ingredArray: [
+                { id: Integer, name: String, layer: 0, waste_rate: Double, amount: Double},
+                { id: Integer, name: String, layer: 0, waste_rate: Double, amount: Double}, ...
+                ]}
+>   *** Retorna: ***
+>       - Success: { id, name, details, produced_amount }
+>       - Error: Mensaje
+
+### .../recipes/get"
+>   *** Espera: ***
+>       - Method: GET
+
+>   *** Retorna: ***
+>       - Success: [
+	    { id, name, details, produced_amount, ingredientsList: [
+			{ id, name, amount},
+            { id, name, amount},
+			{ id, name, amount}, ... ]
+	    },
+        { id, name, details, produced_amount, ingredientsList: [
+			{ id, name, amount},
+            { id, name, amount},
+			{ id, name, amount}, ... ]
+	    }
+    ]
+>       - Error: Mensaje
+### .../recipes/get/:id"
+>   *** Espera: ***
+>       - Params: { id: Integer }
+>   *** Retorna: ***
+>       - Success: Object Recipe { id, name, details, produced_amount, updatedAt, createdAt }
+>       - Error: Mensaje
+### .../recipes/delete"
+>   *** Espera: ***
+>       - Query: { id }
+>       - También borrará el Ingrediente con el mismo nombre, de forma logica cambiandoles el nombre primero, agregando " OLD ******".  * representa un caracter random alfanumerico
+>   *** Retorna: ***
+>       - Success: { 1 }
+>       - Error: Mensaje
+### .../recipes/update"
+>   *** Espera: ***
+>       - METHOD: PATCH
+>       - Body: { id, name, details }
+>       - Actualmente cambia nombre y details de Recipe e Ingredients
+>   *** Retorna: ***
+>       - Success: { 1 }
+>       - Error: Mensaje
+
+
 
 # Menu
 ### .../menu/create
@@ -163,23 +237,4 @@
 
 >   *** Retorna: ***
 >       - Success: {  }
->       - Error: Mensaje
-
-# Cart
-### .../carts/get/:id
->   *** Espera: ***
->       - METHOD: GET
->       - Params: { id }
->       - Id de usuario
->   *** Retorna: ***
->       - Success: { my_cart }  // JSON
->       - Error: Mensaje
-
-### .../carts/patch
->   *** Espera: ***
->       - METHOD: PATCH
->       - Body: { id, my_cart }
->       - Id de usuario y el JSON, probablemente ARRAY
->   *** Retorna: ***
->       - Success: { "1" }
 >       - Error: Mensaje

@@ -2,13 +2,8 @@ const { Ingredient } = require("../../db");
 const { generateOldName } = require("../Utils/aux_controller")
 
 const ingredientsDeleteController = async (ingredientsIds) => {
-  //! Rehacer, creo
-  try {
-      await Ingredient.update({is_active: false},{where: {id: ingredientsIds.map((ingredient)=>ingredient.id)}});
-return "ingredients deleted successfully"
-  } catch (error) {
-    return error.message;
-  }
+  const result = await Ingredient.destroy({where: {id: ingredientsIds}});
+  return result
 };
 
 //* recipe_delete_controller.js
@@ -22,8 +17,8 @@ const ingredientsDeleteController2 = async(id, store_id) => {
   do{
     oldName = generateOldName(simpleName);
   }while (await Ingredient.findOne({where: {name: oldName, store_id}, paranoid: false}))
-  //console.log( await Ingredient.findOne({where: {name: "Agua", store_id}}));
   //! Queda recorrer por todos los ingredientes del store id cambiando el nombre
+  //! Opcional
   await Ingredient.update({name: oldName}, {where: {id, store_id}})
   return await Ingredient.destroy({where: {id, store_id}});
 }

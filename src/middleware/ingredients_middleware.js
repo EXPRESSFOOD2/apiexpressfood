@@ -13,12 +13,17 @@ const { isItAnExistingModelByID, isItAnExistingModelByName } = require("../contr
 const processIngredientPost = async (req, res) => {
   try {
     //! TODO
+    //* const { storeName } = req.headers;
+    //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
     // Agregar Validacion por Header
     //! Modificar la funcion
     const store_id = getStoreId();
-    //*
+
     const { name, layer, type_measure, ingredients_all } = req.body;
+    console.log("a ver a ver");    //*{"name": "Gaseosa Coca-Cola", "layer": 0, "type_measure": "un", "ingredients_all": [],  "store_id": "f3bc0474-620c-429d-a46c-df2460c7725a" }
     await validateIngredient(name, layer, type_measure, ingredients_all, store_id);
+    console.log("Aca entra");
     const result = await ingredientsPostController( name, layer, type_measure, ingredients_all, store_id );
     return res.status(200).json(result);
   } catch (error) {
@@ -29,13 +34,13 @@ const processIngredientPost = async (req, res) => {
 const processIngredientDelete = async (req, res) => {
   try {
     //! TODO
-    // Agregar Validacion por Header
-    //! Modificar la funcion
+    //* const { storeName } = req.headers;
+    //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
     const store_id = getStoreId();
     //*
     const { id } = req.params;
     if (id < 1) throw Error(`${INVALID_ID}${id}`);
-    //! Retrabajado 
     if ( !await isItAnExistingModelByID(id, store_id, Ingredient) ) throw Error(`${INVALID_ID}${id}`)
     const result = await ingredientsDeleteController2(id, store_id);
     return res.status(200).json(result)
@@ -55,8 +60,9 @@ const processIngredientDelete = async (req, res) => {
 const processIngredientGet = async (req, res) => {
   try {
     //! TODO
-    // Agregar Validacion por Header
-    //! Modificar la funcion
+    //* const { storeName } = req.headers;
+    //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
     const store_id = getStoreId();
     //*
     const result = await ingredientsGetController(store_id);
@@ -69,8 +75,9 @@ const processIngredientGet = async (req, res) => {
 const processIngredientGetById = async (req, res) => {
   try {
     //! TODO
-    // Agregar Validacion por Header
-    //! Modificar la funcion
+    //* const { storeName } = req.headers;
+    //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
     const store_id = getStoreId();
     //*
     const { id } = req.params;
@@ -86,7 +93,9 @@ const processIngredientGetById = async (req, res) => {
 const processIngredientPatch = async (req, res) => {
   try {
     //! TODO
-    // Agregar Validacion por Header
+    //* const { storeName } = req.headers;
+    //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
     //! Modificar la funcion
     const store_id = getStoreId();
     //*

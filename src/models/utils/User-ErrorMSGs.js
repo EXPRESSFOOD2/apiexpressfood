@@ -13,8 +13,8 @@ module.exports = {
     MIN_ANSWER_LENGTH: 8,
     INVALID_ANSWER: "The answer is to short",
     INVALID_LOGIN_PARAMS: "Must provide, Account & Password",
-    INVALID_LOGIN: "Invalid Account & Password or This Account Doesn't exist",
-    INVALID_ACCOUNT_NAME:"account name cannot be empty",
+    INVALID_LOGIN: "Invalid Account & Password // This Account Doesn't exist",
+    INVALID_ACCOUNT_NAME:"Account name cannot be empty",
     DEFAULT_IMG: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png",
     
 }

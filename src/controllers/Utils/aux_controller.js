@@ -43,6 +43,27 @@ const validateArraySameStore = async (arr, store_id, model) => {
     return result.filter(e => e != true).length ? false : true;
 }
 
+const procesarIngredientsConSet = (ingredientsList) => {
+  //* Puede recibir de las 2 maneras.. Ignorará el Layer
+  //{ id, name, layer, amount },
+  //{ id, name, amount }
+    const set = ingredientsList.reduce((acc, ingredient) => {
+        const name = ingredient.name;
+        if (acc[name]) {
+          acc[name].amount += ingredient.amount;
+        } else {
+          acc[name] = {
+            id: ingredient.id,
+            name: name,
+            amount: ingredient.amount
+          };
+        }
+        return acc;
+      }, {});
+      const result = Object.values(set);
+      return result;
+}
+
 module.exports = {
     isItAnExistingModelByName,
     isItAnExistingModelByID,
@@ -50,4 +71,5 @@ module.exports = {
     getActualDate,
     generateOldName,
     validateArraySameStore,
+    procesarIngredientsConSet
 };

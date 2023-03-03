@@ -4,6 +4,7 @@ const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
 const router = Router();
 
+//! Se ve tan lindo como una kardashian sin filtros :$
 const {
   sendActivationEmail,
 } = require("..//controllers/htmlMessageMail/sendActivationEmail");
