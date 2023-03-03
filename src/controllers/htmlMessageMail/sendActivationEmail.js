@@ -12,9 +12,11 @@ const sendEmail = (email, orderCode, orderId) => {
 
   let rediectLocal =  `http://localhost:3000`
     let rediectDeploy =  `https://spacefood.up.railway.app`
+    const mailExpress =     "smtps://expressfoodhenry@gmail.com:hdogizvqpmgovqni@smtp.gmail.com"
+    const mailSpace =     "smtps://spacefoodhenry@gmail.com:tpfxmmhnwjjflwfj@smtp.gmail.com"
   const transporter = nodemailer.createTransport(
 
-    "smtps://spacefoodhenry@gmail.com:tpfxmmhnwjjflwfj@smtp.gmail.com"
+    mailExpress
   );
 
   const mailRegistration = {
