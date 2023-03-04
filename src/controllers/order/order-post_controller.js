@@ -40,10 +40,8 @@ const processCode = (code) => {
     return letter + number;
 }
 
-module.exports = {
-    ordersPostController,
-    
-}
+module.exports = { ordersPostController, processCode }
+
 
 /*
 const ordersPostController = async ( products, client_data, store_id ) => {
