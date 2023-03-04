@@ -107,7 +107,7 @@ try {
   await Promise.all(promises)
   console.log("orders created");
 } catch (error) {
-  console.log(error);
+  console.log(error.message);
 }
    
 
