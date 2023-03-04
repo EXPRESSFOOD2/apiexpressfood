@@ -27,7 +27,7 @@ const io = new Server(server,{
 
 socketPrueba(io)
 
-conn.sync({ force: true })
+conn.sync({force:true})
     .then(() => {
         return Seed();
     })
