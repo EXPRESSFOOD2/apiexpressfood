@@ -1,33 +1,3 @@
-# auth google
-### .../auth
->   *** Espera: ***
->       - METHOD: GET
->       - 
->   *** Retorna: ***
->       - 
->       - 
-
-
-# Cart
-### .../carts/get/:id
->   *** Espera: ***
->       - METHOD: GET
->       - Params: { id }
->       - Id de usuario
->   *** Retorna: ***
->       - Success: { my_cart }  // JSON
->       - Error: Mensaje
-
-### .../carts/patch
->   *** Espera: ***
->       - METHOD: PATCH
->       - Body: { id, my_cart }
->       - Id de usuario y el JSON, probablemente ARRAY
->   *** Retorna: ***
->       - Success: { "1" }
->       - Error: Mensaje
-
-
 
 --------------------------------- NEW --------------------------------
 # USERS
@@ -218,7 +188,8 @@
 >   *** Espera: ***
 >       - METHOD: GET
 >   *** Retorna: ***
->       - Success: 	[{ id, rating, name, description, price, recomend_first, stock, is_active, url_image, Tags: ["","",""...], Ingredients:[] }, .... ]
+
+>       - Success: 	[{ id, rating, name, description, price, recomend_first, stock, is_active, url_image, TagsFull: [{name, TagsMenuItems {TagId, MenuItemId}}, ....] Tags: ["","",""...], Ingredients:[] }, .... ]
 >       - Error: Mensaje
 
 ### .../menu/get/recomended
@@ -256,8 +227,37 @@
 >       - Success: {  }
 >       - Error: Mensaje
 
-//* Menu
-router.use("/menu/create", menuPostRouter);
-router.use("/menu/get", menuGetRouter);
-router.use("/menu/update", menuPatchRouter);
-router.use("/menu/delete", menuDeleteRouter);
+
+
+---------------------- OLD ---------------------------------
+# auth google
+### .../auth
+>   *** Espera: ***
+>       - METHOD: GET
+>       - 
+>   *** Retorna: ***
+>       - 
+>       - 
+
+
+# Cart
+### .../carts/get/:id
+>   *** Espera: ***
+>       - METHOD: GET
+>       - Params: { id }
+>       - Id de usuario
+>   *** Retorna: ***
+>       - Success: { my_cart }  // JSON
+>       - Error: Mensaje
+
+### .../carts/patch
+>   *** Espera: ***
+>       - METHOD: PATCH
+>       - Body: { id, my_cart }
+>       - Id de usuario y el JSON, probablemente ARRAY
+>   *** Retorna: ***
+>       - Success: { "1" }
+>       - Error: Mensaje
+
+
+Hay otras rutas que existen pero no estan implementadas

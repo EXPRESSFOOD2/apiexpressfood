@@ -41,6 +41,7 @@ const filterMenuItems = (arr) => {
       is_active: item.is_active,
       url_image: item.url_image,
       //store_id: item.store_id,
+      TagsFull: item.Tags,
       Tags: tagsArray,
       Ingredients: item.Ingredients,
     };
