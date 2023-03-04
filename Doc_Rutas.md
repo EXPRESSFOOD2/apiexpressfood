@@ -96,12 +96,21 @@
 ### .../tags/update
 >   *** Espera: ***
 >       - METHOD: PATCH
->       - { id, name }
+>       - Body: { id, name }
 >       - Headers: { storeName }
 >   *** Retorna: ***
 >       - Success: { 1 }
 >       - Error: Message
 
+### .../tags/apply
+>   *** Espera: ***
+>       - METHOD: POST
+>       - { tagsIds [], menuItemId }
+>       - Headers: { storeName }
+>         En Esencia borra la el id de menuItemId de la tabla intermedia y setea los tagsIds recibidos
+>   *** Retorna: ***
+>       - Success: "Done"
+>       - Error: Message
 
 # Ingredient
 ### .../ingredients/create
@@ -196,13 +205,13 @@
 
 
 
-# Menu
+# MenuItem
 ### .../menu/create
 >   *** Espera: ***
 >       - METHOD: POST
->       - Body: { name,description,price,recomend_first,stock,is_active,url_image, ingredArray: [{ id, quantity },{ id, quantity }, ...] }
+>       - Body: { name,description,price,recomend_first,stock,is_active,url_image, ingredArray: [{ id, quantity },{ id, quantity }, ...], tagsIds: [1,2,3,4...] }
 >   *** Retorna: ***
->       - Success: { id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt }
+>       - Success: { id, name, description, price, recomend_first, stock, is_active, url_image }
 >       - Error: Mensaje
 
 ### .../menu/get
@@ -224,9 +233,9 @@
 >   *** Espera: ***
 >       - METHOD: PATCH
 >       - Body: { id, name, description, price, recomend_first, stock, is_active, url_image }
->       - Actualmente cambia TODOS LOS CAMPOS con los valores enviados
+>       - Actualmente cambia TODOS LOS CAMPOS menos el de ingrediente con los valores enviados
 >   *** Retorna: ***
->       - Success: { "1" }
+>       - Success: { 1 }
 >       - Error: Mensaje
 
 ### .../menu/delete
@@ -238,3 +247,9 @@
 >   *** Retorna: ***
 >       - Success: {  }
 >       - Error: Mensaje
+
+//* Menu
+router.use("/menu/create", menuPostRouter);
+router.use("/menu/get", menuGetRouter);
+router.use("/menu/update", menuPatchRouter);
+router.use("/menu/delete", menuDeleteRouter);

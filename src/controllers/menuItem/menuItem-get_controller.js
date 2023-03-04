@@ -8,9 +8,26 @@ const menuItemsGetController = async (store_id) => {
     order: [["recomend_first", "DESC"]],
   });
 
-  const resultArray = result.map((item) => {
-    const tagsArray = item.Tags.map((tag) => tag.name);
+  return  filterMenuItems(result);
 
+};
+
+const menuItemsGetRecommendedController = async (store_id) => {
+  const result = await MenuItem.findAll({
+    include: [ { model: Ingredient, }, { model: Tag }, ],
+    where: { recomend_first: true, store_id },
+  });
+  //! Se puede implementar
+  // const tagsArray = result.dataValues.Tags.map((tag) => tag.name);
+
+  // console.log(tagsArray);
+  
+  return filterMenuItems(result);
+};
+
+const filterMenuItems = (arr) => {
+  const result = arr.map((item) => {
+    const tagsArray = item.Tags.map((tag) => tag.name);
     return {
       id: item.id,
       name: item.name,
@@ -20,36 +37,24 @@ const menuItemsGetController = async (store_id) => {
       stock: item.stock,
       is_active: item.is_active,
       url_image: item.url_image,
-      store_id: item.store_id,
+      //store_id: item.store_id,
       Tags: tagsArray,
       Ingredients: item.Ingredients,
     };
   });
-  
-
-  return resultArray;
-
-};
-
-const menuItemsGetRecommendedController = async (store_id) => {
-  const result = await MenuItem.findAll({
-    include: [
-      {
-        model: Ingredient,
-      },
-      { model: Tag },
-    ],
-    where: { recomend_first: true, store_id },
-  });
-  return result;
-};
+  return result
+}
 
 const menuItemsGetByIdController = async (id, store_id) => {
   const result = await MenuItem.findOne({
     where: { id, store_id },
     include: [{ model: Tag }, { model: Ingredient }],
+    //include: [{ model: Tag, attributes: ["name"] }, { model: Ingredient }],
   });
-  return result;
+  //! Se puede implementar
+  //result.Tags = await result.Tags.map((tag) => tag.name);
+
+  return filterMenuItems([result]);
 };
 
 module.exports = {

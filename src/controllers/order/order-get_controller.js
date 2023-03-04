@@ -1,6 +1,6 @@
 const { MenuItem, Order, OrdersMenu, Op } = require("../../db");
 
-const orderGetBalanceController = async ( store_id, startDate = "2022-06-02", endDate="2024-03-02" ) => {
+const orderGetBalanceController = async ( store_id, startDate = "1901-01-01", endDate="2500-01-01" ) => {
   const orders = await Order.findAll({
     where: {
       store_id,

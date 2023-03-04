@@ -14,6 +14,8 @@ const tagsPostRouter = require("./tags/tags_post");
 const tagsGetRouter = require("./tags/tags_get");
 const tagsDeleteRouter = require("./tags/tags_delete");
 const tagsPatchRouter = require("./tags/tags_patch");
+const tagsSetToMenuRouter = require("./tags/tags_apply")         // Agregar TAGS a los Menus
+
 
 //* Ingredient Routes
 const ingredientsPostRouter = require("./ingredients/ingredients-post");
@@ -101,6 +103,8 @@ router.use("/tags/create", tagsPostRouter);
 router.use("/tags/get", tagsGetRouter);
 router.use("/tags/delete", tagsDeleteRouter);
 router.use("/tags/update", tagsPatchRouter);
+router.use("/tags/apply", tagsSetToMenuRouter)
+
 
 //* Recipe
 router.use("/recipes/create", recipesPostRouter);

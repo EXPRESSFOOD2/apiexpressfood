@@ -20,6 +20,7 @@ const processOrderPatch = async (req, res) => {
         const { id, status } = req.body;
         const store_id = getStoreId();
         //! Validar Algo
+        
         //! uizas estampar el ID del usuario que está haciendo el Patch
         const result  = await orderPatchController( id, store_id, status );
         return res.status(200).json( result )

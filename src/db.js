@@ -48,8 +48,6 @@ sequelize.models = Object.fromEntries(capsEntries);
 const {
   Ingredient, Recipe, IngredientsRecipes, IngredientsMenuItems, MenuItem,
   Role, User, Password, Tag, TagsMenuItems, Order, OrdersMenu, Store,
-//  UsersRoles, 
-  // UsersStores, 
   Review, 
   // OrderMenuItemReview 
 } = sequelize.models;
@@ -62,9 +60,6 @@ const {
 
 Role.belongsToMany( User, { through: UsersRoles });
 User.hasOne( Role, { through: UsersRoles } );
-
-
-
 
 */
 
@@ -91,11 +86,11 @@ Review.belongsTo(MenuItem);
 
 Recipe.belongsToMany( Ingredient, { through: IngredientsRecipes });
 Ingredient.belongsToMany( Recipe, { through: IngredientsRecipes });
-// foreignKey: 'ingredient_id'
+
 MenuItem.belongsToMany( Ingredient, { through: IngredientsMenuItems}); //, foreignKey: 'menuItem_id'
 Ingredient.belongsToMany( MenuItem, { through: IngredientsMenuItems}); //, foreignKey: 'ingredient_id' 
 
-Tag.belongsToMany( MenuItem, { through: TagsMenuItems } )
+Tag.belongsToMany( MenuItem, { through: TagsMenuItems, onDelete: 'CASCADE' } )
 MenuItem.belongsToMany( Tag, { through: TagsMenuItems } )
 
 module.exports = {

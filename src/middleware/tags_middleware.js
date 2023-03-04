@@ -6,6 +6,27 @@ const { isItAnExistingModelByID, isItAnExistingModelByName } = require("../contr
 const { tagsDeleteController } = require("../controllers/tag/tag-delete_controller")
 const { getStoreId, getStoreIDByStoreName } = require("../controllers/HashFunction/security");
 const { INVALID_TAG_ID, DUPLICATED_TAG_NAME, INVALID_TAG_NAME } = require("../models/utils/Tag-ErrorMSGs") 
+const { tagsApplyController } = require("../controllers/tag/tag-apply_controller")
+
+const processTagMenuPost = async (req, res) => {
+    try {
+        //! TODO
+        const {  } = req.body;
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+        const { tagsIds, menuItemId } = req.body;
+
+        // Agregar Validacion por Header
+        //! Modificar la funcion
+        const store_id = getStoreId();
+        //*
+        //! validar quizas?
+        const result = await tagsApplyController(tagsIds, menuItemId, store_id)
+        return res.status(200).json( result )
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
 
 //* Adds storeId && Headers Validation note
 const processTagPost = async (req,res) => {
@@ -94,6 +115,7 @@ module.exports = {
 processTagPost,
 processTagGet,
 processTagDelete,
-processTagPatch
+processTagPatch,
+processTagMenuPost
 
 }

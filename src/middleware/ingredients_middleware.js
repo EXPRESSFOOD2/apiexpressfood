@@ -19,11 +19,8 @@ const processIngredientPost = async (req, res) => {
     // Agregar Validacion por Header
     //! Modificar la funcion
     const store_id = getStoreId();
-
     const { name, layer, type_measure, ingredients_all } = req.body;
-    console.log("a ver a ver");    //*{"name": "Gaseosa Coca-Cola", "layer": 0, "type_measure": "un", "ingredients_all": [],  "store_id": "f3bc0474-620c-429d-a46c-df2460c7725a" }
     await validateIngredient(name, layer, type_measure, ingredients_all, store_id);
-    console.log("Aca entra");
     const result = await ingredientsPostController( name, layer, type_measure, ingredients_all, store_id );
     return res.status(200).json(result);
   } catch (error) {
