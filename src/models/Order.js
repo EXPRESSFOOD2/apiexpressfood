@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
             //type: DataTypes.UUIDV4,
             type: DataTypes.STRING,
             defaultValue: "f3bc0474-620c-429d-a46c-df2460c7725a",
-            allowNull: false,
+            allowNull: true,
         },
         status: {
             type: DataTypes.ENUM,

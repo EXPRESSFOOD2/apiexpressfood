@@ -1,6 +1,7 @@
 const{ Order, MenuItem, OrdersMenu } = require("../../db")
 
 
+
 const ordersPostController = async ( products, client_data, store_id ="f3bc0474-620c-429d-a46c-df2460c7725a" ) => {
     let total = await getTotal(products);
     let searchResult = await Order.findAll({ limit: 1, where: {store_id}, order: [["createdAt", "DESC"]]})
@@ -11,7 +12,7 @@ const ordersPostController = async ( products, client_data, store_id ="f3bc0474-
         return {OrderId: result.dataValues.id , MenuItemId: prod.id}
     })
 
-    console.log(associations);
+
    await OrdersMenu.bulkCreate(associations)
 
     return result.dataValues.id

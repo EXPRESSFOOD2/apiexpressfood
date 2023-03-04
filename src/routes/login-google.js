@@ -104,8 +104,8 @@ router.get(
       email: user.email,
     });
 
-   // let redirect = `http://localhost:3000/?user=`;
-    let redirect = `https://spacefood.up.railway.app/?user=`;
+   let redirect = `http://localhost:3000/?user=`;
+    // let redirect = `https://spacefood.up.railway.app/?user=`;
 
     
     res.redirect(`${redirect}${userDataQuery}`);
