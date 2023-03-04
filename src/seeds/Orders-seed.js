@@ -63,29 +63,29 @@ const FAKE_ORDERSMENUS = [
  {quantity:5, OrderId:14, MenuItemId:9},
  {quantity:5, OrderId:14, MenuItemId:10},
 
- {quantity:5, OrderId:15, MenuItemId:11},
- {quantity:5, OrderId:15, MenuItemId:12},
+ {quantity:5, OrderId:15, MenuItemId:1},
+ {quantity:5, OrderId:15, MenuItemId:2},
 
  {quantity:5, OrderId:16, MenuItemId:13},
- {quantity:5, OrderId:16, MenuItemId:14},
+ {quantity:5, OrderId:16, MenuItemId:2},
 
- {quantity:5, OrderId:17, MenuItemId:15},
- {quantity:5, OrderId:17, MenuItemId:16},
+ {quantity:5, OrderId:17, MenuItemId:3},
+ {quantity:5, OrderId:17, MenuItemId:4},
 
- {quantity:5, OrderId:18, MenuItemId:17},
- {quantity:5, OrderId:18, MenuItemId:18},
+ {quantity:5, OrderId:18, MenuItemId:5},
+ {quantity:5, OrderId:18, MenuItemId:6},
 
- {quantity:5, OrderId:19, MenuItemId:19},
- {quantity:5, OrderId:19, MenuItemId:1},
- {quantity:5, OrderId:19, MenuItemId:2},
- {quantity:5, OrderId:19, MenuItemId:3},
- {quantity:5, OrderId:19, MenuItemId:4},
- {quantity:5, OrderId:19, MenuItemId:5},
- {quantity:5, OrderId:19, MenuItemId:6},
  {quantity:5, OrderId:19, MenuItemId:7},
  {quantity:5, OrderId:19, MenuItemId:8},
  {quantity:5, OrderId:19, MenuItemId:9},
  {quantity:5, OrderId:19, MenuItemId:10},
+ {quantity:5, OrderId:19, MenuItemId:11},
+ {quantity:5, OrderId:19, MenuItemId:12},
+ {quantity:5, OrderId:19, MenuItemId:13},
+ {quantity:5, OrderId:19, MenuItemId:14},
+ {quantity:5, OrderId:19, MenuItemId:15},
+ {quantity:5, OrderId:19, MenuItemId:16},
+ {quantity:5, OrderId:19, MenuItemId:17},
 
 
  
@@ -101,8 +101,9 @@ module.exports = async function () {
 ]
 try {
   await Promise.all(promises)
+  console.log("orders created");
 } catch (error) {
-  
+  console.log(error);
 }
    
 
