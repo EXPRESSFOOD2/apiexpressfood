@@ -1,4 +1,4 @@
-const { MenuItem, Order, OrdersMenu, Op } = require("../../db");
+const { MenuItem, Order, OrdersMenu, Op, Review } = require("../../db");
 
 const orderGetBalanceController = async ( store_id, startDate = "2022-06-02", endDate="2024-03-02" ) => {
   const orders = await Order.findAll({
@@ -88,7 +88,7 @@ const orderGetController = async (
     //! limit: 120,
     where: {
       store_id,
-      status: { [Op.notIn]: ["Unpaid"] },
+      status: { [Op.notIn]: ["Sin Pagar"] },
       client_data: email,
     },
     include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
@@ -97,7 +97,7 @@ const orderGetController = async (
   }) :  result = await Order.findAll({
     where: {
       store_id,
-      status: { [Op.notIn]: ["Unpaid", "Finished"] },
+      status: { [Op.notIn]: ["Sin Pagar", "Entregada"] },
     },
     include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
     attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
@@ -113,18 +113,21 @@ const orderGetByIdController = async (
   email
 
 ) => {
-let result
-email ? result = await Order.findOne({
-  where: { id, store_id, client_data: email },
-  include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
-})
-:
-   result = await Order.findOne({
-    where: { id, store_id },
-
+  
+  let existingRewiew = await Review.findAll({where:{OrdersMenuId:id}})
+  let result = await Order.findOne({
+    where: { id, store_id, client_data: email },
     include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
-  });
-  return result;
+  })
+  if(!existingRewiew.length) {
+
+return result;}
+else{
+    result.dataValues.hasReview = true;
+    
+    return result
+  }
+
 };
 
 module.exports = {

@@ -53,13 +53,14 @@ const processOrderGet = async (req, res) => {
 const processOrderGetById= async (req, res) => {
     try {
         const { id } = req.params;
-        const  {email}  = req.body;
+        const  email  = req.body;
         //! Este Ctrl los saca el store_id de la galera
         //! Rever
         const store_id = getStoreId();
         const result  = await orderGetByIdController(id, store_id, email)
         return res.status(200).json( result )
     } catch (error) {
+        console.log(error.message);
         return res.status(400).json({ error: error.message })
     }
 
