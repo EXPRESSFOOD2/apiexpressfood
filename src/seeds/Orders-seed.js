@@ -1,222 +1,111 @@
-const { Order } = require("../db");
-const {
-  ordersPostController,
-} = require("..//controllers/order/order-post_controller");
+const { Order , OrdersMenu} = require("../db");
 
 
-const FAKE_CARTS = [
-  {
-    products: [
-      { id: 2, quantity: 1 },
-      { id: 5, quantity: 1 },
-      { id: 1, quantity: 1 },
-      { id: 7, quantity: 1 },
-      { id: 10, quantity: 1 },
-    ]
-  },
-  {
-    products: [
-      { id: 3, quantity: 1 },
-      { id: 1, quantity: 1 },
-      { id: 10, quantity: 1 },
-    
-    ]
-  },
-  {
-    products: [
-      { id: 3, quantity: 2 },
-   
-    ]
-  },
-  {
-    products: [
-      { id: 3, quantity: 2 },
-      { id: 5, quantity: 2 },
-      { id: 1, quantity: 2 },
-      { id: 7, quantity: 1 },
-      { id: 10, quantity: 1 },
-      { id: 12, quantity: 2 },
-      { id: 15, quantity: 1 },
-    ]
-  },
-  {
-    products: [
-      { id: 6, quantity: 2 },
-      { id: 7, quantity: 2 },
-      { id: 8, quantity: 2 },
-   ]
-  },
-  {
-    products: [
-      { id: 3, quantity: 1 },
-      { id: 6, quantity: 2 },
-      { id: 9, quantity: 1 },
-      { id: 7, quantity: 2 },
-      { id: 2, quantity: 1 },
-    ]
-  },
-  {
-    products: [
-      { id: 3, quantity: 1 },
-      { id: 6, quantity: 1 },
-      { id: 10, quantity: 1 },
-      { id: 4, quantity: 1 },
-      { id: 5, quantity: 1 },
-    ]
-  },
-  {
-    products: [
-      { id: 3, quantity: 2 },
-      { id: 5, quantity: 2 },
-    
-    ]
-  },
-  {
-    products: [
-    ,
-      { id: 7, quantity: 2 },
-      { id: 10, quantity: 2 },
-    ]
-  },
-  {
-    products: [
-     
-      { id: 1, quantity: 2 },
+
+
+const FAKE_ORDERS = [
+  {total:55, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A000", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:25, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A001", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A002", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A003", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A004", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A005", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A006", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A007", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A008", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A009", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A010", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A011", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "In Progress"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A012", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Ready"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A013", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Ready"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A014", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Ready"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A015", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Ready"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A016", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Ready"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A017", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Ready"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A018", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Ready"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A019", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Ready"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A020", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Ready"},
   
-    ]
-  },
-  {
-    products: [
-
-      { id: 5, quantity: 2 },
-      { id: 1, quantity: 2 },
-    
-    ]
-  },
-  {
-    products: [
-
-      { id: 7, quantity: 2 },
-      { id: 10, quantity: 2 },
-    ]
-  },
-  {
-    products: [
-
-      { id: 10, quantity: 2 },
-    ]
-  },
-  {
-    products: [
-      { id: 1, quantity: 1 },
-      { id: 5, quantity: 2 },
-      { id: 17, quantity: 2 },
-    
-    ]
-  },
-  {
-    products: [
-      { id: 3, quantity: 2 },
-      { id: 5, quantity: 2 },
-      { id: 1, quantity: 2 },
-      { id: 7, quantity: 2 },
-      { id: 10, quantity: 2 },
-    ]
-  },
-  {
-    products: [
-      { id: 3, quantity: 2 },
-      { id: 5, quantity: 2 },
-  
-   
-    ]
-  },
-  {
-    products: [
-      { id: 3, quantity: 2 },
-      { id: 5, quantity: 2 },
-      { id: 10, quantity: 2 },
-   
-    ]
-  },
-  {
-    products: [
-      
-        { id: 3, quantity: 2 },
-      { id: 1, quantity: 2 },
-      { id: 7, quantity: 2 },
-      { id: 10, quantity: 2 },
-    ]
-  },
-  {
-    products: [
-      { id: 1, quantity: 2 },
-      { id: 2, quantity: 2 },
-      { id: 3, quantity: 2 },
-      { id: 4, quantity: 2 },
-      { id: 5, quantity: 2 },
-    ]
-  },
-  {
-    products: [
-      { id: 17, quantity: 2 },
-
-    ]
-  },
 ];
-const FAKE_USERS = [
- {client_data:{email:"gibsonavilan@gmail.com" }},
- {client_data:{email:"davidvergaraok@gmail.com" }},
- {client_data:{email:"alpharus2k@gmail.com" }},
- {client_data:{email:"jhamilfernandez@gmail.com" }},
- {client_data:{email:"gibsonavilan@gmail.com" }},
- {client_data:{email:"davidvergaraok@gmail.com" }},
- {client_data:{email:"alpharus2k@gmail.com" }},
- {client_data:{email:"jhamilfernandez@gmail.com" }},
- {client_data:{email:"gibsonavilan@gmail.com" }},
- {client_data:{email:"davidvergaraok@gmail.com" }},
- {client_data:{email:"alpharus2k@gmail.com" }},
- {client_data:{email:"jhamilfernandez@gmail.com" }},
- {client_data:{email:"gibsonavilan@gmail.com" }},
- {client_data:{email:"davidvergaraok@gmail.com" }},
- {client_data:{email:"alpharus2k@gmail.com" }},
- {client_data:{email:"jhamilfernandez@gmail.com" }},
- {client_data:{email:"gibsonavilan@gmail.com" }},
- {client_data:{email:"davidvergaraok@gmail.com" }},
- {client_data:{email:"alpharus2k@gmail.com" }},
- {client_data:{email:"jhamilfernandez@gmail.com" }},
+const FAKE_ORDERSMENUS = [
+ {quantity:5, OrderId:1, MenuItemId:1},
+ {quantity:5, OrderId:1, MenuItemId:3},
+
+ {quantity:5, OrderId:2, MenuItemId:5},
+
+ {quantity:5, OrderId:3, MenuItemId:6},
+ {quantity:5, OrderId:3, MenuItemId:10},
+
+ {quantity:5, OrderId:4, MenuItemId:11},
+
+ {quantity:5, OrderId:5, MenuItemId:15},
+
+ {quantity:5, OrderId:6, MenuItemId:12},
+
+ {quantity:5, OrderId:7, MenuItemId:13},
+
+ {quantity:5, OrderId:8, MenuItemId:19},
+
+ {quantity:5, OrderId:9, MenuItemId:18},
+
+ {quantity:5, OrderId:10, MenuItemId:10},
+ {quantity:5, OrderId:10, MenuItemId:2},
+
+ {quantity:5, OrderId:11, MenuItemId:3},
+ {quantity:5, OrderId:11, MenuItemId:4},
+
+ {quantity:5, OrderId:12, MenuItemId:5},
+ {quantity:5, OrderId:12, MenuItemId:6},
+
+ {quantity:5, OrderId:13, MenuItemId:7},
+ {quantity:5, OrderId:13, MenuItemId:8},
+
+ {quantity:5, OrderId:14, MenuItemId:9},
+ {quantity:5, OrderId:14, MenuItemId:10},
+
+ {quantity:5, OrderId:15, MenuItemId:11},
+ {quantity:5, OrderId:15, MenuItemId:12},
+
+ {quantity:5, OrderId:16, MenuItemId:13},
+ {quantity:5, OrderId:16, MenuItemId:14},
+
+ {quantity:5, OrderId:17, MenuItemId:15},
+ {quantity:5, OrderId:17, MenuItemId:16},
+
+ {quantity:5, OrderId:18, MenuItemId:17},
+ {quantity:5, OrderId:18, MenuItemId:18},
+
+ {quantity:5, OrderId:19, MenuItemId:19},
+ {quantity:5, OrderId:19, MenuItemId:1},
+ {quantity:5, OrderId:19, MenuItemId:2},
+ {quantity:5, OrderId:19, MenuItemId:3},
+ {quantity:5, OrderId:19, MenuItemId:4},
+ {quantity:5, OrderId:19, MenuItemId:5},
+ {quantity:5, OrderId:19, MenuItemId:6},
+ {quantity:5, OrderId:19, MenuItemId:7},
+ {quantity:5, OrderId:19, MenuItemId:8},
+ {quantity:5, OrderId:19, MenuItemId:9},
+ {quantity:5, OrderId:19, MenuItemId:10},
+
+
  
 ];
 
-FAKE_ORDERS = [
-    {total: 50, client_data:{"email":"davidvergaraok@gmail.com" }, status: "Unpaid", payment_data: {"code":"6","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"gibsonavilan@gmail.com" }, status: "In Progress", payment_data: {"code":"7","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"jhamilfernandez@gmail.com" }, status: "In Progress", payment_data: {"code":"8","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"alpharus2k@gmail.com" }, status: "Canceled", payment_data: {"code":"9","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"gibsonavilan@gmail.com" }, status: "Canceled", payment_data: {"code":"10","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"jhamilfernandez@gmail.com" }, status: "Ready", payment_data: {"code":"11","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"alpharus2k@gmail.com" }, status: "Ready", payment_data: {"code":"12","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"davidvergaraok@gmail.com" }, status: "Finished", payment_data: {"code":"13","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"gibsonavilan@gmail.com" }, status: "Finished", payment_data: {"code":"14","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"jhamilfernandez@gmail.com" }, status: "Canceled", payment_data: {"code":"15","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"alpharus2k@gmail.com" }, status: "Ready", payment_data: {"code":"16","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"davidvergaraok@gmail.com" }, status: "In Progress", payment_data: {"code":"17","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"gibsonavilan@gmail.com" }, status: "In Progress", payment_data: {"code":"18","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"jhamilfernandez@gmail.com" }, status: "Ready", payment_data: {"code":"18","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"alpharus2k@gmail.com" }, status: "Ready", payment_data: {"code":"19","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"davidvergaraok@gmail.com" }, status: "Unpaid", payment_data: {"code":"20","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"jhamilfernandez@gmail.com" }, status: "Unpaid", payment_data: {"code":"21","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"alpharus2k@gmail.com" }, status: "Unpaid", payment_data: {"code":"22","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"gibsonavilan@gmail.com" }, status: "Unpaid", payment_data: {"code":"23","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-    {total: 50, client_data:{"email":"davidvergaraok@gmail.com" }, status: "Unpaid", payment_data: {"code":"24","collection_id":"1311877064","collection_status":"approved","payment_id":"1311877064","status":"approved","external_reference":"null","payment_type":"credit_card","merchant_order_id":"7983400210","preference_id":"463377658-32ea1da8-426c-42d5-8b6f-bd2cdc5838b0","site_id":"MLA","processing_mode":"aggregator","merchant_account_id":"null"} },
-]
 
 module.exports = async function () {
 
 
   setTimeout( async() => {
+    const promises = [ Order.bulkCreate(FAKE_ORDERS),
+    OrdersMenu.bulkCreate(FAKE_ORDERSMENUS)
+]
+try {
+  await Promise.all(promises)
+} catch (error) {
+  
+}
+   
 
-    await Order.bulkCreate(FAKE_ORDERS)
 
   }, 5000);
 };
