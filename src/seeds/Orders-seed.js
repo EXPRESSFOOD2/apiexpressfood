@@ -99,7 +99,12 @@ module.exports = async function () {
     const promises = [ Order.bulkCreate(FAKE_ORDERS),
     OrdersMenu.bulkCreate(FAKE_ORDERSMENUS)
 ]
-    await Promise.all(promises)
+try {
+  await Promise.all(promises)
+} catch (error) {
+  
+}
+   
 
 
   }, 5000);
