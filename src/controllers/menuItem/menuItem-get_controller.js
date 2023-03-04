@@ -1,27 +1,29 @@
-const { MenuItem, Ingredient, Tag, Review, Order} = require("../../db");
+const { MenuItem, Ingredient, Tag, Review, conn} = require("../../db");
+
 
 const menuItemsGetController = async (store_id) => {
   const result = await MenuItem.findAll({
     where: { store_id },
     include: [{ model: Tag, attributes: ["name"] }, { model: Ingredient }],
-    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+    attributes: {
+      exclude: ["createdAt", "updatedAt", "deletedAt"],
+      include: [[conn.literal('(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItem"."id" = "Reviews"."MenuItemId")'), 'rating']]
+    },
     order: [["recomend_first", "DESC"]],
-  });
-
+  })
   return  filterMenuItems(result);
 
 };
 
 const menuItemsGetRecommendedController = async (store_id) => {
   const result = await MenuItem.findAll({
-    include: [ { model: Ingredient, }, { model: Tag }, ],
     where: { recomend_first: true, store_id },
+    include: [{ model: Tag, attributes: ["name"] }, { model: Ingredient }],
+    attributes: {
+      exclude: ["createdAt", "updatedAt", "deletedAt"],
+      include: [[conn.literal('(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItem"."id" = "Reviews"."MenuItemId")'), 'rating']]
+    },
   });
-  //! Se puede implementar
-  // const tagsArray = result.dataValues.Tags.map((tag) => tag.name);
-
-  // console.log(tagsArray);
-  
   return filterMenuItems(result);
 };
 
@@ -30,6 +32,7 @@ const filterMenuItems = (arr) => {
     const tagsArray = item.Tags.map((tag) => tag.name);
     return {
       id: item.id,
+      rating: item.dataValues.rating,
       name: item.name,
       description: item.description,
       price: item.price,
@@ -48,12 +51,12 @@ const filterMenuItems = (arr) => {
 const menuItemsGetByIdController = async (id, store_id) => {
   const result = await MenuItem.findOne({
     where: { id, store_id },
-    include: [{ model: Tag }, { model: Ingredient }],
-    //include: [{ model: Tag, attributes: ["name"] }, { model: Ingredient }],
+    include: [{ model: Tag, attributes: ["name"] }, { model: Ingredient }],
+    attributes: {
+      exclude: ["createdAt", "updatedAt", "deletedAt"],
+      include: [[conn.literal('(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItem"."id" = "Reviews"."MenuItemId")'), 'rating']]
+    },
   });
-  //! Se puede implementar
-  //result.Tags = await result.Tags.map((tag) => tag.name);
-
   return filterMenuItems([result]);
 };
 

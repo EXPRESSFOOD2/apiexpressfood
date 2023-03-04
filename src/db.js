@@ -57,7 +57,6 @@ const {
 
 /*
 
-
 Role.belongsToMany( User, { through: UsersRoles });
 User.hasOne( Role, { through: UsersRoles } );
 
@@ -79,8 +78,12 @@ Password.belongsTo(User, {
 
 Order.belongsToMany( MenuItem, { through: OrdersMenu })
 MenuItem.belongsToMany( Order, { through: OrdersMenu })
+
+//! Comentar para poder usar Seeder CreateReviews
 Review.belongsTo(OrdersMenu);
 OrdersMenu.hasMany(Review);
+//!
+
 MenuItem.hasMany(Review);
 Review.belongsTo(MenuItem);
 

@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
-            field: "menu_item_id"
+            //field: "menu_item_id"
         },
         name: {
             type: DataTypes.STRING(70),

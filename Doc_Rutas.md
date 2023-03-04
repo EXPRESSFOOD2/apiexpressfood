@@ -218,7 +218,14 @@
 >   *** Espera: ***
 >       - METHOD: GET
 >   *** Retorna: ***
->       - Success: 	[{ id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt, Tags: [{ id, name, createdAt, updatedAt, TagsMenuItems}, ... ] }, ...]
+>       - Success: 	[{ id, rating, name, description, price, recomend_first, stock, is_active, url_image, Tags: ["","",""...], Ingredients:[] }, .... ]
+>       - Error: Mensaje
+
+### .../menu/get/recomended
+>   *** Espera: ***
+>       - METHOD: GET
+>   *** Retorna: ***
+>       - Success: 	[{ id, rating, name, description, price, recomend_first, stock, is_active, url_image, Tags: ["","",""...], Ingredients:[] }, ...]
 >       - Error: Mensaje
 
 ### .../menu/get/:id
@@ -226,14 +233,15 @@
 >       - METHOD: GET
 >       - Params: { id }
 >   *** Retorna: ***
->       - Success: 	{ id, name, description, price, recomend_first, stock, is_active, url_image, createdAt, updatedAt, Tags: [{ id, name, createdAt, updatedAt, TagsMenuItems}, ... ] }
+>       - Success: 	{ id, rating, name, description, price, recomend_first, stock, is_active, url_image, Tags: ["","",""...], Ingredients:[] }
 >       - Error: Mensaje
 
 ### .../menu/update
 >   *** Espera: ***
 >       - METHOD: PATCH
->       - Body: { id, name, description, price, recomend_first, stock, is_active, url_image }
+>       - Body: { id, name, description, price, recomend_first, stock, is_active, url_image } 
 >       - Actualmente cambia TODOS LOS CAMPOS menos el de ingrediente con los valores enviados
+>       - IMPORTANTE!! Este metodo cambia, REEMPLAZA TODO en el MenuItem con el id pasado
 >   *** Retorna: ***
 >       - Success: { 1 }
 >       - Error: Mensaje
