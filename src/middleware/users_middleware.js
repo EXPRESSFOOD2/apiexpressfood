@@ -47,6 +47,7 @@ const processUserLogin = async (req,res) => {
         const result = await userLoginController(email, password);
         return res.status(200).json(result)
     } catch (error) {
+        console.log(error.message);
         return res.status(400).json({ error: error.message })
     }
 }

@@ -72,7 +72,7 @@ const orderGetBalanceController = async (
       }),
     };
   });
-  return orders;
+  return ordersModified;
 };
 
 const buildDetailMenuItem = async (salesPerMenu, menuItemsId) => {
