@@ -12,7 +12,7 @@ if(status === ORDER_STATUS[4]){
   const email = orderDataToSendMail.dataValues.client_data.email
   const orderCode = orderDataToSendMail.dataValues.code
   const orderId = orderDataToSendMail.dataValues.id
-  
+
   sendEmail(email, orderCode, orderId)
   return result;}
   else{
