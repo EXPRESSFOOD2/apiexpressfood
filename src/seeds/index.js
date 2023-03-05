@@ -11,7 +11,7 @@ const Orders = require("./Orders-seed")
 //const Seed = require('./');
 
 
-module.exports = async function() {
+module.exports = async function () {
     await Promise.all([ // Returning and thus passing a Promise here
         // Independent seeds first
         IngredientSeed(),
@@ -39,5 +39,9 @@ module.exports = async function() {
     ]).then(()=>{
         Orders()
     })
+
     
+    
+
+
 }
