@@ -99,9 +99,10 @@ router.use("/menu/update", menuPatchRouter);
 router.use("/menu/delete", menuDeleteRouter);
 
 //* Order
+router.use("/orders/getBalance", orderGetBalanceRouter);
 router.use("/orders/update", orderPatchRouter);
 router.use("/orders/get", orderGetRouter);
-router.use("/orders/getBalance", orderGetBalanceRouter);
+
 //* Review
 router.use("/review/post", processReviewPost);
 
