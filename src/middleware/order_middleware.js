@@ -30,20 +30,30 @@ const processOrderPatch = async (req, res) => {
 }
 const processOrderGet = async (req, res) => {
     const client_data = req.body
+//   console.log(req.body);
+    if(Object.keys(client_data).length){
     try {
-        //! Rever
         const store_id = getStoreId();
         const result  = await orderGetController(store_id, client_data)
         return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
+    }}else{
+        try {
+
+            const store_id = getStoreId();
+            const result  = await orderGetController(store_id)
+            return res.status(200).json( result )
+        } catch (error) {
+            return res.status(400).json({ error: error.message })
+        }
     }
 
 }
 const processOrderGetById= async (req, res) => {
     try {
         const { id } = req.params;
-        const  email  = req.body;
+        const  {email}  = req.body;
         //! Este Ctrl los saca el store_id de la galera
         //! Rever
         const store_id = getStoreId();
