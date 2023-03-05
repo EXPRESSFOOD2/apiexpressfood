@@ -1,40 +1,89 @@
 const { MenuItem, Order, OrdersMenu, Op, Review } = require("../../db");
 
-const orderGetBalanceController = async ( store_id, startDate = "2022-06-02", endDate="2024-03-02" ) => {
-  const orders = await Order.findAll({
+const orderGetBalanceController = async (
+  store_id,
+  startDate = "2022-06-02",
+  endDate = "2024-03-02"
+) => {
+  let orders = await Order.findAll({
     where: {
       store_id,
       status: { [Op.in]: ["Entregada"] },
       createdAt: {
-        [Op.between]: [startDate, endDate]
-      }
+        [Op.between]: [startDate, endDate],
+      },
+    },
+    include: [
+      {
+        model: MenuItem,
+        attributes: {
+          exclude: [
+            "description",
+            "recomend_first",
+            "is_active",
+            "store_id",
+            "createdAt",
+            "updatedAt",
+            "deletedAt",
+          ],
+        },
+      },
+    ],
+    attributes: {
+      exclude: [
+        "updatedAt",
+        "deletedAt",
+        "payment_data",
+        "store_id",
+        "status",
+    
+        "client_data",
+      ],
     },
     order: [["updatedAt", "DESC"]],
-  })
-  const auxOrderIds = await orders.map(o => {
-     return o.dataValues.id;
-   })
-  //! Modularizar
-  const totalSales = await getTotalSales(auxOrderIds)
-  const result = await OrdersMenu.findAll({where: {OrderId: auxOrderIds}})
-  let ordersMenuCount = getTotalMenuItems(result)
-  let menuItemsIds = ordersMenuCount.map(e => e.MenuItemId)
+  });
+  const auxOrderIds = await orders.map((o) => {
+    return o.dataValues.id;
+  });
+  // //! Modularizar
+  //! Comentado por cambios a pedido de david
+  // const totalSales = await getTotalSales(auxOrderIds);
+  // const result = await OrdersMenu.findAll({ where: { OrderId: auxOrderIds } });
+  // let ordersMenuCount = getTotalMenuItems(result);
+  // let menuItemsIds = ordersMenuCount.map((e) => e.MenuItemId);
 
-  let processedMenus = await buildDetailMenuItem( ordersMenuCount, menuItemsIds)
-  return {totalSales, salesPerMenu: processedMenus}
-}
+  // let processedMenus = await buildDetailMenuItem(ordersMenuCount, menuItemsIds);
+  // return {totalSales, salesPerMenu: processedMenus}
+
+  const ordersModified = orders.map((order) => {
+    return {
+     
+      totalAmountPerorder: order.total,
+      code: order.code,
+      orderDate: order.createdAt,
+      productsOfOrder: order.MenuItems.map((menu) => {
+        return {
+          name: menu.name,
+        quantityPerOrder:menu.OrdersMenu.quantity,
+        productPrice :menu.price,
+          url_image: menu.url_image,
+          totalAmountOfProductPerOrder: menu.price * menu.OrdersMenu.quantity,
+        };
+      }),
+    };
+  });
+  return ordersModified;
+};
 
 const buildDetailMenuItem = async (salesPerMenu, menuItemsId) => {
   let result;
   await MenuItem.findAll({
-    attributes: ['id', 'name', 'url_image'],
+    attributes: ["id", "name", "url_image"],
     where: { id: menuItemsId },
   })
     .then((menuItems) => {
       const updatedSalesPerMenu = salesPerMenu.map((sale) => {
-        const menuItem = menuItems.find(
-          (item) => item.id === sale.MenuItemId
-        );
+        const menuItem = menuItems.find((item) => item.id === sale.MenuItemId);
         return {
           MenuItemId: sale.MenuItemId,
           name: menuItem.name,
@@ -42,26 +91,26 @@ const buildDetailMenuItem = async (salesPerMenu, menuItemsId) => {
           quantity: sale.quantity,
         };
       });
-    result = updatedSalesPerMenu;
+      result = updatedSalesPerMenu;
     })
     .catch((error) => {
       //! Habilitar para manejar Errores
       //result = `Error al obtener los MenuItem: ${error}`;
     });
-    return result;
-}
+  return result;
+};
 const getTotalSales = async (ordersIds) => {
   let result;
-  await Order.sum('total', { where: { id: ordersIds } })
-  .then((total) => {
-    result = total;
-  })
-  .catch((error) => {
-    result = `We couldn't find any sales between this dates`;
-  });
+  await Order.sum("total", { where: { id: ordersIds } })
+    .then((total) => {
+      result = total;
+    })
+    .catch((error) => {
+      result = `We couldn't find any sales between this dates`;
+    });
 
-  return await result
-}
+  return await result;
+};
 
 const getTotalMenuItems = (arrayOrdersMenu) => {
   const result = arrayOrdersMenu.reduce((acc, objeto = objeto.dataValues) => {
@@ -77,32 +126,34 @@ const getTotalMenuItems = (arrayOrdersMenu) => {
   }, []);
 
   return result;
-}
+};
 
 const orderGetController = async (
   store_id = "f3bc0474-620c-429d-a46c-df2460c7725a",
   email
 ) => {
-  let result 
-  email ?  result = await Order.findAll({
-    //! limit: 120,
-    where: {
-      store_id,
-      status: { [Op.notIn]: ["Sin Pagar"] },
-      client_data: email,
-    },
-    include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
-    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
-    order: [["updatedAt", "DESC"]],
-  }) :  result = await Order.findAll({
-    where: {
-      store_id,
-      status: { [Op.notIn]: ["Sin Pagar", "Entregada"] },
-    },
-    include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
-    attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
-    order: [["createdAt", "DESC"]],
-  })
+  let result;
+  email
+    ? (result = await Order.findAll({
+        //! limit: 120,
+        where: {
+          store_id,
+          status: { [Op.notIn]: ["Sin Pagar"] },
+          client_data: email,
+        },
+        include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
+        attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+        order: [["updatedAt", "DESC"]],
+      }))
+    : (result = await Order.findAll({
+        where: {
+          store_id,
+          status: { [Op.notIn]: ["Sin Pagar", "Entregada"] },
+        },
+        include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
+        attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+        order: [["createdAt", "DESC"]],
+      }));
 
   return result;
 };
@@ -111,27 +162,24 @@ const orderGetByIdController = async (
   id,
   store_id = "f3bc0474-620c-429d-a46c-df2460c7725a",
   email
-
 ) => {
-  
-  let existingRewiew = await Review.findAll({where:{OrdersMenuId:id}})
+  let existingRewiew = await Review.findAll({ where: { OrdersMenuId: id } });
   let result = await Order.findOne({
     where: { id, store_id, client_data: email },
     include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
-  })
-  if(!existingRewiew.length) {
-
-return result;}
-else{
+  });
+  if (!existingRewiew.length) {
+    return result;
+  } else {
     result.dataValues.hasReview = true;
-    
-    return result
-  }
+    result.dataValues.Review = existingRewiew;
 
+    return result;
+  }
 };
 
 module.exports = {
   orderGetController,
   orderGetByIdController,
-  orderGetBalanceController
+  orderGetBalanceController,
 };
