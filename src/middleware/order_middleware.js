@@ -1,6 +1,6 @@
 const { getStoreId } = require("../controllers/HashFunction/security");
 const { orderPatchController } = require("../controllers/order/order-patch_controller")
-const { orderGetController, orderGetByIdController, orderGetBalanceController } = require("../controllers/order/order-get_controller")
+const { orderGetController, orderGetByIdController, orderGetBalanceController , ProgressOrdersController } = require("../controllers/order/order-get_controller")
 
 const processOrderGetBalance = async (req, res) => {
     try {
@@ -64,11 +64,21 @@ const processOrderGetById= async (req, res) => {
         return res.status(400).json({ error: error.message })
     }
 
+    
 }
 
+const getAllOrderInProgress = async (req , res) => {
+    try {
+        const orders = await ProgressOrdersController()
+        res.status(200).json(orders)
+    } catch (error) {
+        res.status(400).json({ error: error.message })
+    }
+}
 module.exports = {
     processOrderPatch,
     processOrderGet,
     processOrderGetById,
-    processOrderGetBalance
+    processOrderGetBalance,
+    getAllOrderInProgress
 }

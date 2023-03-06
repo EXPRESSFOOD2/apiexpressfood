@@ -5,12 +5,12 @@ const { Order , OrdersMenu} = require("../db");
 
 const FAKE_ORDERS = [
   {total:55, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A000", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
-  {total:25, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A001", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
-  {total:60, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A002", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
-  {total:60, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A003", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
-  {total:60, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A004", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
-  {total:60, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A005", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
-  {total:60, client_data: {"email":"davidvergaraok@gmail.com"}, code:"A006", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:25, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A001", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A002", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A003", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A004", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A005", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A006", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
   {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A007", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
   {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A008", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
   {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A009", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
