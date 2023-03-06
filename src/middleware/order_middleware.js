@@ -1,6 +1,20 @@
 const { getStoreId } = require("../controllers/HashFunction/security");
 const { orderPatchController } = require("../controllers/order/order-patch_controller")
-const { orderGetController, orderGetByIdController, orderGetBalanceController , ProgressOrdersController } = require("../controllers/order/order-get_controller")
+const { orderGetController, orderGetByIdController, orderGetBalanceController } = require("../controllers/order/order-get_controller")
+const { orderGetPredictionController } = require("../controllers/order/order-predict_controller");
+
+const processOrderPrediction = async (req, res) => {
+    try {
+        //! Validar si el usuario es dueño de la tienda
+        const store_id = getStoreId();
+        const { toPredict } = req.body;
+        //! Validar si todos los elem son del mismo store
+        const result  = await orderGetPredictionController( toPredict )
+        return res.status(200).json( result )
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
 
 const processOrderGetBalance = async (req, res) => {
     try {
@@ -20,6 +34,7 @@ const processOrderPatch = async (req, res) => {
         const { id, status } = req.body;
         const store_id = getStoreId();
         //! Validar Algo
+        
         //! uizas estampar el ID del usuario que está haciendo el Patch
         const result  = await orderPatchController( id, store_id, status );
         return res.status(200).json( result )
@@ -32,7 +47,6 @@ const processOrderGet = async (req, res) => {
 //   console.log(req.body);
     if(Object.keys(client_data).length){
     try {
-
         const store_id = getStoreId();
         const result  = await orderGetController(store_id, client_data)
         return res.status(200).json( result )
@@ -51,6 +65,7 @@ const processOrderGet = async (req, res) => {
 
 }
 const processOrderGetById= async (req, res) => {
+
     try {
         const { id } = req.params;
         const  email  = req.body;
@@ -80,5 +95,6 @@ module.exports = {
     processOrderGet,
     processOrderGetById,
     processOrderGetBalance,
-    getAllOrderInProgress
+    getAllOrderInProgress,
+    processOrderPrediction
 }

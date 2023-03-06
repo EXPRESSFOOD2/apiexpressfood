@@ -6,7 +6,6 @@ const { ordersPostController } = require("../order/order-post_controller")
 
 const paymentsControllerPost = async (products, client_data) => {
   let productDataToMercadoPago = await buildMercadoPagoObject(products);
-
   mercadopago.configure({
     public_key: process.env.MERCADOPAGO_PUBLIC_KEY,
     access_token: process.env.MERCADOPAGO_ACCESS_TOKEN,
@@ -16,11 +15,8 @@ const paymentsControllerPost = async (products, client_data) => {
   let mercadoPagoFailureUrl = getMercadoPagoFailureUrl();
   let code = await ordersPostController( products, client_data, store_id );
   let preference = buildMercadoPagoPreference(productDataToMercadoPago, mercadoPagoSuccessUrl, mercadoPagoFailureUrl, code)
-
-
   try {
     const result = await mercadopago.preferences.create(preference);
-
     return result;
   } catch (error) {
     return error.message;

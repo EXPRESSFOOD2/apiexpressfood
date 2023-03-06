@@ -1,35 +1,33 @@
-const IngredientSeed = require('./Ingredient-seed');
-const RecipeSeed1 = require('./Recipe-layer1-seed');
-const RecipeSeed2 = require('./Recipe-layer2-seed');
-const RecipeSeed3 = require('./Recipe-layer3-seed');
-const Menu = require("./Menu-seed")
-const Role = require("./Role-seed")
-const Tag = require("./Tag-seed")
-const MenuTags = require("./MenuTags-seed")
-const User = require("./User-seed")
-const Orders = require("./Orders-seed")
-//const Seed = require('./');
+const CreateUserStore = require("./CreateUserStore")
+const CreateTags = require("./CreateTags")
+const CreateIngredients = require("./CreateIngredients")
+const CreateRecipes = require("./CreateRecipes")
+const CreateMenuItems = require("./CreateMenuItems")
+const CreateTagsMenuItems = require("./CreateTagsMenuItems")
+const CreateReviews = require("./CreateReviews")
 
 
 module.exports = async function () {
     await Promise.all([ // Returning and thus passing a Promise here
-        // Independent seeds first
-        IngredientSeed(),
-        Role(),
-        Tag(),
+        await CreateUserStore(),
+        await CreateTags()
     ]).then(() => {
-        // More seeds that require IDs from the seeds above
-        RecipeSeed1()
+        CreateIngredients()
     }).then(() => {
-        RecipeSeed2()
+        CreateRecipes()
     }).then(() => {
-        RecipeSeed3()
+        CreateMenuItems(),
+        CreateTagsMenuItems()
+        //! Habilitar solo si la relacion Review-OrderMenu en db.js está deshabilitada
+        //, CreateReviews()
+        
     }).then(() => {
         console.log('********** Successfully seeded db **********');
     }).then(()=>{
         
     })
 
+<<<<<<< HEAD
     await Promise.all([ // Returning and thus passing a Promise here
         // Independent seeds first
         Menu(),
@@ -43,5 +41,7 @@ module.exports = async function () {
     
     
 
+=======
+>>>>>>> 87dff3921831030141ceda9ca9017596351ee835
 
 }

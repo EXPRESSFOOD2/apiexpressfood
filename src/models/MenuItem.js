@@ -7,12 +7,12 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
-            field: "menu_item_id"
+            //field: "menu_item_id"
         },
         name: {
             type: DataTypes.STRING(70),
             allowNull: false,
-            unique: "store_id-name"
+            unique: "name-store_id"
         },
         description: {
             type: DataTypes.TEXT,
@@ -40,13 +40,12 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         store_id: {
-            //! TODO
-            // Eliminar DefaulValue y default value
-            //type: DataTypes.UUIDV4,
-            type: DataTypes.STRING,
-            defaultValue: "f3bc0474-620c-429d-a46c-df2460c7725a",
+            type: DataTypes.UUID,
             allowNull: true,
-            unique: "store_id-name"
-        }
+            unique: "name-store_id",
+            validate: {
+              isUUID: 4,
+            },
+        },
     }, { timestamps: true, paranoid: true })
 }

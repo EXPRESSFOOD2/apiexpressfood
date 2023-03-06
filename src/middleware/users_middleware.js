@@ -7,6 +7,7 @@ const { INVAME_NAME_OR_ACCOUNT, EMAIL_REGEX, INVALID_NAME, INVALID_LAST_NAME,
 const { userPostController, token } = require("../controllers/user/user-post_controller")
 const { userLoginController } = require("../controllers/user/user-get-login_controller")
 
+//* Visto
 const isExistingUser = async (account_name, email) => {
     let result = await User.findAll({where: {[Op.or]: [
         { account_name },
@@ -15,63 +16,51 @@ const isExistingUser = async (account_name, email) => {
     return result.length > 0 ? true : false;
 }
 
+//?
+//* Remastered *//
+//?
 const processUserPost = async (req,res) => {
-    const { name, last_name, account_name, password, email, phone, role_id  } = req.body;
+    const { name, last_name, account_name, password, email, phone, role_id } = req.body;
     let { profile_image } = req.body;
-
+    console.log("Role ID: "+role_id);
     try {
         if (!profile_image || !profile_image.length) profile_image = DEFAULT_IMG;
         await validateUser(name, last_name, account_name, password, email, phone, role_id);
-        const result = await userPostController(name, last_name, account_name, password, email, phone,  profile_image )
-     
-
+        const result = await userPostController(name, last_name, account_name, password, email, phone, profile_image, role_id )
         return res.status(201).json(result)
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
 }
 
-const validateUser = async (name, last_name, account_name, password, email, phone, ) => {
+//?
+//* Remastered *//
+//?
+const validateUser = async (name, last_name, account_name, password, email, phone, role_id ) => {
     if (await isExistingUser(account_name, email)) throw Error(INVAME_NAME_OR_ACCOUNT);
     if (!name.trim() || !ALPHA_REGEX.test(name)) throw Error( INVALID_NAME);
     if (!last_name.trim().length || !ALPHA_REGEX.test(last_name)) throw Error( INVALID_LAST_NAME);
-    if (password.trim().length < MIN_PASS_LENGTH ) throw Error(PASSWORD_TO_SHORT);
+    if (password.length < MIN_PASS_LENGTH ) throw Error(PASSWORD_TO_SHORT);
     if (!EMAIL_REGEX.test(email)) throw Error(INVALID_EMAIL);
-    
 }
 
+//* Visto
 const processUserLogin = async (req,res) => {
+    console.log(req.body);
     const {email, password } = req.body;
     try {
         if (!email || !password) throw Error(INVALID_LOGIN_PARAMS);
         const result = await userLoginController(email, password);
         return res.status(200).json(result)
     } catch (error) {
+        console.log(error.message);
         return res.status(400).json({ error: error.message })
     }
 }
 
-const processActivateAccount = async (req,res) => {
-    const { token } = req.params;
 
-    try {
-        let result = await User.findAll({where: { activation_token: token }})
-        if(result.length){
-        await  User.update({ is_active: true }, { where: { id: result[0].id }})
-        let result2 = await User.findAll({where: { activation_token: token }})
-
-
-        return res.status(201).redirect("http://localhost:3000/login")
-    }else{
-    return res.status(404).json( {error: "invalid activation token"} )
-}
-    } catch (error) {
-        return res.status(400).json({ error: error.message })
-    }
-}
+//! Retrabajar esto
 const processGetAllRoles = async (req,res) => {
-   
-
     try {
         let roles = await Role.findAll({
             where: {
@@ -80,7 +69,6 @@ const processGetAllRoles = async (req,res) => {
               }
             }
           });
-
           roles = roles.map(({ id, name }) => ({ id, name }));
         if(roles.length){
         
@@ -95,5 +83,5 @@ const processGetAllRoles = async (req,res) => {
 module.exports = {
     processUserPost,
     processUserLogin,
-    processActivateAccount,processGetAllRoles
+    processGetAllRoles
 }
