@@ -4,7 +4,6 @@ const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
 const router = Router();
 
-//! Se ve tan lindo como una kardashian sin filtros :$
 const {
   sendActivationEmail,
 } = require("..//controllers/htmlMessageMail/sendActivationEmail");
@@ -58,7 +57,7 @@ router.get(
   }),
   function (req, res) {
     //! guardamos la data de la sesion para enviar al front
-   const userData = req.query;
+    user = req.user;
     const payload = {
       userId: user.id,
       username: user.displayName,
@@ -92,10 +91,11 @@ router.get(
           sendActivationEmail(user.email);
         }
 
-        processUserLogin(userData);
+        processUserLogin(user);
       };
     } catch (error) {
-      console.log( error.message);
+      console.log(error.message);
+      return error.message;
     }
 
     const userDataQuery = JSON.stringify({
@@ -105,8 +105,8 @@ router.get(
       email: user.email,
     });
 
-  let redirect = `http://localhost:3000/?user=`;
-    //  let redirect = `https://spacefood.up.railway.app/?user=`;
+   let redirect = `http://localhost:3000/?user=`;
+    // let redirect = `https://spacefood.up.railway.app/?user=`;
 
     
     res.redirect(`${redirect}${userDataQuery}`);
