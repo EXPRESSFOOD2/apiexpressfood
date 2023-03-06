@@ -58,7 +58,7 @@ router.get(
   }),
   function (req, res) {
     //! guardamos la data de la sesion para enviar al front
-    user = req.user;
+   const userData = req.query;
     const payload = {
       userId: user.id,
       username: user.displayName,
@@ -92,10 +92,10 @@ router.get(
           sendActivationEmail(user.email);
         }
 
-        processUserLogin(user);
+        processUserLogin(userData);
       };
     } catch (error) {
-      return error.message;
+      console.log( error.message);
     }
 
     const userDataQuery = JSON.stringify({
@@ -105,8 +105,8 @@ router.get(
       email: user.email,
     });
 
-  // let redirect = `http://localhost:3000/?user=`;
-     let redirect = `https://spacefood.up.railway.app/?user=`;
+  let redirect = `http://localhost:3000/?user=`;
+    //  let redirect = `https://spacefood.up.railway.app/?user=`;
 
     
     res.redirect(`${redirect}${userDataQuery}`);

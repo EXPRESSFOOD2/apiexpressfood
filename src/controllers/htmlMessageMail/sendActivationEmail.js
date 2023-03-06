@@ -16,7 +16,7 @@ const sendEmail = (email, orderCode, orderId) => {
     const mailSpace =     "smtps://spacefoodhenry@gmail.com:tpfxmmhnwjjflwfj@smtp.gmail.com"
   const transporter = nodemailer.createTransport(
 
-    mailExpress
+    mailSpace
   );
 
   const mailRegistration = {
