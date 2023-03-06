@@ -70,7 +70,7 @@ router.use("/carts/patch", cartPatchRouter );
 //!PAYPAL           *
 router.use("/payments", PaymentRouter)
 //! auth google     *
-router.use("/auth/google",authGoogle )
+router.use("/auth",authGoogle )
 
 
 //* Menu
