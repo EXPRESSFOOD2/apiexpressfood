@@ -1,28 +1,31 @@
-const { Password, Op } = require('../../db');
+const { Password, Store, Op } = require('../../db');
 const { INVALID_LOGIN } = require("../../models/utils/User-ErrorMSGs")
+const crypto = require('crypto');
 
-// const hashFunction = async (pass, secret) => {
-//   const iterations = 1001;
-//   const encoder = new TextEncoder();
-//   const data = encoder.encode(pass + secret);
-//   let hash = await crypto.subtle.digest('SHA-256', data);
-//     for (let i = 0; i < iterations; i++) {
-//       hash = await crypto.subtle.digest('SHA-256', hash);
-//     }
-//     return hash;
-//   /*Usage:
-//      //!  cambiar el tipo de dato para almacenar la contraseña ?!
-//     hashPassword(pass, secret).then((result) => {
-//         const resu =  new Uint8Array(result);
-//         const buffer = Buffer.from(uint8Array);   // Convierte en una cadena de texto
-//         return buffer;
-//     }
-// });*/
-// }
 
-const hashFunction = (pass, secret) => {
+//?
+//* Remastered
+//?
+const hashFunction = (password, secret) => {
+  const hash = crypto.createHash('sha256');
+  hash.update(password + secret);
+  return hash.digest('hex');
+}
 
-    return pass+secret+"hasheada";
+const getStoreIDByStoreName = async (short_name) => {
+  //! Encontrar a que store pretenece y usuario NO DUEÑO
+  const result = await Store.findOne({ where: { short_name }})
+
+  //console.log(result.dataValues.short_name);
+  return result ? result.id : "";
+}
+
+const getStoreNameByUserId = async (id) => {
+  //! Encontrar a que store pretenece y usuario NO DUEÑO
+  const result = await Store.findOne({ where: { ownerId: id }})
+
+  //console.log(result.dataValues.short_name);
+  return result ? result.short_name : "";
 }
 
 const validateAccountPassword = async (userId, hashedPass) => {
@@ -38,7 +41,7 @@ const validateAccountPassword = async (userId, hashedPass) => {
 
 
 const generateSecret = () => {
-    const length = 8;
+    const length = 16;
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const charactersLength = characters.length;
@@ -68,6 +71,13 @@ const getStoreId = () => {
   return "f3bc0474-620c-429d-a46c-df2460c7725a"
 }
 
+const findStoreIdByShortName = async (short_name) => {
+  const store = await Store.findOne({
+    where: { short_name },
+    attributes: ['id']
+  });
+  return store ? store.id : null;
+}
 
 module.exports =  {
     hashFunction,
@@ -76,4 +86,7 @@ module.exports =  {
     getMercadoPagoSuccessUrl,
     getMercadoPagoFailureUrl,
     getStoreId,
+    findStoreIdByShortName,
+    getStoreNameByUserId,
+    getStoreIDByStoreName
 }

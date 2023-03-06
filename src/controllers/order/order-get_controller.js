@@ -1,11 +1,8 @@
-const { MenuItem, Order, OrdersMenu, Op, Review } = require("../../db");
+const { MenuItem, Order, OrdersMenu, Review, Op } = require("../../db");
+const { buildBOM } = require("../Utils/aux_controller")
 
-const orderGetBalanceController = async (
-  store_id,
-  startDate = "2022-06-02",
-  endDate = "2024-03-02"
-) => {
-  let orders = await Order.findAll({
+const orderGetBalanceController = async ( store_id, startDate = "2022-06-02", endDate="2024-03-02" ) => {
+  const orders = await Order.findAll({
     where: {
       store_id,
       status: { [Op.in]: ["Entregada"] },
@@ -18,26 +15,14 @@ const orderGetBalanceController = async (
         model: MenuItem,
         attributes: {
           exclude: [
-            "description",
-            "recomend_first",
-            "is_active",
-            "store_id",
-            "createdAt",
-            "updatedAt",
-            "deletedAt",
+            "description", "recomend_first",  "is_active", "store_id", "createdAt", "updatedAt", "deletedAt",
           ],
         },
       },
     ],
     attributes: {
       exclude: [
-        "updatedAt",
-        "deletedAt",
-        "payment_data",
-        "store_id",
-        "status",
-    
-        "client_data",
+        "updatedAt", "deletedAt", "payment_data", "store_id", "status", "client_data",
       ],
     },
     order: [["updatedAt", "DESC"]],
@@ -47,32 +32,31 @@ const orderGetBalanceController = async (
   });
   // //! Modularizar
   //! Comentado por cambios a pedido de david
-  // const totalSales = await getTotalSales(auxOrderIds);
-  // const result = await OrdersMenu.findAll({ where: { OrderId: auxOrderIds } });
-  // let ordersMenuCount = getTotalMenuItems(result);
-  // let menuItemsIds = ordersMenuCount.map((e) => e.MenuItemId);
+  const totalSales = await getTotalSales(auxOrderIds);
+  const result = await OrdersMenu.findAll({ where: { OrderId: auxOrderIds } });
+  let ordersMenuCount = getTotalMenuItems(result);
+  let menuItemsIds = ordersMenuCount.map((e) => e.MenuItemId);
 
-  // let processedMenus = await buildDetailMenuItem(ordersMenuCount, menuItemsIds);
-  // return {totalSales, salesPerMenu: processedMenus}
+  let processedMenus = await buildDetailMenuItem(ordersMenuCount, menuItemsIds);
 
-  const ordersModified = orders.map((order) => {
+  const ticketsAll = orders.map((order) => {
     return {
-     
       totalAmountPerorder: order.total,
       code: order.code,
       orderDate: order.createdAt,
       productsOfOrder: order.MenuItems.map((menu) => {
         return {
           name: menu.name,
-        quantityPerOrder:menu.OrdersMenu.quantity,
-        productPrice :menu.price,
+          quantityPerOrder:menu.OrdersMenu.quantity,
+          productPrice :menu.price,
           url_image: menu.url_image,
           totalAmountOfProductPerOrder: menu.price * menu.OrdersMenu.quantity,
         };
       }),
     };
   });
-  return ordersModified;
+  let billOfMaterials = await buildBOM(processedMenus);
+  return {ticketsAll, totalSales, salesPerMenu: processedMenus, billOfMaterials  };
 };
 
 const buildDetailMenuItem = async (salesPerMenu, menuItemsId) => {
@@ -99,6 +83,8 @@ const buildDetailMenuItem = async (salesPerMenu, menuItemsId) => {
     });
   return result;
 };
+
+
 const getTotalSales = async (ordersIds) => {
   let result;
   await Order.sum("total", { where: { id: ordersIds } })
@@ -107,7 +93,7 @@ const getTotalSales = async (ordersIds) => {
     })
     .catch((error) => {
       result = `We couldn't find any sales between this dates`;
-    });
+  });
 
   return await result;
 };

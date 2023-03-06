@@ -8,11 +8,11 @@ module.exports = (sequelize) => {
             allowNull: false,
             primaryKey: true,
             autoIncrement: true,
-            field: "role_id"
         },
         name: {
             type: DataTypes.ENUM,
             values: ROLES_ENUM,
+            defaultValue: ROLES_ENUM[0],
             allowNull: false
         },
         description: {
@@ -21,7 +21,8 @@ module.exports = (sequelize) => {
         },
         is_active: {
             type: DataTypes.BOOLEAN,
-            defaultValue: true
+            defaultValue: true,
+            allowNull: false
         }
     })
 }

@@ -29,7 +29,7 @@ conn.sync({alter: true}).then(() => {
 
 conn.sync({force:true})
     .then(() => {
-        return Seed();
+       return Seed();
     })
     .then(() => {
         server.listen(PORT, () => {

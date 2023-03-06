@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 const router = Router();
 
 const {
-  sendActivationEmail,
-} = require("..//controllers/htmlMessageMail/sendActivationEmail");
+sendEmail
+} = require("../controllers/htmlMessageMail/sendActivationEmail");
 const { User } = require("..//db");
 const { generateSecret } = require("./../controllers/HashFunction/security");
 
@@ -57,6 +57,7 @@ router.get(
   }),
   function (req, res) {
     //! guardamos la data de la sesion para enviar al front
+    
     user = req.user;
     const payload = {
       userId: user.id,
@@ -88,12 +89,13 @@ router.get(
 
         if (!result.length) {
           createUser(user);
-          sendActivationEmail(user.email);
+          sendEmail(user.email);
         }
 
-        processUserLogin(user);
       };
+      processUserLogin(user);
     } catch (error) {
+      console.log(error.message);
       return error.message;
     }
 
@@ -104,8 +106,8 @@ router.get(
       email: user.email,
     });
 
-   let redirect = `http://localhost:3000/?user=`;
-    // let redirect = `https://spacefood.up.railway.app/?user=`;
+  //  let redirect = `http://localhost:3000/?user=`;
+    let redirect = `https://spacefood.up.railway.app/?user=`;
 
     
     res.redirect(`${redirect}${userDataQuery}`);

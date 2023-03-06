@@ -1,28 +1,24 @@
 const { DataTypes } = require("sequelize");
 const { INVALID_RECIPE_NAME, INVALID_PRODUCED_AMOUNT, MIN_PROD_AMOUNT } = require("./utils/Recipe-ErrorMSGs");
-//const { generateOldName } = require("../controllers/Utils/aux_controller")
 
 module.exports = (sequelize) => {
     sequelize.define('Recipe', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            allowNull: false,
             autoIncrement: true,
             field: "recipe_id"
         },
         name: {
             type: DataTypes.STRING(70),
             allowNull: false,
-            unique: true,
             validate: {
-                notNull: {
-                    msg: INVALID_RECIPE_NAME
-                },
                 notEmpty: {
                     msg: INVALID_RECIPE_NAME
                 },
             },
-            unique: "store_id-name"
+            unique: "name-store_id"
         },
         details: {
             type: DataTypes.TEXT,
@@ -39,24 +35,16 @@ module.exports = (sequelize) => {
             }
         },
         store_id: {
-            //! TODO
-            // Eliminar DefaulValue y default value
-            //type: DataTypes.UUIDV4,
-            type: DataTypes.STRING,
-            defaultValue: "f3bc0474-620c-429d-a46c-df2460c7725a",
+            type: DataTypes.UUID,
             allowNull: true,
-            unique: "store_id-name"
-        }
-        //! Se reemplaza por deletedAt
-        // is_active: {
-        //     type: DataTypes.BOOLEAN,
-        //     defaultValue: true
-        // },
+            unique: "name-store_id",
+            validate: {
+              isUUID: 4,
+            },
+        },
+
     }, {
         timestamps: true,
         paranoid: true,
-        /*hooks: {
-            beforeDestroy: instance => instance.name = generateOldName(instance.name)
-          }*/
         })
 }

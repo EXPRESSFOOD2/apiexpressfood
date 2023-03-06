@@ -13,10 +13,10 @@ const sendEmail = (email, orderCode, orderId) => {
   let rediectLocal =  `http://localhost:3000`
     let rediectDeploy =  `https://spacefood.up.railway.app`
     const mailExpress =     "smtps://expressfoodhenry@gmail.com:hdogizvqpmgovqni@smtp.gmail.com"
-    const mailSpace =     "smtps://spacefoodhenry@gmail.com:tpfxmmhnwjjflwfj@smtp.gmail.com"
+    const mailSpace =     "smtps://spacefoodhenry@gmail.com:ukyergzinkarzzpy@smtp.gmail.com"
   const transporter = nodemailer.createTransport(
 
-    mailExpress
+    mailSpace
   );
 
   const mailRegistration = {
@@ -115,7 +115,7 @@ const sendEmail = (email, orderCode, orderId) => {
                   Gracias por tu compra
                   ¡valora nuestros productos!
                 </p>
-                <a href=${rediectLocal}/reviews/${orderId}>
+                <a href=${rediectDeploy}/reviews/${orderId}>
                   <button style="padding: 5px 17px; border-radius: 5px; border: 0px; background-color: #8f1414; color: #f5f5f5; ">Valorar</button>
                 </a>
                 <p style="font-family: sans-serif; font-size: 13px; color: #7a7a7a">

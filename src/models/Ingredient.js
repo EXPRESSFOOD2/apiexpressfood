@@ -14,7 +14,7 @@ module.exports = (sequelize) => {
         name: {
             type: DataTypes.STRING(70),
             allowNull: false,
-            unique: true,
+            unique: "name-store_id",
             validate: {
                 notNull: {
                     msg: INVALID_INGREDIENT_NAME
@@ -23,7 +23,6 @@ module.exports = (sequelize) => {
                     msg: INVALID_INGREDIENT_NAME
                 },
             },
-            unique: "store_id-name"
         },
         layer: {
             type: DataTypes.INTEGER,
@@ -49,18 +48,12 @@ module.exports = (sequelize) => {
             allowNull: true,
         },
         store_id: {
-            //! TODO
-            // Eliminar DefaulValue y set AllowNull false
-            //type: DataTypes.UUIDV4,
-            type: DataTypes.STRING,
-            defaultValue: "f3bc0474-620c-429d-a46c-df2460c7725a",
-            allowNull: true,
-            unique: "store_id-name"
+            type: DataTypes.UUID,
+            allowNull: false,
+            unique: "name-store_id",
+            validate: {
+              isUUID: 4,
+            },
         },
-        //! Se reemplaza por deletedAt
-        // is_active: {
-        //     type: DataTypes.BOOLEAN,
-        //     defaultValue: true
-        // },
     }, { timestamps: true, paranoid: true })
 }
