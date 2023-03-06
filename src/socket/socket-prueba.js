@@ -6,7 +6,7 @@ module.exports = async (io) => {
   const orders = new Promise((resolve, reject) => {
     setTimeout(async () => {
       let result = await Order.findAll({
-        where: { status: { [Op.in]: ["In Progress"] } },
+        where: { status: { [Op.in]: ["En Progreso"] } },
         include: [{ model: MenuItem }],
       });
       resolve(result);
