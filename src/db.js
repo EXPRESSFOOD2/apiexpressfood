@@ -4,6 +4,7 @@ require('dotenv').config();
 const {Sequelize, Op } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const StoreErrorMSGs = require('./models/utils/Store-ErrorMSGs');
 const { DB_LOCAL,  DB_DEPLOY } = process.env;
 
 const sequelize = new Sequelize(
@@ -44,37 +45,56 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Ingredient, Recipe, IngredientsRecipes, IngredientsMenuItems, MenuItem,
-  Role, User, UsersRoles, Password, Tag, TagsMenuItems, Order, OrdersMenu,
-  Store, UsersStores, Review, OrderMenuItemReview } = sequelize.models;
+const {
+  Ingredient, Recipe, IngredientsRecipes, IngredientsMenuItems, MenuItem,
+  Role, User, Password, Tag, TagsMenuItems, Order, OrdersMenu, Store,
+  Review, 
+  // OrderMenuItemReview 
+} = sequelize.models;
 
 //! Relationships
-Recipe.belongsToMany( Ingredient, { through: IngredientsRecipes });
-Ingredient.belongsToMany( Recipe, { through: IngredientsRecipes });
 
-MenuItem.belongsToMany( Ingredient, { through: IngredientsMenuItems });
-Ingredient.belongsToMany( MenuItem, { through: IngredientsMenuItems });
+
+/*
 
 Role.belongsToMany( User, { through: UsersRoles });
 User.hasOne( Role, { through: UsersRoles } );
 
-Tag.belongsToMany( MenuItem, { through: TagsMenuItems } )
-MenuItem.belongsToMany( Tag, { through: TagsMenuItems } )
+*/
+
+//? Store.hasMany(Tag, { foreignKey: 'store_id' })     //Podría ir
+Tag.belongsTo(Store, { foreignKey: 'store_id' });
+User.belongsTo(Role, { foreignKey: 'roleId' });
+User.hasOne(Store, { foreignKey: 'ownerId' });
+Store.belongsTo(User, { foreignKey: 'ownerId' });
+Ingredient.belongsTo(Store, { foreignKey: 'store_id' });
+MenuItem.belongsTo(Store, { foreignKey: 'store_id' });
+Order.belongsTo(Store, { foreignKey: 'store_id' });
+Recipe.belongsTo(Store, { foreignKey: 'store_id' });
+Password.belongsTo(User, {
+  foreignKey: "user_id",
+  as: "user",
+});
 
 Order.belongsToMany( MenuItem, { through: OrdersMenu })
 MenuItem.belongsToMany( Order, { through: OrdersMenu })
+
+//! Comentar para poder usar Seeder CreateReviews
 Review.belongsTo(OrdersMenu);
 OrdersMenu.hasMany(Review);
+//!
+
 MenuItem.hasMany(Review);
 Review.belongsTo(MenuItem);
 
-User.hasOne( Store, { through: UsersStores })
-Store.belongsTo( User, { through: UsersStores })   // Podría ser Many pero lo obtendremos por otro lado
+Recipe.belongsToMany( Ingredient, { through: IngredientsRecipes });
+Ingredient.belongsToMany( Recipe, { through: IngredientsRecipes });
 
+MenuItem.belongsToMany( Ingredient, { through: IngredientsMenuItems}); //, foreignKey: 'menuItem_id'
+Ingredient.belongsToMany( MenuItem, { through: IngredientsMenuItems}); //, foreignKey: 'ingredient_id' 
 
-//!tuki
-
-
+Tag.belongsToMany( MenuItem, { through: TagsMenuItems, onDelete: 'CASCADE' } )
+MenuItem.belongsToMany( Tag, { through: TagsMenuItems } )
 
 module.exports = {
   ...sequelize.models,

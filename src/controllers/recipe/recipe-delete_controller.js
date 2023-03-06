@@ -1,5 +1,5 @@
 const { Recipe, Ingredient } = require("../../db");
-//! ingredientsDeleteController2
+//? ingredientsDeleteController2 se espera que sea el definitivo
 const { ingredientsDeleteController2 } = require("../ingredient/ingredient-delete_controller")
 const { generateOldName } = require("../Utils/aux_controller");
 

@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
         name: {
             type: DataTypes.STRING(70),
             allowNull: false,
-            unique: "store_id-name",
+            //unique: "store_id-name",
             validate: {
                 notNull: {
                     msg: INVALID_TAG_NAME
@@ -23,14 +23,13 @@ module.exports = (sequelize) => {
                 },
             }
         },
-        store_id: {
-            //! TODO
-            // Eliminar DefaulValue y default value
-            //type: DataTypes.UUIDV4,
-            type: DataTypes.STRING,
-            defaultValue: "f3bc0474-620c-429d-a46c-df2460c7725a",
-            allowNull: true,
-            unique: "store_id-name"
-        }
+        // store_id: {
+        //     type: DataTypes.UUIDV4,
+        //     allowNull: false,
+        //     validate: {
+        //       isUUID: 4,
+        //     },
+        //     unique: "store_id-name"
+        // },
     }, { timestamps: false })
 }

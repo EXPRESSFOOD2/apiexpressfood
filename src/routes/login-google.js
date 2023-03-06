@@ -4,6 +4,7 @@ const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const jwt = require("jsonwebtoken");
 const router = Router();
 
+//! Se ve tan lindo como una kardashian sin filtros :$
 const {
   sendActivationEmail,
 } = require("..//controllers/htmlMessageMail/sendActivationEmail");
@@ -104,8 +105,8 @@ router.get(
       email: user.email,
     });
 
-   // let redirect = `http://localhost:3000/?user=`;
-    let redirect = `https://spacefood.up.railway.app/?user=`;
+   let redirect = `http://localhost:3000/?user=`;
+    // let redirect = `https://spacefood.up.railway.app/?user=`;
 
     
     res.redirect(`${redirect}${userDataQuery}`);

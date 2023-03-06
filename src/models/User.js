@@ -1,5 +1,5 @@
 const { DataTypes } = require("sequelize");
-
+const { Role } = require("./Role")
 const { INVALID_EMAIL, INVALID_NAME, INVALID_LAST_NAME } = require("./utils/User-ErrorMSGs")
 
 module.exports = (sequelize) => {
@@ -53,21 +53,33 @@ module.exports = (sequelize) => {
               },
         },
         secret: {
-            type: DataTypes.TEXT,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         phone: {
             type: DataTypes.STRING,
             allowNull: true,
         },
-        is_active: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false
-        },
         profile_image: {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"
-        }
-    }, { timestamps: true, paranoid: true })
+        },
+        roleId: {
+            type: DataTypes.INTEGER,
+            references: {
+              model: Role,
+              key: 'id'
+            }
+        },
+        // created_by: {
+        //   type: DataTypes.INTEGER,
+        //   allowNull: true
+        // }
+    },
+    {
+      timestamps: true,
+      paranoid: true,
+    }
+  )
 }

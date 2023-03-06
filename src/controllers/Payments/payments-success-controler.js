@@ -1,7 +1,7 @@
 const { or } = require("sequelize");
 const { Order } = require("../../db");
 const { ORDER_STATUS } = require("../../models/utils/constants")
-const {sendEmail} = require('../htmlMessageMail/sendActivationEmail')
+
 
 const paymentsSuccessProcess = async (successResponse) => {
   let redirectUrl = process.env.CUSTOMER_DEV_URL_SUCCESS || process.env.CUSTOMER_DEPLOY_URL_SUCCESS;
@@ -9,11 +9,8 @@ const paymentsSuccessProcess = async (successResponse) => {
   await Order.update( { status: ORDER_STATUS[1], payment_data: successResponse },
                                   { where: { id: successResponse.code } });
   let order = await Order.findOne({where: {id: successResponse.code}})
-  //! ACA vA el ENVIO DE EMAIL
 
-const email = order.dataValues.client_data.email
-const orderCode = order.dataValues.code
-sendEmail(email, orderCode)
+
   return `${redirectUrl}${order.code}`
 };
 

@@ -15,8 +15,10 @@ const { getStoreId } = require("../controllers/HashFunction/security");
 const processRecipePost = async (req,res) => {
     try {
         //! TODO
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
         // Agregar Validacion por Header
-        //! Modificar la funcion
         const store_id = getStoreId();
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
         //*
@@ -24,7 +26,7 @@ const processRecipePost = async (req,res) => {
         //! Validar si todos los ingredientes son del MISMO store
         await validateRecipePost(name, details, produced_amount, type_measure, ingredArray, store_id )
         const result = await recipesPostController( name, details, produced_amount, type_measure, ingredArray, store_id )
-        return res.status(200).json( result )
+        return res.status(200).json( "result" )
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
@@ -45,21 +47,23 @@ const processRecipePostRebuild = async (id, name, details, produced_amount, type
 const processRecipePatch = async (req,res) => {
     try {
         //! TODO
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
         // Agregar Validacion por Header
-       
-        //! Modificar la funcion
         const store_id = getStoreId();
         //*
-        const { id, name, details, produced_amount, type_measure, ingredArray } = req.body;
-        if (    await isItAnExistingModelByID(id, store_id, Recipe)
+        //const { id, name, details, produced_amount, type_measure, ingredArray } = req.body;
+        const { id, name, details } = req.body;
+        if (    !await isItAnExistingModelByID(id, store_id, Recipe)
             ||  await isItAnExistingModelByName(name, store_id, Ingredient)) throw Error(`${INVALID_ID}${id}`)
-        if ( !MEASURES_SHORT.includes(type_measure) ) throw Error(`${type_measure}${INVALID_TYPE_MEASURE}`)
+        //if ( type_measure && !MEASURES_SHORT.includes(type_measure) ) throw Error(`${type_measure}${INVALID_TYPE_MEASURE}`)
         //! TODO
         //if ( !await validateArraySameStore(ingredArray, store_id, Recipe)) throw Error(INVALID_ARRAY_CONTENT)
         //const result = !ingredArray && !ingredArray.length ?
         //                            await recipesPatchController(id, name, details, type_measure, store_id)
         //                          : await recipesPostControllerRebuild(id, name, details, produced_amount, type_measure, ingredArray, store_id)
-        const result = await recipesPatchController(id, name, details, type_measure, store_id);
+        const result = await recipesPatchController(id, name, details, store_id);
         return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
@@ -68,8 +72,10 @@ const processRecipePatch = async (req,res) => {
 
 const processRecipeGet = async (req,res) => {
     try {
-        //! TODO
-        // Agregar Validacion por Header
+         //! TODO
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
         //! Modificar la funcion
         const store_id = getStoreId();
         //*
@@ -82,10 +88,10 @@ const processRecipeGet = async (req,res) => {
 
 const processRecipeGetById = async (req,res) => {
     try {
-        //*
-        //! TODO
-        // Agregar Validacion por Header
-        //! Modificar la funcion
+         //! TODO
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
         const store_id = getStoreId();
         //*
         const { id } = req.params;
@@ -113,8 +119,10 @@ const validateRecipePost = async ( name, details, produced_amount, type_measure,
 
 const processRecipeDelete = async (req,res) => {
     try {
-        //! TODO
-        // Agregar Validacion por Header
+         //! TODO
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
         //! Modificar la funcion
         const store_id = getStoreId();
         //*
