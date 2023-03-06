@@ -48,8 +48,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 const {
   Ingredient, Recipe, IngredientsRecipes, IngredientsMenuItems, MenuItem,
   Role, User, Password, Tag, TagsMenuItems, Order, OrdersMenu, Store,
-  Review, 
-  // OrderMenuItemReview 
+  Review, Token
 } = sequelize.models;
 
 //! Relationships

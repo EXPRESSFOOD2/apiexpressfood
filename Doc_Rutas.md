@@ -272,3 +272,21 @@
 Hay otras rutas que existen pero no estan implementadas
 
 [{ MenuItemId: 1, quantity : 10}, { MenuItemId: 2, quantity : 12}, { MenuItemId: 3, quantity : 12}]
+
+
+
+/** !!! 
+
+        LOGIN
+//! TEST AUTH
+        headers = {
+            authorization: "",
+            user_id: ""
+        }
+        axios.get("url", {body}, headers)
+        const token = req.headers.authorization;
+        const user_id = req.headers.user_id;
+        if (!token)  throw Error('Token no proporcionado');
+        if ( !await validateToken(user_id, token) ) throw Error("Token is invalid or expired, Please log in again.")
+        const store_id = await getStoreIdByUserId(user_id);
+        !!! **\

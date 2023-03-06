@@ -22,7 +22,6 @@ const isExistingUser = async (account_name, email) => {
 const processUserPost = async (req,res) => {
     const { name, last_name, account_name, password, email, phone, role_id } = req.body;
     let { profile_image } = req.body;
-    console.log("Role ID: "+role_id);
     try {
         if (!profile_image || !profile_image.length) profile_image = DEFAULT_IMG;
         await validateUser(name, last_name, account_name, password, email, phone, role_id);
@@ -46,9 +45,10 @@ const validateUser = async (name, last_name, account_name, password, email, phon
 
 //* Visto
 const processUserLogin = async (req,res) => {
-    const {email, password } = req.body;
     try {
+        const {email, password } = req.body;
         if (!email || !password) throw Error(INVALID_LOGIN_PARAMS);
+        if (!isExistingUser("" , email)) throw Error(INVALID_LOGIN_PARAMS);
         const result = await userLoginController(email, password);
         return res.status(200).json(result)
     } catch (error) {
@@ -56,7 +56,6 @@ const processUserLogin = async (req,res) => {
         return res.status(400).json({ error: error.message })
     }
 }
-
 
 //! Retrabajar esto
 const processGetAllRoles = async (req,res) => {

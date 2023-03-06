@@ -20,12 +20,14 @@ const getStoreIDByStoreName = async (short_name) => {
   return result ? result.id : "";
 }
 
-const getStoreNameByUserId = async (id) => {
-  //! Encontrar a que store pretenece y usuario NO DUEÑO
+const getStoreIdByUserId = async (id) => {
   const result = await Store.findOne({ where: { ownerId: id }})
+  return result ? result.dataValues.id : "";
+}
 
-  //console.log(result.dataValues.short_name);
-  return result ? result.short_name : "";
+const getStoreNameByUserId = async (id) => {
+  const result = await Store.findOne({ where: { ownerId: id }})
+  return result ? result.dataValues.short_name : "";
 }
 
 const validateAccountPassword = async (userId, hashedPass) => {
@@ -87,6 +89,7 @@ module.exports =  {
     getMercadoPagoFailureUrl,
     getStoreId,
     findStoreIdByShortName,
-    getStoreNameByUserId,
-    getStoreIDByStoreName
+    getStoreIdByUserId,
+    getStoreIDByStoreName,
+    getStoreNameByUserId
 }
