@@ -7,7 +7,7 @@ const Seed = require("./src/seeds/index");
 //! importamos las funciones sockets
 
 
-const socketPrueba = require("./src/socket/socket-prueba");
+// const socketPrueba = require("./src/socket/socket-prueba");
 
 
 // Syncing all the models at once.
@@ -27,9 +27,9 @@ conn.sync({alter: true}).then(() => {
 
 // socketPrueba(io)
 
-conn.sync({ force: true })
+conn.sync({force:true})
     .then(() => {
-        return Seed();
+       return Seed();
     })
     .then(() => {
         server.listen(PORT, () => {

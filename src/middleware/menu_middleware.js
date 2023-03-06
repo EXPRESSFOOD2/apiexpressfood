@@ -12,14 +12,16 @@ const { getStoreId } = require("../controllers/HashFunction/security")
 const processMenuPost = async (req, res) => {
     try {
         //! TODO
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
         // Agregar Validacion por Header
-        //! Modificar la funcion
         const store_id = getStoreId();
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
         //*
-        const { name,description,price,recomend_first,stock,is_active,url_image, ingredArray } = req.body;
+        const { name, description, price, recomend_first,stock,is_active,url_image, ingredArray, tagsIds } = req.body;
         validateMenuItem(name, description, price, recomend_first, stock, is_active, url_image,ingredArray, store_id )
-        const result = await menuItemsPostController(name, description, price, recomend_first, stock, is_active, url_image, ingredArray, store_id )
+        const result = await menuItemsPostController(name, description, price, recomend_first, stock, is_active, url_image, ingredArray, store_id, tagsIds )
         return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
@@ -40,14 +42,16 @@ const validateMenuItem = async ( name,description,price,recomend_first,stock,is_
 const processMenuPatch = async (req, res) => {
     try {
         //! TODO
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
         // Agregar Validacion por Header
-        //! Modificar la funcion
         const store_id = getStoreId();
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
         //*
         const { id, name, description, price, recomend_first, stock, is_active, url_image } = req.body;
 
-        if ( !(await isItAnExistingModelByID(id, store_id)) ) throw Error(ERROR_NOT_FOUND)
+        if ( !(await isItAnExistingModelByID(id, store_id, MenuItem)) ) throw Error(ERROR_NOT_FOUND)
 
         const result = await menuItemsPatchController(id, name, description, price, recomend_first, stock, is_active, url_image, store_id);
         return res.status(200).json( result )
@@ -59,8 +63,10 @@ const processMenuPatch = async (req, res) => {
 const processMenuGetById = async (req, res) => {
     try {
         //! TODO
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
         // Agregar Validacion por Header
-        //! Modificar la funcion
         const store_id = getStoreId();
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
         //*
@@ -77,8 +83,10 @@ const processMenuGetById = async (req, res) => {
 const processMenuGet = async (req, res) => {
     try {
         //! TODO
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
         // Agregar Validacion por Header
-        //! Modificar la funcion
         const store_id = getStoreId();
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
         //*
@@ -91,8 +99,10 @@ const processMenuGet = async (req, res) => {
 const processMenuGetRecommended = async (req, res) => {
     try {
         //! TODO
+        //* const { storeName } = req.headers;
+        //* const store_id = await getStoreIDByStoreName(storeName);
+                                              
         // Agregar Validacion por Header
-        //! Modificar la funcion
         const store_id = getStoreId();
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
         //*

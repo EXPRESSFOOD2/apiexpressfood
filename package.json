@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node --trace-warnings index.js",
     "dev": "nodemon -L",
     "test": "mocha -w ./tests/*.spec.js",
     "test2": "jest --verbose --detectOpenHandles"
@@ -38,6 +38,7 @@
     "pg": "^8.5.1",
     "request": "^2.88.2",
     "sequelize": "^6.3.5",
+    "socket.io": "^4.6.1",
     "uuid": "^9.0.0",
     "uuid-random": "^1.3.2",
     "yarn": "^1.22.19"
