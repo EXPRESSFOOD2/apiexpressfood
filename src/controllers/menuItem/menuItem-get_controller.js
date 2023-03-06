@@ -29,10 +29,13 @@ const menuItemsGetRecommendedController = async (store_id) => {
 
 const filterMenuItems = (arr) => {
   const result = arr.map((item) => {
+    const totalSold = item.dataValues.totalSold !== undefined ? item.dataValues.totalSold : null
+    console.log("filter: "+totalSold);
     const tagsArray = item.Tags.map((tag) => tag.name);
     return {
       id: item.id,
       rating: item.dataValues.rating,
+      totalSold: totalSold,
       name: item.name,
       description: item.description,
       price: item.price,
@@ -44,6 +47,7 @@ const filterMenuItems = (arr) => {
       TagsFull: item.Tags,
       Tags: tagsArray,
       Ingredients: item.Ingredients,
+      
     };
   });
   return result
@@ -61,7 +65,7 @@ const menuItemsGetByIdController = async (id, store_id) => {
       ]
     },
   });
-  return result
+  console.log(result.dataValues.totalSold);
   return filterMenuItems([result])[0];
 };
 
