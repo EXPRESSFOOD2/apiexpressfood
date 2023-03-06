@@ -1,6 +1,20 @@
 const { getStoreId } = require("../controllers/HashFunction/security");
 const { orderPatchController } = require("../controllers/order/order-patch_controller")
 const { orderGetController, orderGetByIdController, orderGetBalanceController } = require("../controllers/order/order-get_controller")
+const { orderGetPredictionController } = require("../controllers/order/order-predict_controller");
+
+const processOrderPrediction = async (req, res) => {
+    try {
+        //! Validar si el usuario es dueño de la tienda
+        const store_id = getStoreId();
+        const { toPredict } = req.body;
+        //! Validar si todos los elem son del mismo store
+        const result  = await orderGetPredictionController( toPredict )
+        return res.status(200).json( result )
+    } catch (error) {
+        return res.status(400).json({ error: error.message })
+    }
+}
 
 const processOrderGetBalance = async (req, res) => {
     try {
@@ -70,5 +84,6 @@ module.exports = {
     processOrderPatch,
     processOrderGet,
     processOrderGetById,
-    processOrderGetBalance
+    processOrderGetBalance,
+    processOrderPrediction
 }

@@ -1,4 +1,4 @@
-const { MenuItem, Order, OrdersMenu, Op } = require("../../db");
+const { MenuItem, Order, OrdersMenu, Review, Op } = require("../../db");
 const { buildBOM } = require("../Utils/aux_controller")
 
 const orderGetBalanceController = async ( store_id, startDate = "2022-06-02", endDate="2024-03-02" ) => {
@@ -149,18 +149,10 @@ const orderGetByIdController = async (
   store_id = "f3bc0474-620c-429d-a46c-df2460c7725a",
   email
 ) => {
-let result
-email ? result = await Order.findOne({
-  where: { id, store_id, client_data: email },
-  include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
-})
-:
-   result = await Order.findOne({
-    where: { id, store_id },
-
-
+  let existingRewiew = await Review.findAll({ where: { OrdersMenuId: id } });
+  let result = await Order.findOne({
+    where: { id, store_id, client_data: email },
     include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
-
   });
   if (!existingRewiew.length) {
     return result;

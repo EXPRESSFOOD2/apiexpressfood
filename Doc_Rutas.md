@@ -126,8 +126,8 @@
 >   *** Espera: ***
 >       - Method: POST
 >       - Body: { name: String , details: String, produced_amount: Double, type_measure: String, ingredArray: [
-                { id: Integer, name: String, layer: 0, waste_rate: Double, amount: Double},
-                { id: Integer, name: String, layer: 0, waste_rate: Double, amount: Double}, ...
+                { id: Integer, name: String, layer: 0, waste_rate: Double, amount: Double, type_measure: String },
+                { id: Integer, name: String, layer: 0, waste_rate: Double, amount: Double, type_measure: String }, ...
                 ]}
 >   *** Retorna: ***
 >       - Success: { id, name, details, produced_amount }
@@ -259,5 +259,16 @@
 >       - Success: { "1" }
 >       - Error: Mensaje
 
+# UTILS
+
+### .../orders/predict
+>       METHOD: PUT
+>       Body: { toPredict :[{MenuItemId:1, quantity:10},{MenuItemId:2, quantity:12}, {MenuItemId:3, quantity:12}] }
+>   *** Retorna: ***
+>       - Success: [{id, name, amount, type_measure},{id, name, amount, type_measure}, ...]
+>       - Error: Mensaje
+
 
 Hay otras rutas que existen pero no estan implementadas
+
+[{ MenuItemId: 1, quantity : 10}, { MenuItemId: 2, quantity : 12}, { MenuItemId: 3, quantity : 12}]
