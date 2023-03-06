@@ -12,5 +12,9 @@ module.exports = (sequelize) => {
             defaultValue: 1,
             allowNull: false
           },
+        unitPrice: {
+            type: DataTypes.DOUBLE,
+            allowNull: false
+        }
     },{ timestamps: false })
 }

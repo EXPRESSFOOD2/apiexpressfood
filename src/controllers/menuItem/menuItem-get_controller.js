@@ -58,7 +58,7 @@ const menuItemsGetByIdController = async (id, store_id) => {
       include: [[conn.literal('(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItem"."id" = "Reviews"."MenuItemId")'), 'rating']]
     },
   });
-  return filterMenuItems([result]);
+  return filterMenuItems([result])[0];
 };
 
 module.exports = {

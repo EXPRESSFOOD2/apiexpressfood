@@ -6,12 +6,12 @@ const details = "Medallon de carne especial"
 const produced_amount = 8
 const type_measure= "un"
 const ingredArray = [
-        {id: 12, name: "Carne Molida", layer: 0, waste_rate: 0, amount: 130},
-        {id: 3, name: "Huevo", layer: 0, waste_rate: 0, amount: 0.6},
-        {id: 7, name: "Cebolla", layer: 0, waste_rate: 12,amount: 26},
-        {id: 5, name: "Sal", layer: 0, waste_rate: 0, amount: 0.2},
-        {id: 10, name: "Pimienta", layer: 0, waste_rate: 0, amount: 0.6},
-        {id: 2, name: "Harina", layer: 0, waste_rate: 0, amount: 12.6}
+        {id: 12, name: "Carne Molida", layer: 0, waste_rate: 0, amount: 130, type_measure: "gr"},
+        {id: 3, name: "Huevo", layer: 0, waste_rate: 0, amount: 0.6, type_measure: "un"},
+        {id: 7, name: "Cebolla", layer: 0, waste_rate: 12,amount: 26, type_measure: "gr"},
+        {id: 5, name: "Sal", layer: 0, waste_rate: 0, amount: 0.2, type_measure: "gr"},
+        {id: 10, name: "Pimienta", layer: 0, waste_rate: 0, amount: 0.6, type_measure: "gr"},
+        {id: 2, name: "Harina", layer: 0, waste_rate: 0, amount: 12.6, type_measure: "gr"}
 ]
 
 
@@ -20,12 +20,12 @@ const details1 = "Con un espectacular medallon de carne especial"
 const produced_amount1 = 1
 const type_measure1 = "un"
 const ingredArray1 = [
-        {id: 23, name: "Medallon de Carne 160gr Especial", layer: 1, waste_rate: 0, amount: 2},
-        {id: 13, name: "Pan Hamburguesa", layer: 0, waste_rate: 0, amount: 1},
-        {id: 7, name: "Cebolla", layer: 0, waste_rate: 12,amount: 26},
-        {id: 9, name: "Lechuga", layer: 0, waste_rate: 0, amount: 50},
-        {id: 8, name: "Tomate", layer: 0, waste_rate: 0, amount: 50},
-        {id: 14, name: "Ketchup", layer: 0, waste_rate: 0, amount: 14}
+        {id: 23, name: "Medallon de Carne 160gr Especial", layer: 1, waste_rate: 0, amount: 2, type_measure: "un"},
+        {id: 13, name: "Pan Hamburguesa", layer: 0, waste_rate: 0, amount: 1, type_measure: "un"},
+        {id: 7, name: "Cebolla", layer: 0, waste_rate: 12,amount: 26, type_measure: "gr"},
+        {id: 9, name: "Lechuga", layer: 0, waste_rate: 0, amount: 50, type_measure: "gr"},
+        {id: 8, name: "Tomate", layer: 0, waste_rate: 0, amount: 50, type_measure: "gr"},
+        {id: 14, name: "Ketchup", layer: 0, waste_rate: 0, amount: 14, type_measure: "gr"}
 ]
 
 
