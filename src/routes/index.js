@@ -3,6 +3,7 @@ const {Router} = require('express');
 const router = Router();
 
 //* Order
+const ordersGetPredictionRouter = require("./orders/order-predict")
 const orderPatchRouter = require("./orders/order-patch")
 const orderGetRouter = require("./orders/order-get")
 const orderGetBalanceRouter = require("./orders/order-get_balance")
@@ -80,6 +81,7 @@ router.use("/menu/update", menuPatchRouter);
 router.use("/menu/delete", menuDeleteRouter);
 
 //* Order
+router.use("/orders/predict", ordersGetPredictionRouter)
 router.use("/orders/getBalance", orderGetBalanceRouter);
 router.use("/orders/update", orderPatchRouter);
 router.use("/orders/get", orderGetRouter);
