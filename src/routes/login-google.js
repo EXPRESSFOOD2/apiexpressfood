@@ -20,8 +20,7 @@ passport.use(
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
-        process.env.GOOOGLE_CALLBACK_URL_LOCAL ||
-        process.env.GOOOGLE_CALLBACK_URL_DEPLOY,
+        process.env.GOOOGLE_CALLBACK_URL_LOCAL,// || process.env.GOOOGLE_CALLBACK_URL_DEPLOY,
 
       passReqToCallback: true,
     },
@@ -106,8 +105,10 @@ router.get(
       email: user.email,
     });
 
-   let redirect = `http://localhost:3000/?user=`;
-    // let redirect = `https://spacefood.up.railway.app/?user=`;
+
+    let redirect = `http://localhost:3000/?user=`;
+    //let redirect = `https://spacefood.up.railway.app/?user=`;
+
 
     
     res.redirect(`${redirect}${userDataQuery}`);

@@ -10,7 +10,7 @@ module.exports = (sequelize) => {
             //field: "menu_item_id"
         },
         name: {
-            type: DataTypes.STRING(70),
+            type: DataTypes.STRING,
             allowNull: false,
             unique: "name-store_id"
         },
