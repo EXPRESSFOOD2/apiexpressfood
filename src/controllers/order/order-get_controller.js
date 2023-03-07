@@ -6,7 +6,7 @@ const orderGetBalanceController = async ( store_id, startDate = "2000-01-01", en
   const orders = await Order.findAll({
     where: {
       store_id,
-      //status: { [Op.in]: ["Entregada"] },
+      status: { [Op.in]: ["Entregada"] },
       createdAt: {
         [Op.between]: [startDate, endDate],
       },
@@ -28,7 +28,6 @@ const orderGetBalanceController = async ( store_id, startDate = "2000-01-01", en
     },
     order: [["updatedAt", "DESC"]],
   });
-  console.log(orders.length);
   const auxOrderIds = await orders.map((o) => {
     return o.dataValues.id;
   });
