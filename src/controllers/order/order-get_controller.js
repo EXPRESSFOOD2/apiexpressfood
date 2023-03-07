@@ -1,11 +1,12 @@
 const { MenuItem, Order, OrdersMenu, Review, Op } = require("../../db");
 const { buildBOM } = require("../Utils/aux_controller")
 
-const orderGetBalanceController = async ( store_id, startDate = "2022-06-02", endDate="2024-03-02" ) => {
+const orderGetBalanceController = async ( store_id, startDate = "2000-01-01", endDate="2500-12-31" ) => {
+
   const orders = await Order.findAll({
     where: {
       store_id,
-      status: { [Op.in]: ["Entregada"] },
+      //status: { [Op.in]: ["Entregada"] },
       createdAt: {
         [Op.between]: [startDate, endDate],
       },
@@ -27,16 +28,17 @@ const orderGetBalanceController = async ( store_id, startDate = "2022-06-02", en
     },
     order: [["updatedAt", "DESC"]],
   });
+  console.log(orders.length);
   const auxOrderIds = await orders.map((o) => {
     return o.dataValues.id;
   });
+  
   // //! Modularizar
   //! Comentado por cambios a pedido de david
   const totalSales = await getTotalSales(auxOrderIds);
   const result = await OrdersMenu.findAll({ where: { OrderId: auxOrderIds } });
   let ordersMenuCount = getTotalMenuItems(result);
   let menuItemsIds = ordersMenuCount.map((e) => e.MenuItemId);
-
   let processedMenus = await buildDetailMenuItem(ordersMenuCount, menuItemsIds);
 
   const ticketsAll = orders.map((order) => {
@@ -55,6 +57,7 @@ const orderGetBalanceController = async ( store_id, startDate = "2022-06-02", en
       }),
     };
   });
+
   let billOfMaterials = await buildBOM(processedMenus);
   return {ticketsAll, totalSales, salesPerMenu: processedMenus, billOfMaterials  };
 };

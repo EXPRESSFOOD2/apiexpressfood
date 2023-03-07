@@ -69,8 +69,11 @@ const processMenuGetById = async (req, res) => {
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
         //*
         const { id } = req.params;
+        
         if ( isNaN(id) || id < 1) throw Error(INVALID_ID)
         const result = await menuItemsGetByIdController(id, store_id)
+        //! Como aplicar este filtro ?!
+        //delete result.Ingredients
         if ( !result ) throw Error(ERROR_NOT_FOUND)
         return res.status(200).json( result )
     } catch (error) {

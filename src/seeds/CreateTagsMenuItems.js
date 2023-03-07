@@ -18,9 +18,22 @@ const fakeTags = [
     {TagId: 5 , MenuItemId: 3},
     {TagId: 8, MenuItemId: 3},
     {TagId: 10, MenuItemId: 3},
+
+    {TagId: 1, MenuItemId: 4},
+    {TagId: 3, MenuItemId: 4},
+    {TagId: 8, MenuItemId: 4},
+
+    {TagId: 5, MenuItemId: 5},
+    {TagId: 6, MenuItemId: 5},
+    {TagId: 10, MenuItemId: 5},
+
+    {TagId: 1, MenuItemId: 6},
+    {TagId: 5 , MenuItemId: 6},
+    {TagId: 8, MenuItemId: 6},
+
 ]
 module.exports = async function() {
-    setTimeout(() => {
-        TagsMenuItems.bulkCreate(fakeTags)
-      }, 600)
+    setTimeout(async () => {
+         await TagsMenuItems.bulkCreate(fakeTags)
+      }, 1550)
 }

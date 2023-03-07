@@ -28,10 +28,9 @@ conn.sync({alter: true}).then(() => {
 // socketPrueba(io)
 
 
-//conn.sync({force:true})
-conn.sync()
+conn.sync({force:true})
     .then(() => {
-       //return Seed();
+       return Seed();
     })
     .then(() => {
         server.listen(PORT, () => {
