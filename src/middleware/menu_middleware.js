@@ -8,7 +8,7 @@ const { ERROR_NAME, INVALID_DECRIPTION, ERROR_PRICE, INVALID_STOCK, INVALID_ARRA
         INVALID_INGREDIENTS_ARRAY, ERROR_NOT_FOUND, INVALID_ID, DUPLICATED_MENU_NAME } = require("../models/utils/MenuItem-ErrorMSGs")
 const { validateArraySameStore, isItAnExistingModelByID, isItAnExistingModelByName } = require("../controllers/Utils/aux_controller")
 const { getStoreId, getStoreIdByUserId } = require("../controllers/HashFunction/security")
-const { validateToken } = require("../controllers/token/token_controller")
+const { validateToken } = require("../controllers/token/token_controller");
 
 const processMenuPost = async (req, res) => {
     try {
@@ -25,6 +25,7 @@ const processMenuPost = async (req, res) => {
         const result = await menuItemsPostController(name, description, price, recomend_first, stock, is_active, url_image, ingredArray, store_id, tagsIds )
         return res.status(200).json( result )
     } catch (error) {
+        console.log(error);
         return res.status(400).json({ error: error.message })
     }
 }
@@ -68,8 +69,11 @@ const processMenuGetById = async (req, res) => {
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
         //*
         const { id } = req.params;
+        
         if ( isNaN(id) || id < 1) throw Error(INVALID_ID)
         const result = await menuItemsGetByIdController(id, store_id)
+        //! Como aplicar este filtro ?!
+        //delete result.Ingredients
         if ( !result ) throw Error(ERROR_NOT_FOUND)
         return res.status(200).json( result )
     } catch (error) {

@@ -70,6 +70,8 @@ const getMercadoPagoSuccessUrl = () => {
 const getStoreId = () => {
   //! TODO
   // Revisar implementacion
+  //  "f3bc0474-620c-429d-a46c-df2460c7725a"  ==> pepitas
+  //  "eb311a9e-7c64-4c3d-bce3-1ce5e474e532"  ==> mari4
   return "f3bc0474-620c-429d-a46c-df2460c7725a"
 }
 

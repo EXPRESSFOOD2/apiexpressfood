@@ -26,6 +26,7 @@ const io = new Server(server,{
 })
 
 
+
 conn.sync({force:true})
 .then(() => {
   
