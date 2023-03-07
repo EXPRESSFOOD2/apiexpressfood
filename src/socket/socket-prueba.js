@@ -59,7 +59,7 @@ module.exports = async (io) => {
     //   socket.emit('read',('hola'))
     // })
     socket.on("updateOrders",async (data)=>{
-        console.log(menuAct,'acacaca');
+        // console.log(menuAct,'acacaca');
       const orders = new Promise((resolve, reject) => {
 
         setTimeout(async () => {
