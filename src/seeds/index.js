@@ -27,21 +27,20 @@ module.exports = async function () {
         
     })
 
-<<<<<<< HEAD
+
     await Promise.all([ // Returning and thus passing a Promise here
         // Independent seeds first
-        Menu(),
-        MenuTags(),
-        User(),
+        // Menu(),
+        // MenuTags(),
+        // User(),
      
     ]).then(()=>{
-        Orders()
+        // Orders()
     })
 
     
     
 
-=======
->>>>>>> 87dff3921831030141ceda9ca9017596351ee835
+
 
 }
