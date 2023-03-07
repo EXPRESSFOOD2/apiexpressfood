@@ -142,7 +142,6 @@ const orderGetController = async (
         attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
         order: [["createdAt", "DESC"]],
       }));
-console.log(result);
   return result;
 };
 
