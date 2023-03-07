@@ -1,4 +1,4 @@
-const { MenuItem, Ingredient, Tag, Review, conn} = require("../../db");
+const { MenuItem, Ingredient, Tag, Review, conn } = require("../../db");
 //[ "Sin Pagar", "En Progreso", "Cancelada", "Lista", "Entregada" ]
 
 const menuItemsGetController = async (store_id) => {
@@ -7,11 +7,18 @@ const menuItemsGetController = async (store_id) => {
     include: [{ model: Tag, attributes: ["name"] }, { model: Ingredient }],
     attributes: {
       exclude: ["createdAt", "updatedAt", "deletedAt"],
-      include: [[conn.literal('(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItem"."id" = "Reviews"."MenuItemId")'), 'rating']]
+      include: [
+        [
+          conn.literal(
+            '(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItem"."id" = "Reviews"."MenuItemId")'
+          ),
+          "rating",
+        ],
+      ],
     },
     order: [["recomend_first", "DESC"]],
-  })
-  return  filterMenuItems(result);
+
+  return filterMenuItems(result);
 };
 
 const menuItemsGetRecommendedController = async (store_id) => {
@@ -20,15 +27,19 @@ const menuItemsGetRecommendedController = async (store_id) => {
     include: [{ model: Tag, attributes: ["name"] }, { model: Ingredient }],
     attributes: {
       exclude: ["createdAt", "updatedAt", "deletedAt"],
+
       include: [[conn.literal('(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItem"."id" = "Reviews"."MenuItemId")'), 'rating']]
     },
   });
+
   return filterMenuItems(result);
 };
 
 const filterMenuItems = (arr) => {
   const result = arr.map((item) => {
+
     const totalSold = item.dataValues.totalSold !== undefined ? item.dataValues.totalSold : null
+
     const tagsArray = item.Tags.map((tag) => tag.name);
     return {
       id: item.id,
@@ -45,11 +56,10 @@ const filterMenuItems = (arr) => {
       TagsFull: item.Tags,
       Tags: tagsArray,
       Ingredients: item.Ingredients,
-      
     };
   });
-  return result
-}
+  return result;
+};
 
 const menuItemsGetByIdController = async (id, store_id) => {
   const result = await MenuItem.findOne({
@@ -58,9 +68,19 @@ const menuItemsGetByIdController = async (id, store_id) => {
     attributes: {
       exclude: ["createdAt", "updatedAt", "deletedAt"],
       include: [
-        [conn.literal('(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItem"."id" = "Reviews"."MenuItemId")'), 'rating'],
-        [conn.literal('(SELECT COALESCE(SUM("OrdersMenus"."quantity"), 0) FROM "Orders" INNER JOIN "OrdersMenus" ON "Orders"."order_id" = "OrdersMenus"."OrderId" WHERE "Orders"."status" = \'Entregada\' AND "OrdersMenus"."MenuItemId" = "MenuItem"."id")'), 'totalSold']
-      ]
+        [
+          conn.literal(
+            '(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItem"."id" = "Reviews"."MenuItemId")'
+          ),
+          "rating",
+        ],
+        [
+          conn.literal(
+            '(SELECT COALESCE(SUM("OrdersMenus"."quantity"), 0) FROM "Orders" INNER JOIN "OrdersMenus" ON "Orders"."order_id" = "OrdersMenus"."OrderId" WHERE "Orders"."status" = \'Entregada\' AND "OrdersMenus"."MenuItemId" = "MenuItem"."id")'
+          ),
+          "totalSold",
+        ],
+      ],
     },
   });
   return filterMenuItems([result])[0];

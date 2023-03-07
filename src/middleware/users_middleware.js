@@ -45,6 +45,7 @@ const validateUser = async (name, last_name, account_name, password, email, phon
 
 //* Visto
 const processUserLogin = async (req,res) => {
+
     try {
         const {email, password } = req.body;
         if (!email || !password) throw Error(INVALID_LOGIN_PARAMS);
