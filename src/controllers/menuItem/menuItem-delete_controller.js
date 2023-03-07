@@ -2,8 +2,8 @@ const { MenuItem, IngredientsMenuItem } = require("../../db");
 
 const menuItemsDeleteController = async (id, store_id) => {
   //! Retrabajado
-  const result = MenuItem.destroy({where: {id, store_id}})
-  IngredientsMenuItem.destroy({where: {MenuItemId: id }})
+  const result = await MenuItem.destroy({where: {id, store_id}})
+  await IngredientsMenuItem.destroy({where: {MenuItemId: id }})
   return result;
   //*
   /*

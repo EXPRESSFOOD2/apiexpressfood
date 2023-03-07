@@ -7,7 +7,7 @@ const {cloudinary} = require("../../utils/cloudinary")
 
 
 const menuItemsPostController = async (name, description, price, recomend_first = false , stock, is_active, url_image, ingredArray, store_id, tagsIds ) => {
-  //!HANDCODEO porque el formic no hace magia antes de enviar
+  //!HARDCODEO porque el formic no hace magia antes de enviar
   const uploadedResponse = await cloudinary.uploader.upload( url_image, {upload_preset: process.env.CR_DEFAULT_FOLDER})
   let url = uploadedResponse.secure_url
   //!FIN
