@@ -136,7 +136,7 @@ const orderGetController = async (
     : (result = await Order.findAll({
         where: {
           store_id,
-          status: { [Op.notIn]: ["Sin Pagar", "Entregada"] },
+          status: { [Op.notIn]: ["Sin Pagar", "Entregada", "Cancelada"] },
         },
         include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
         attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
