@@ -12,7 +12,6 @@ const menuItemsGetController = async (store_id) => {
     order: [["recomend_first", "DESC"]],
   })
   return  filterMenuItems(result);
-
 };
 
 const menuItemsGetRecommendedController = async (store_id) => {
@@ -21,7 +20,7 @@ const menuItemsGetRecommendedController = async (store_id) => {
     include: [{ model: Tag, attributes: ["name"] }, { model: Ingredient }],
     attributes: {
       exclude: ["createdAt", "updatedAt", "deletedAt"],
-      include: [[conn.literal('(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItems"."id" = "Reviews"."MenuItemId")'), 'rating']]
+      include: [[conn.literal('(SELECT COALESCE(AVG("Reviews"."rating"), 0) FROM "Reviews" WHERE "MenuItem"."id" = "Reviews"."MenuItemId")'), 'rating']]
     },
   });
   return filterMenuItems(result);
@@ -30,7 +29,6 @@ const menuItemsGetRecommendedController = async (store_id) => {
 const filterMenuItems = (arr) => {
   const result = arr.map((item) => {
     const totalSold = item.dataValues.totalSold !== undefined ? item.dataValues.totalSold : null
-    console.log("filter: "+totalSold);
     const tagsArray = item.Tags.map((tag) => tag.name);
     return {
       id: item.id,
@@ -65,7 +63,6 @@ const menuItemsGetByIdController = async (id, store_id) => {
       ]
     },
   });
-  console.log(result.dataValues.totalSold);
   return filterMenuItems([result])[0];
 };
 
