@@ -1,153 +1,28 @@
 const { Order, OrdersMenu, MenuItem } = require("../db");
 
 const FAKE_ORDERS = [
-  {
-    total: 55,
-    client_data: { email: "gibsonavilan@gmail.com" },
-    code: "A000",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 25,
-    client_data: { email: "davidvergaraok@gmail.com" },
-    code: "A001",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 80,
-    client_data: { email: "davidvergaraok@gmail.com" },
-    code: "A002",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 30,
-    client_data: { email: "davidvergaraok@gmail.com" },
-    code: "A003",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 30,
-    client_data: { email: "davidvergaraok@gmail.com" },
-    code: "A004",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 30,
-    client_data: { email: "davidvergaraok@gmail.com" },
-    code: "A005",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 30,
-    client_data: { email: "davidvergaraok@gmail.com" },
-    code: "A006",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 40,
-    client_data: { email: "alpharus2k@gmail.com" },
-    code: "A007",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 45,
-    client_data: { email: "alpharus2k@gmail.com" },
-    code: "A008",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 75,
-    client_data: { email: "alpharus2k@gmail.com" },
-    code: "A009",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 50,
-    client_data: { email: "alpharus2k@gmail.com" },
-    code: "A010",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 50,
-    client_data: { email: "alpharus2k@gmail.com" },
-    code: "A011",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "En Progreso",
-  },
-  {
-    total: 65,
-    client_data: { email: "alpharus2k@gmail.com" },
-    code: "A012",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "Lista",
-  },
-  {
-    total: 80,
-    client_data: { email: "alpharus2k@gmail.com" },
-    code: "A013",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "Lista",
-  },
-  {
-    total: 80,
-    client_data: { email: "alpharus2k@gmail.com" },
-    code: "A014",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "Lista",
-  },
-  {
-    total: 55,
-    client_data: { email: "gibsonavilan@gmail.com" },
-    code: "A015",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "Lista",
-  },
-  {
-    total: 50,
-    client_data: { email: "gibsonavilan@gmail.com" },
-    code: "A016",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "Lista",
-  },
-  {
-    total: 55,
-    client_data: { email: "gibsonavilan@gmail.com" },
-    code: "A017",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "Lista",
-  },
-  {
-    total: 30,
-    client_data: { email: "gibsonavilan@gmail.com" },
-    code: "A018",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "Lista",
-  },
-  {
-    total: 115,
-    client_data: { email: "gibsonavilan@gmail.com" },
-    code: "A019",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "Lista",
-  },
-  {
-    total: 265,
-    client_data: { email: "gibsonavilan@gmail.com" },
-    code: "A020",
-    store_id: "f3bc0474-620c-429d-a46c-df2460c7725a",
-    status: "Entregada",
-  },
+  {total:55, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A000", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:25, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A001", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A002", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A003", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A004", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A005", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"eduardo.ariasu16@gmail.com"}, code:"A006", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A007", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A008", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A009", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A010", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A011", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "En Progreso"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A012", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Lista"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A013", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Lista"},
+  {total:60, client_data: {"email":"alpharus2k@gmail.com"}, code:"A014", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Lista"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A015", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Lista"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A016", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Lista"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A017", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Lista"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A018", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Lista"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A019", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Lista"},
+  {total:60, client_data: {"email":"gibsonavilan@gmail.com"}, code:"A020", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a", status: "Entregada"},
+  
 ];
 const FAKE_ORDERSMENUS = [
   { quantity: 5, OrderId: 6, MenuItemId: 1 },
@@ -215,24 +90,6 @@ const FAKE_ORDERSMENUS = [
 ];
 
 module.exports = async function () {
-<<<<<<< HEAD
-
-
-  setTimeout( async() => {
-    const promises = [await Order.bulkCreate(FAKE_ORDERS),
-      await OrdersMenu.bulkCreate(FAKE_ORDERSMENUS)
-]
-try {
-  await Promise.all(promises)
-  console.log("orders created");
-} catch (error) {
-  console.log(error.message);
-}
-   
-
-
-  }, 950);
-=======
   setTimeout(async () => {
     const promises = [
       await Order.bulkCreate(FAKE_ORDERS),
@@ -245,5 +102,4 @@ try {
       console.log(error.message);
     }
   }, 5000);
->>>>>>> f4405dda2e6f08cc4b2a3241ccee91f8f5fd7ea4
 };

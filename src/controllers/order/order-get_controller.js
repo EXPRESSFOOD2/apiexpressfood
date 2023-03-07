@@ -164,7 +164,17 @@ const orderGetByIdController = async (
   }
 };
 
+const ProgressOrdersController = async () => {
+    const resultOrder = await Order.findAll({
+      where: { status: { [Op.in]: ["En Progreso"] } },
+      include: [{ model: MenuItem }],
+    });
+
+    return resultOrder
+}
+
 module.exports = {
+  ProgressOrdersController,
   orderGetController,
   orderGetByIdController,
   orderGetBalanceController,

@@ -7,7 +7,7 @@ const CreateTagsMenuItems = require("./CreateTagsMenuItems")
 const CreateReviews = require("./CreateReviews")
 
 
-module.exports = async function() {
+module.exports = async function () {
     await Promise.all([ // Returning and thus passing a Promise here
         await CreateUserStore(),
         await CreateTags()
@@ -27,5 +27,21 @@ module.exports = async function() {
         
     })
 
+<<<<<<< HEAD
+    await Promise.all([ // Returning and thus passing a Promise here
+        // Independent seeds first
+        Menu(),
+        MenuTags(),
+        User(),
+     
+    ]).then(()=>{
+        Orders()
+    })
+
+    
+    
+
+=======
+>>>>>>> 87dff3921831030141ceda9ca9017596351ee835
 
 }
