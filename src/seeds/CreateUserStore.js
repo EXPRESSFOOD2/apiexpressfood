@@ -23,13 +23,13 @@ const id2 = "eb311a9e-7c64-4c3d-bce3-1ce5e474e532"
 const fakeStores = [
         {id, name: "Tienda de Pepita", short_name: "pepitas",description, logo: logo1, store_type: "Traveling Business",
         mercado_pago: "Esto es texto plano", ownerId: 3, is_active: true},
-        {id: id2, name: "Tienda de Maria", short_name: "miari4",description, logo: logo2, store_type: "Traveling Business",
+        {id: id2, name: "Tienda de Maria", short_name: "mari4",description, logo: logo2, store_type: "Traveling Business",
         mercado_pago: "Esto es texto plano", ownerId: 2, is_active: true}
 ]
 module.exports = async function() {
     await Role.bulkCreate(fakeRoles)
     await userPostController( "Carlos", "Mengano", "CarlosM", "12345678", "a@a.com", "555888666", profile_image, roleId = managerRoleId )
-    await userPostController( "Maria", "Perez", "MPerex", "1234qwer", "c@c.com", "55555555", profile_image, roleId = managerRoleId)
+    await userPostController( "Maria", "Perez", "MPerex", "12345678", "c@c.com", "55555555", profile_image, roleId = managerRoleId)
     await userPostController( "Maria", "Perez", "MPerex2", "12345678", "x@x.com", "55555556", profile_image, roleId = managerRoleId)
     setTimeout(() => {
          Store.bulkCreate(fakeStores)

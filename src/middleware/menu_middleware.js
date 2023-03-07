@@ -25,6 +25,7 @@ const processMenuPost = async (req, res) => {
         const result = await menuItemsPostController(name, description, price, recomend_first, stock, is_active, url_image, ingredArray, store_id, tagsIds )
         return res.status(200).json( result )
     } catch (error) {
+        console.log(error);
         return res.status(400).json({ error: error.message })
     }
 }

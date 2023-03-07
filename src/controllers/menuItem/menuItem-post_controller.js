@@ -1,13 +1,20 @@
 const { MenuItem, IngredientsMenuItems } = require("../../db");
 const { ERROR_CANT_CREATE } = require("../../models/utils/MenuItem-ErrorMSGs")
 const { tagsApplyController } = require("../tag/tag-apply_controller")
+//! TEST
+const {cloudinary} = require("../../utils/cloudinary")
+//! FIN
 
-const menuItemsPostController = async (name, description, price, recomend_first, stock, is_active, url_image, ingredArray, store_id, tagsIds ) => {
-  const result = await MenuItem.create({name,description,price,recomend_first,stock,is_active, url_image, store_id});
-  
+
+const menuItemsPostController = async (name, description, price, recomend_first = false , stock, is_active, url_image, ingredArray, store_id, tagsIds ) => {
+  //!HANDCODEO porque el formic no hace magia antes de enviar
+  const uploadedResponse = await cloudinary.uploader.upload( url_image, {upload_preset: process.env.CR_DEFAULT_FOLDER})
+  let url = uploadedResponse.secure_url
+  //!FIN
+  const result = await MenuItem.create({name,description,price,recomend_first,stock,is_active, url_image:url, store_id});
+  console.log(result.dataValues);
   const menuItemId = result.dataValues.id
- 
-  await tagsApplyController(tagsIds, menuItemId, store_id)
+   if (tagsIds && tagsIds.length) await tagsApplyController(tagsIds, menuItemId, store_id)
 
   //! Este if Parece Opcional
   if ( !result ) throw Error(ERROR_CANT_CREATE)

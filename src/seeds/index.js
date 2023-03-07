@@ -12,12 +12,12 @@ module.exports = async function() {
         await CreateUserStore(),
         await CreateTags()
     ]).then(() => {
-        CreateIngredients()
+        //CreateIngredients()
     }).then(() => {
-        CreateRecipes()
+        //CreateRecipes()
     }).then(() => {
-        CreateMenuItems(),
-        CreateTagsMenuItems()
+        //CreateMenuItems(),
+        //CreateTagsMenuItems()
         //! Habilitar solo si la relacion Review-OrderMenu en db.js está deshabilitada
         //, CreateReviews()
         

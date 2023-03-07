@@ -215,24 +215,6 @@ const FAKE_ORDERSMENUS = [
 ];
 
 module.exports = async function () {
-<<<<<<< HEAD
-
-
-  setTimeout( async() => {
-    const promises = [await Order.bulkCreate(FAKE_ORDERS),
-      await OrdersMenu.bulkCreate(FAKE_ORDERSMENUS)
-]
-try {
-  await Promise.all(promises)
-  console.log("orders created");
-} catch (error) {
-  console.log(error.message);
-}
-   
-
-
-  }, 950);
-=======
   setTimeout(async () => {
     const promises = [
       await Order.bulkCreate(FAKE_ORDERS),
@@ -245,5 +227,4 @@ try {
       console.log(error.message);
     }
   }, 5000);
->>>>>>> f4405dda2e6f08cc4b2a3241ccee91f8f5fd7ea4
 };
