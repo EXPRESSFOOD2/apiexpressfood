@@ -290,8 +290,3 @@ Hay otras rutas que existen pero no estan implementadas
         if ( !await validateToken(user_id, token) ) throw Error("Token is invalid or expired, Please log in again.")
         const store_id = await getStoreIdByUserId(user_id);
         !!! **\
-
-        let headers = {
-                authorization: { token: users.token},
-                user_id: user.id,
-            }

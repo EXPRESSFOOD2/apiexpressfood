@@ -116,22 +116,24 @@ const getTotalMenuItems = (arrayOrdersMenu) => {
   return result;
 };
 
-const orderGetController = async (
-  store_id = "f3bc0474-620c-429d-a46c-df2460c7725a",
-  email
-) => {
+const orderGetController = async ( store_id, email ) => {
   let result;
+
   email
     ? (result = await Order.findAll({
         //! limit: 120,
         where: {
           store_id,
           status: { [Op.notIn]: ["Sin Pagar"] },
-          client_data: email,
+          client_data: {
+            [Op.contains]: {
+              email: email
+            }
+          }
         },
         include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
         attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
-        order: [["updatedAt", "DESC"]],
+        order: [["createdAt", "DESC"]],
       }))
     : (result = await Order.findAll({
         where: {
@@ -145,14 +147,14 @@ const orderGetController = async (
   return result;
 };
 
-const orderGetByIdController = async (
-  id,
-  store_id = "f3bc0474-620c-429d-a46c-df2460c7725a",
-  email
-) => {
+const orderGetByIdController = async ( id, store_id, email ) => {
   let existingRewiew = await Review.findAll({ where: { OrdersMenuId: id } });
   let result = await Order.findOne({
-    where: { id, store_id, client_data: email },
+    where: { id, store_id, client_data: {
+      [Op.contains]: {
+        email: email
+      }
+    } },
     include: [{ model: MenuItem, attributes: ["name", "url_image"] }],
   });
   if (!existingRewiew.length) {

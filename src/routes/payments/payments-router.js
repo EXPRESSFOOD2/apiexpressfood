@@ -1,20 +1,11 @@
 const { Router } = require('express');
 const router = Router();
-const { paymentsControllerPost } = require("../../controllers/Payments/payments-controller")
 const { paymentsSuccessProcess } = require("../../controllers/Payments/payments-success-controler")
 const { paymentsMiddleware } = require("../../middleware/payments-middleware")
 const { paymentsFailureProcess } = require("../../controllers/Payments/payments-failure-controler")
 
-router.post("/create", paymentsMiddleware,  async(req, res)=>{
-    const {products, client_data} = req.body;
-    try {
-        const result  = await paymentsControllerPost(products, client_data)
-        return res.status(200).send(result.body.init_point)
-    } catch (error) {
-        return res.status(400).send(error.message)
-    }
-    }
-);
+
+router.post("/create", paymentsMiddleware );
 
 router.get("/success", async(req, res)=>{
     const successResponse = req.query;

@@ -9,24 +9,30 @@ const { recipesDeleteController } = require("../controllers/recipe/recipe-delete
 const { recipesPatchController } = require("../controllers/recipe/recipe-patch_controller")
 const { isItAnExistingModelByName, getRecipeBasicAttrsById, getActualDate, validateArraySameStore,
         isItAnExistingModelByID } = require("../controllers/Utils/aux_controller")
-const { getStoreId } = require("../controllers/HashFunction/security");
+const { validateToken } = require("../controllers/token/token_controller");
+const { getStoreIdByUserId } = require("../controllers/HashFunction/security")
 
 //* Adds storeId && Headers Validation note
 const processRecipePost = async (req,res) => {
     try {
-        //! TODO
-        //* const { storeName } = req.headers;
-        //* const store_id = await getStoreIDByStoreName(storeName);
-                                              
-        // Agregar Validacion por Header
-        const store_id = getStoreId();
+        //! Remastered
+        const origin = req.headers.origin;
+        let store_id = "";
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+            const token = req.headers.token;
+            const user_id = req.headers.id;
+            if ( !token )  throw Error('AccessToken doesnt exist');
+            if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+            store_id = await getStoreIdByUserId(user_id);
+        }else throw new Error("Access Denied")
+
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
-        //*
+
         const { name, details, produced_amount, type_measure, ingredArray } = req.body;
         //! Validar si todos los ingredientes son del MISMO store
         await validateRecipePost(name, details, produced_amount, type_measure, ingredArray, store_id )
         const result = await recipesPostController( name, details, produced_amount, type_measure, ingredArray, store_id )
-        return res.status(200).json( "result" )
+        return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
@@ -46,15 +52,19 @@ const processRecipePostRebuild = async (id, name, details, produced_amount, type
 
 const processRecipePatch = async (req,res) => {
     try {
-        //! TODO
-        //* const { storeName } = req.headers;
-        //* const store_id = await getStoreIDByStoreName(storeName);
-                                              
-        // Agregar Validacion por Header
-        const store_id = getStoreId();
-        //*
-        //const { id, name, details, produced_amount, type_measure, ingredArray } = req.body;
+        //! Remastered
+        const origin = req.headers.origin;
+        let store_id = "";
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+            const token = req.headers.token;
+            const user_id = req.headers.id;
+            if ( !token )  throw Error('AccessToken doesnt exist');
+            if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+            store_id = await getStoreIdByUserId(user_id);
+        }else throw new Error("Access Denied")
+
         const { id, name, details } = req.body;
+        if ( isNaN(id) || id < 1) throw Error(INVALID_ID)
         if (    !await isItAnExistingModelByID(id, store_id, Recipe)
             ||  await isItAnExistingModelByName(name, store_id, Ingredient)) throw Error(`${INVALID_ID}${id}`)
         //if ( type_measure && !MEASURES_SHORT.includes(type_measure) ) throw Error(`${type_measure}${INVALID_TYPE_MEASURE}`)
@@ -72,13 +82,17 @@ const processRecipePatch = async (req,res) => {
 
 const processRecipeGet = async (req,res) => {
     try {
-         //! TODO
-        //* const { storeName } = req.headers;
-        //* const store_id = await getStoreIDByStoreName(storeName);
-                                              
-        //! Modificar la funcion
-        const store_id = getStoreId();
-        //*
+         //! Remastered
+         const origin = req.headers.origin;
+         let store_id = "";
+         if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+             const token = req.headers.token;
+             const user_id = req.headers.id;
+             if ( !token )  throw Error('AccessToken doesnt exist');
+             if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+             store_id = await getStoreIdByUserId(user_id);
+         }else throw new Error("Access Denied")
+
         const result = await recipesGetController(store_id);
         return res.status(200).json( result )
     } catch (error) {
@@ -88,12 +102,17 @@ const processRecipeGet = async (req,res) => {
 
 const processRecipeGetById = async (req,res) => {
     try {
-         //! TODO
-        //* const { storeName } = req.headers;
-        //* const store_id = await getStoreIDByStoreName(storeName);
-                                              
-        const store_id = getStoreId();
-        //*
+        //! Remastered
+        const origin = req.headers.origin;
+        let store_id = "";
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+            const token = req.headers.token;
+            const user_id = req.headers.id;
+            if ( !token )  throw Error('AccessToken doesnt exist');
+            if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+            store_id = await getStoreIdByUserId(user_id);
+        }else throw new Error("Access Denied")
+
         const { id } = req.params;
         if ( isNaN(id) || id < 1) throw Error(`${INVALID_ID}${id}`)
         const result = await recipesGetByIdController( id, store_id )
@@ -106,7 +125,6 @@ const processRecipeGetById = async (req,res) => {
 
 const validateRecipePost = async ( name, details, produced_amount, type_measure, ingredArray, store_id ) => {
     let result = true;
-    const { Recipe } = require("../db")
     if (!name.trim() || typeof name != "string") throw Error(INVALID_RECIPE_NAME);
     if ( await isItAnExistingModelByName(name, store_id, Ingredient) ) throw Error(`${DUPLICATED_RECIPE_NAME}${name}`);
     if ( await isItAnExistingModelByName(name, store_id, Recipe) ) throw Error(`${DUPLICATED_INGREDIENT_NAME}${name}`);
@@ -119,16 +137,22 @@ const validateRecipePost = async ( name, details, produced_amount, type_measure,
 
 const processRecipeDelete = async (req,res) => {
     try {
-         //! TODO
-        //* const { storeName } = req.headers;
-        //* const store_id = await getStoreIDByStoreName(storeName);
-                                              
-        //! Modificar la funcion
-        const store_id = getStoreId();
-        //*
+        //! Remastered
+        const origin = req.headers.origin;
+        let store_id = "";
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+            const token = req.headers.token;
+            const user_id = req.headers.id;
+            if ( !token )  throw Error('AccessToken doesnt exist');
+            if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+            store_id = await getStoreIdByUserId(user_id);
+            mustFilter = false;
+        }else throw new Error("Access Denied")
+
         const { id } = req.query;
         if ( id < 1) throw Error(`${INVALID_ID}${id}`);
         if ( !await isItAnExistingModelByID(id, store_id, Recipe ) ) throw Error(`${INVALID_ID}${id}`)
+
         const result = await recipesDeleteController( id, store_id );
          return res.status(200).json( result )
     } catch (error) {

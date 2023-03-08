@@ -10,9 +10,7 @@ const ordersPostController = async ( products, client_data, store_id ) => {
     let associations = products.map(prod => {
         return {OrderId: result.dataValues.id , MenuItemId: prod.id, quantity: prod.quantity, unitPrice: prod.price}
     })
-
-   await OrdersMenu.bulkCreate(associations)
-
+    await OrdersMenu.bulkCreate(associations)
     return result.dataValues.id
 }
 
