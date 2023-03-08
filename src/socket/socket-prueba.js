@@ -47,9 +47,9 @@ module.exports = async (io) => {
     })
     
     socket.on('complete',(data)=>{
-      console.log(data,'asdas');
+      // console.log(data,'asdas');
       menuAct.send = true
-      console.log(menuAct);
+      // console.log(menuAct);
 
       socket.emit('Completado', ('info nueva'))
     })
@@ -59,7 +59,7 @@ module.exports = async (io) => {
     //   socket.emit('read',('hola'))
     // })
     socket.on("updateOrders",async (data)=>{
-        console.log(menuAct,'acacaca');
+        // console.log(menuAct,'acacaca');
       const orders = new Promise((resolve, reject) => {
 
         setTimeout(async () => {
@@ -78,7 +78,7 @@ module.exports = async (io) => {
         // console.log(result);
         socket.emit("sendOrders",(result) )
         menuAct.send = false
-        console.log(menuAct,'resss');
+        // console.log(menuAct,'resss');
 
       }
 
