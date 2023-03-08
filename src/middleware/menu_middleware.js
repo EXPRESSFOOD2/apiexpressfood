@@ -1,4 +1,4 @@
-const { conn } = require("../db");
+const { conn, Tag } = require("../db");
 const { Ingredient, MenuItem } = conn.models;
 const { menuItemsPostController } = require("../controllers/menuItem/menuItem-post_controller")
 const { menuItemsGetController, menuItemsGetByIdController, menuItemsGetRecommendedController } = require("../controllers/menuItem/menuItem-get_controller")
@@ -21,8 +21,10 @@ const processMenuPost = async (req, res) => {
         //! agregar Validacion de que todos los IDs de ingredArray son del store_id
         //*
         const { name, description, price, recomend_first,stock,is_active,url_image, ingredArray, tagsIds } = req.body;
+ 
         validateMenuItem(name, description, price, recomend_first, stock, is_active, url_image,ingredArray, store_id )
         const result = await menuItemsPostController(name, description, price, recomend_first, stock, is_active, url_image, ingredArray, store_id, tagsIds )
+
         return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
