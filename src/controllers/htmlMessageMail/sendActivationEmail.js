@@ -8,8 +8,8 @@ const html = fs.readFileSync(htmlPath, "utf8");
 const sendEmail = (email, orderCode, orderId, status = "Sin Pagar") => {
   //CODIGO QUE ENVIA CORREO AL CLIENTE PARA LA ACTIVACION DE LA CUENTA
 
-  let rediectLocal = `http://localhost:3000`;
-  let rediectDeploy = `https://spacefood.up.railway.app`;
+  //let rediect = `http://localhost:3000`;
+  let redirect = `https://spacefood.up.railway.app`;
   const mailExpress =
     "smtps://expressfoodhenry@gmail.com:hdogizvqpmgovqni@smtp.gmail.com";
   const mailSpace =
@@ -116,7 +116,7 @@ let mailOptions ={
                   Gracias por tu compra
                   ¡valora nuestros productos!
                 </p>
-                <a href=${rediectLocal}/reviews/${orderId}>
+                <a href=${redirect}/reviews/${orderId}>
                   <button style="padding: 5px 17px; border-radius: 5px; border: 0px; background-color: #8f1414; color: #f5f5f5; ">Valorar</button>
                 </a>
                 <p style="font-family: sans-serif; font-size: 13px; color: #7a7a7a">
@@ -219,7 +219,7 @@ let mailOptions ={
                
                 </a>
                 </p>
-                <a href=${rediectLocal}/pedidos>
+                <a href=${redirect}/pedidos>
                   <button style="padding: 5px 17px; border-radius: 5px; border: 0px; background-color: #8f1414; color: #f5f5f5; ">Ver pedidos</button>
                 </a>
               </div>

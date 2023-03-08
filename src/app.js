@@ -49,9 +49,8 @@ server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res.status(status).send(message);
 });
 
-const app = http.createServer(server);
+//const app = http.createServer(server);
+// module.exports = app;
 
 
-
-
-module.exports = app;
+module.exports = server;
