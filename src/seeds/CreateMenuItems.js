@@ -90,24 +90,34 @@ const FAKE_RELATIONS = [
 ]
 
 const FAKE_MENUITEMS = [
-{ id: 1, name: "Canasto de frutas orgánico clásico", description: "Ideal para cualquier ocasión", price: 45, recomend_first: true, stock: 333, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678148725/d0bcupmphfqxiq7ugsy9.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" }, 
-{ id: 2, name: "Canasto Floral Aniversario", description: "Agasaje a la persona amada con este ramo espectacular presente", price: 36, recomend_first: true, stock: 26, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678150203/gxlimir3mkwvxxsjns1t.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
-{ id: 3, name: "Fruta de estación Organica", description: "La más fresca, directo de la granja, para los paladares más caprichosos", price: 26, recomend_first: true, stock: 15, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678150481/ynl2zkvzbkrx2i2ojgtx.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
-{ id: 5, name: "Fruta de estación Organica x2", description: "Son dos canastos de  la más fresca, fruta directo de la granja, para disfrutar y compartir. Incluye canasto artesanal de beneficencia", price: 26, recomend_first: true, stock: 15, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678150736/sqfcsn0i1oydsliscbw6.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
-{ id: 6, name: "Timpo de cosecha", description: "Una espectacular selección de lo lo más maduro de las frutas europeas", price: 28.95, recomend_first: true, stock: 45, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678151172/e3ssoconjc3ypj84huix.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
-{ id: 7, name: "Fin del verano", description: "Super fresca . La más fresca, directo de la granja, para los paladares más caprichosos", price: 32.05, recomend_first: false, stock: 888, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678152085/b4fmqiq0onbyjtxlnnei.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
-{ id: 8, name: "Dulce Gigante `Tutti Frutti`", description: "Agasaje a la persona amada o a un escuadrón de familiares con este ramo espectacular presente", price: 96.95, recomend_first: true, stock: 23, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678153986/wbwiqhamhutqwdiiodtl_mpyyv9.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
-{ id: 9, name: "Mi Fresco Valentín", description: "Le presente mas espectacular para el día de los enamorados", price: 41.05, recomend_first: true, stock: 144, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678155335/zeikezgi4vqbvqx5ozpq_mkrbkq.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
-{ id: 10, name: "Mi Fresco Valentín x2", description: "Le presente mas espectacular para el día de los enamorados, y por que no, para ti también. Dese el gusto!", price: 79.45, recomend_first: true, stock: 57, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678155423/zeikezgi4vqbvqx5ozpq_o8iliu.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
-{ id: 11, name: "Mi Fresco Valentín x3", description: "Los Poliamoroso están de fiesta. El presente mas espectacular para el día de los enamorados. Dense el gusto!", price: 114.95, recomend_first: true, stock: 25, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678155593/zeikezgi4vqbvqx5ozpq_noyndh.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
+{ name: "Canasto de frutas orgánico clásico", description: "Ideal para cualquier ocasión", price: 45, recomend_first: true, stock: 333, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678148725/d0bcupmphfqxiq7ugsy9.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" }, 
+{ name: "Canasto Floral Aniversario", description: "Agasaje a la persona amada con este ramo espectacular presente", price: 36, recomend_first: true, stock: 26, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678150203/gxlimir3mkwvxxsjns1t.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
+{ name: "Fruta de estación Organica", description: "La más fresca, directo de la granja, para los paladares más caprichosos", price: 26, recomend_first: true, stock: 15, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678150481/ynl2zkvzbkrx2i2ojgtx.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
+{ name: "Fruta de estación Organica x2", description: "Son dos canastos de  la más fresca, fruta directo de la granja, para disfrutar y compartir. Incluye canasto artesanal de beneficencia", price: 26, recomend_first: true, stock: 15, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678150736/sqfcsn0i1oydsliscbw6.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
+{ name: "Timpo de cosecha", description: "Una espectacular selección de lo lo más maduro de las frutas europeas", price: 28.95, recomend_first: true, stock: 45, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678151172/e3ssoconjc3ypj84huix.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
+{ name: "Fin del verano", description: "Super fresca . La más fresca, directo de la granja, para los paladares más caprichosos", price: 32.05, recomend_first: false, stock: 888, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678152085/b4fmqiq0onbyjtxlnnei.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
+{ name: "Dulce Gigante `Tutti Frutti`", description: "Agasaje a la persona amada o a un escuadrón de familiares con este ramo espectacular presente", price: 96.95, recomend_first: true, stock: 23, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678153986/wbwiqhamhutqwdiiodtl_mpyyv9.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
+{ name: "Mi Fresco Valentín", description: "Le presente mas espectacular para el día de los enamorados", price: 41.05, recomend_first: true, stock: 144, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678155335/zeikezgi4vqbvqx5ozpq_mkrbkq.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
+{ name: "Mi Fresco Valentín x2", description: "Le presente mas espectacular para el día de los enamorados, y por que no, para ti también. Dese el gusto!", price: 79.45, recomend_first: true, stock: 57, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678155423/zeikezgi4vqbvqx5ozpq_o8iliu.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
+{ name: "Mi Fresco Valentín x3", description: "Los Poliamoroso están de fiesta. El presente mas espectacular para el día de los enamorados. Dense el gusto!", price: 114.95, recomend_first: true, stock: 25, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678155593/zeikezgi4vqbvqx5ozpq_noyndh.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
+{ name: "Mi Fresco Valentín x3 10% off", description: "Los Poliamoroso están de fiesta. El presente mas espectacular para el día de los enamorados. Dense el gusto!", price: 104.85, recomend_first: true, stock: 25, is_active: true, url_image: "https://res.cloudinary.com/group7foodexpress/image/upload/v1678155593/zeikezgi4vqbvqx5ozpq_noyndh.jpg", store_id: "f3bc0474-620c-429d-a46c-df2460c7725a" },
 
 ]
 module.exports = async function() {
-     setTimeout(async () => { 
-         await MenuItem.bulkCreate(FAKE_MENUITEMS)
-     }, 490)
-     setTimeout(async () => { 
-        await IngredientsMenuItems.bulkCreate(FAKE_RELATIONS)
-    }, 690)
-
+    await MenuItem.bulkCreate(FAKE_MENUITEMS);
+    await new Promise(resolve => setTimeout(resolve, 400)); // Esperar 400 ms
+    await IngredientsMenuItems.bulkCreate(FAKE_RELATIONS);
+    await new Promise(resolve => setTimeout(resolve, 400)); 
+    /*setTimeout(async () => {
+        const promises = [
+            await MenuItem.bulkCreate(FAKE_MENUITEMS)
+          ];
+        await Promise.all(promises);
+      }, 490)
+    setTimeout(async () => {
+        const promises = [
+            await IngredientsMenuItems.bulkCreate(FAKE_RELATIONS)
+          ];
+        await Promise.all(promises);
+      },890)*/
 }

@@ -21,7 +21,8 @@ module.exports = async function () {
         //! Habilitar solo si la relacion Review-OrderMenu en db.js está deshabilitada
         //, CreateReviews()
     }).then(async () => {
-        //CreateTagsMenuItems()
+        await CreateTagsMenuItems(),
+        await CreateReviews()
 
     }).then(()=>{
         console.log('********** Successfully seeded db **********');
