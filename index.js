@@ -20,8 +20,8 @@ conn.sync({alter: true}).then(() => {
 const io = new Server(server,{
   cors: {
     // origin: process.env.SOCKET_ALLOW_ORIGINS_LOCAL || process.env.SOCKET_ALLOW_ORIGINS_DEPLOY
-    // origin: ['http://localhost:3001','http://localhost:3000']
-    origin: [`${process.env.REACT_APP_CUSTOMER_SOCKET_LOCAL}`,`${process.env.REACT_APP_STORE_SOCKET_LOCAL}`]
+    origin: ['http://localhost:3001','http://localhost:3000']
+    // origin: [`${process.env.REACT_APP_CUSTOMER_SOCKET_LOCAL}`,`${process.env.REACT_APP_STORE_SOCKET_LOCAL}`]
   }
 })
 
