@@ -9,7 +9,7 @@ const paymentsMiddleware = async (req, res) => {
         //! Remastered !//
         const origin = req.headers.origin;
         let store_id = "";
-        if ( origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEV ) { //|| origin === HEADERS_CUSTOMER_ORIGIN_DEPLOY){
+        if ( origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEV || origin === HEADERS_CUSTOMER_ORIGIN_DEPLOY){
             const short_name = req.headers.storename;
             store_id = await getStoreIDByStoreName(short_name);
         } else throw new Error("Access Denied")
