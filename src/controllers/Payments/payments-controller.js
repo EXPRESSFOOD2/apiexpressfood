@@ -1,16 +1,15 @@
 // const request = require('request')
 const { MenuItem } = require("../../db");
 const mercadopago = require("mercadopago");
-const { getMercadoPagoSuccessUrl, getMercadoPagoFailureUrl, getStoreId } = require("../HashFunction/security")
+const { getMercadoPagoSuccessUrl, getMercadoPagoFailureUrl } = require("../HashFunction/security")
 const { ordersPostController } = require("../order/order-post_controller")
 
-const paymentsControllerPost = async (products, client_data) => {
+const paymentsControllerPost = async (products, client_data, store_id) => {
   let productDataToMercadoPago = await buildMercadoPagoObject(products);
   mercadopago.configure({
     public_key: process.env.MERCADOPAGO_PUBLIC_KEY,
     access_token: process.env.MERCADOPAGO_ACCESS_TOKEN,
   });
-  const store_id = getStoreId();
   let mercadoPagoSuccessUrl = getMercadoPagoSuccessUrl();
   let mercadoPagoFailureUrl = getMercadoPagoFailureUrl();
   let code = await ordersPostController( products, client_data, store_id );

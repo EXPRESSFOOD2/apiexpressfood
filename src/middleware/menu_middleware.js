@@ -6,28 +6,31 @@ const { menuItemsDeleteController } = require("../controllers/menuItem/menuItem-
 const { menuItemsPatchController } = require("../controllers/menuItem/menuItem-patch_controler")
 const { ERROR_NAME, INVALID_DECRIPTION, ERROR_PRICE, INVALID_STOCK, INVALID_ARRAY_CONTENT,
         INVALID_INGREDIENTS_ARRAY, ERROR_NOT_FOUND, INVALID_ID, DUPLICATED_MENU_NAME } = require("../models/utils/MenuItem-ErrorMSGs")
-const { validateArraySameStore, isItAnExistingModelByID, isItAnExistingModelByName } = require("../controllers/Utils/aux_controller")
-const { getStoreId, getStoreIdByUserId } = require("../controllers/HashFunction/security")
+const { validateArraySameStore, isItAnExistingModelByID, removeIngredientsFromMenu } = require("../controllers/Utils/aux_controller")
+const { getStoreIdByUserId, getStoreIDByStoreName } = require("../controllers/HashFunction/security")
 const { validateToken } = require("../controllers/token/token_controller");
 
 const processMenuPost = async (req, res) => {
     try {
-        //! TODO
-        //* const { storeName } = req.headers;
-        //* const store_id = await getStoreIDByStoreName(storeName);
-                                              
-        // Agregar Validacion por Header
-        const store_id = getStoreId();
-        //! agregar Validacion de que todos los IDs de ingredArray son del store_id
-        //*
+        //! Remastered !//
+        const origin = req.headers.origin;
+        let store_id = "";
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+            const token = req.headers.token;
+            const user_id = req.headers.id;
+            if ( !token )  throw Error('AccessToken doesnt exist');
+            if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+            store_id = await getStoreIdByUserId(user_id);
+        }else throw new Error("Access Denied")
+
         const { name, description, price, recomend_first,stock,is_active,url_image, ingredArray, tagsIds } = req.body;
- 
-        validateMenuItem(name, description, price, recomend_first, stock, is_active, url_image,ingredArray, store_id )
+
+        validateMenuItem(name, description, price, recomend_first, stock, is_active, url_image, ingredArray, store_id )
+
         const result = await menuItemsPostController(name, description, price, recomend_first, stock, is_active, url_image, ingredArray, store_id, tagsIds )
 
         return res.status(200).json( result )
     } catch (error) {
-        console.log(error);
         return res.status(400).json({ error: error.message })
     }
 }
@@ -45,14 +48,17 @@ const validateMenuItem = async ( name,description,price,recomend_first,stock,is_
 
 const processMenuPatch = async (req, res) => {
     try {
-        //! TODO
-        //* const { storeName } = req.headers;
-        //* const store_id = await getStoreIDByStoreName(storeName);
-                                              
-        // Agregar Validacion por Header
-        const store_id = getStoreId();
-        //! agregar Validacion de que todos los IDs de ingredArray son del store_id
-        //*
+        //! Remastered !//
+        const origin = req.headers.origin;
+        let store_id = "";
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+            const token = req.headers.token;
+            const user_id = req.headers.id;
+            if ( !token )  throw Error('AccessToken doesnt exist');
+            if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+            store_id = await getStoreIdByUserId(user_id);
+        }else throw new Error("Access Denied")
+
         const { id, name, description, price, recomend_first, stock, is_active, url_image } = req.body;
 
         if ( !(await isItAnExistingModelByID(id, store_id, MenuItem)) ) throw Error(ERROR_NOT_FOUND)
@@ -66,18 +72,30 @@ const processMenuPatch = async (req, res) => {
 
 const processMenuGetById = async (req, res) => {
     try {
-        // Agregar Validacion por Header
-        const store_id = getStoreId();
-        //! agregar Validacion de que todos los IDs de ingredArray son del store_id
-        //*
+        //! Remastered !//
+        let mustFilter = true;
+        const origin = req.headers.origin;
+        let store_id = "";
         const { id } = req.params;
-        
         if ( isNaN(id) || id < 1) throw Error(INVALID_ID)
-        const result = await menuItemsGetByIdController(id, store_id)
-        //! Como aplicar este filtro ?!
-        //delete result.Ingredients
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+            const token = req.headers.token;
+            const user_id = req.headers.id;
+            if ( !token )  throw Error('AccessToken doesnt exist');
+            if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+            store_id = await getStoreIdByUserId(user_id);
+            mustFilter = false;
+        }else if ( origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEV ) { //|| origin === HEADERS_CUSTOMER_ORIGIN_DEPLOY){
+            const short_name = req.headers.storename;
+            store_id = await getStoreIDByStoreName(short_name);
+        }
+        else throw new Error("Access Denied")
+
+        let result = await menuItemsGetByIdController(id, store_id)
         if ( !result ) throw Error(ERROR_NOT_FOUND)
-        return res.status(200).json( result )
+        if (mustFilter) result = await removeIngredientsFromMenu([result])
+
+        return res.status(200).json( result[0] )
     } catch (error) {
         return res.status(400).json({ error: error.message })
     }
@@ -85,15 +103,25 @@ const processMenuGetById = async (req, res) => {
 
 const processMenuGet = async (req, res) => {
     try {
-        //! TODO
-        //* const { storeName } = req.headers;
-        //* const store_id = await getStoreIDByStoreName(storeName);
-                                              
-        // Agregar Validacion por Header
-        const store_id = getStoreId();
-        //! agregar Validacion de que todos los IDs de ingredArray son del store_id
-        //*
-        const result = await menuItemsGetController(store_id);
+        //! Remastered !//
+        let mustFilter = true;
+        const origin = req.headers.origin;
+        let store_id = "";
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+            const token = req.headers.token;
+            const user_id = req.headers.id;
+            if ( !token )  throw Error('AccessToken doesnt exist');
+            if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+            store_id = await getStoreIdByUserId(user_id);
+            mustFilter = false;
+        }else if ( origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEV ) { //|| origin === HEADERS_CUSTOMER_ORIGIN_DEPLOY){
+            const short_name = req.headers.storename;
+            store_id = await getStoreIDByStoreName(short_name);
+        }
+        else throw new Error("Access Denied")
+
+        let result = await menuItemsGetController(store_id);
+        if (mustFilter) result = await removeIngredientsFromMenu(result)
         return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
@@ -101,15 +129,27 @@ const processMenuGet = async (req, res) => {
 }
 const processMenuGetRecommended = async (req, res) => {
     try {
-        //! TODO
-        //* const { storeName } = req.headers;
-        //* const store_id = await getStoreIDByStoreName(storeName);
-                                              
-        // Agregar Validacion por Header
-        const store_id = getStoreId();
-        //! agregar Validacion de que todos los IDs de ingredArray son del store_id
-        //*
-        const result = await menuItemsGetRecommendedController(store_id);
+        //! Remastered !//
+        let mustFilter = true;
+        const origin = req.headers.origin;
+        let store_id = "";
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+            const token = req.headers.token;
+            const user_id = req.headers.id;
+            if ( !token )  throw Error('AccessToken doesnt exist');
+            if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+            store_id = await getStoreIdByUserId(user_id);
+            mustFilter = false;
+        }else if ( origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEV ) { //|| origin === HEADERS_CUSTOMER_ORIGIN_DEPLOY){
+            const short_name = req.headers.storename;
+            store_id = await getStoreIDByStoreName(short_name);
+        }
+        else throw new Error("Access Denied")
+
+        let result = await menuItemsGetRecommendedController(store_id);
+        if ( !result ) throw Error(ERROR_NOT_FOUND)
+        if (mustFilter) result = await removeIngredientsFromMenu(result)
+
         return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })
@@ -118,17 +158,25 @@ const processMenuGetRecommended = async (req, res) => {
 
 const processMenuDelete = async (req, res) => {
     try {
-        //! TODO
-        // Agregar Validacion por Header
-        //! Modificar la funcion
-        const store_id = getStoreId();
-        //! agregar Validacion de que todos los IDs de ingredArray son del store_id
-        //*
+        //! Remastered !//
+        const origin = req.headers.origin;
+        let store_id = "";
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEV ) { //|| origin === HEADERS_STORE_ORIGIN_DEPLOY){
+            const token = req.headers.token;
+            const user_id = req.headers.id;
+            if ( !token )  throw Error('AccessToken doesnt exist');
+            if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
+            store_id = await getStoreIdByUserId(user_id);
+        }else if ( origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEV ) { //|| origin === HEADERS_CUSTOMER_ORIGIN_DEPLOY){
+            const short_name = req.headers.storename;
+            store_id = await getStoreIDByStoreName(short_name);
+        }
+        else throw new Error("Access Denied")
+
         const { id } = req.query;
         if ( id < 1) throw Error(INVALID_ID);
         const result = await menuItemsDeleteController( id, store_id );
-        //if ( result ) await Ingredient.destroy({where: {id}})
-        //if (result != 1) throw Error(INVALID_ID)
+
         return res.status(200).json( result )
     } catch (error) {
         return res.status(400).json({ error: error.message })

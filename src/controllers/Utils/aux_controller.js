@@ -14,6 +14,13 @@ const getRecipeBasicAttrsById = async (id, store_id) => {
     return {id: recipe.id, name: recipe.name,  details: recipe.details, type_measure: recipe.type_measure};
 }
 
+const removeIngredientsFromMenu = async (arr) => {
+  return await arr.map(res => {
+    delete res.Ingredients
+    return res
+  })
+}
+
 const getActualDate = () => {
     const actualDate = new Date().toISOString().split('T')[0];
     return ` (${actualDate})`
@@ -129,5 +136,6 @@ module.exports = {
     generateOldName,
     validateArraySameStore,
     procesarIngredientsConSet,
-    buildBOM
+    buildBOM,
+    removeIngredientsFromMenu
 };

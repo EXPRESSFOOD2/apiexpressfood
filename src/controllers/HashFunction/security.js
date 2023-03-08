@@ -13,11 +13,8 @@ const hashFunction = (password, secret) => {
 }
 
 const getStoreIDByStoreName = async (short_name) => {
-  //! Encontrar a que store pretenece y usuario NO DUEÑO
   const result = await Store.findOne({ where: { short_name }})
-
-  //console.log(result.dataValues.short_name);
-  return result ? result.id : "";
+  return result ? result.id : null;
 }
 
 const getStoreIdByUserId = async (id) => {

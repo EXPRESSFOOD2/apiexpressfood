@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
             }
         },
         client_data: {
-            type: DataTypes.JSON,
+            type: DataTypes.JSONB,
             allowNull: true,
         },
         code: {
