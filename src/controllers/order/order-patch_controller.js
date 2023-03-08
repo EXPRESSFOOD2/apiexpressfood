@@ -9,12 +9,12 @@ const orderPatchController = async (id, store_id, status) => {
     const result = await Order.update({ status }, { where: { id, store_id } });
 
     const orderDataToSendMail = await Order.findOne({ where: { order_id: id } });
-    if (status === ORDER_STATUS[4]) {
+    if (status === ORDER_STATUS[4] || status === ORDER_STATUS[3]) {
       const email = orderDataToSendMail.dataValues.client_data.email;
       const orderCode = orderDataToSendMail.dataValues.code;
       const orderId = orderDataToSendMail.dataValues.id;
   
-      sendEmail(email, orderCode, orderId);
+      sendEmail(email, orderCode, orderId, status);
       return result;
     } else {
       return result;
