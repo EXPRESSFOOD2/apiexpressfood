@@ -17,7 +17,7 @@ const menuItemsGetController = async (store_id) => {
       ],
     },
     order: [["recomend_first", "DESC"]],
-
+  })
   return filterMenuItems(result);
 };
 
