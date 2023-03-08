@@ -18,8 +18,6 @@ module.exports = async function () {
         await CreateMenuItems()
     }).then(async () => {
         await CreateOrders()
-        //! Habilitar solo si la relacion Review-OrderMenu en db.js está deshabilitada
-        //, CreateReviews()
     }).then(async () => {
         await CreateTagsMenuItems(),
         await CreateReviews()
