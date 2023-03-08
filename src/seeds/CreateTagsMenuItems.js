@@ -2,7 +2,7 @@ const { TagsMenuItems } = require('../db');
 
 //const id = "f3bc0474-620c-429d-a46c-df2460c7725a"
 
-//1	 3	 5	 6	8	10	
+//1	 3	 5	 6	8	10
 const fakeTags = [
     {TagId: 1, MenuItemId: 1},
     {TagId: 3, MenuItemId: 1},
@@ -33,7 +33,7 @@ const fakeTags = [
 
 ]
 module.exports = async function() {
-    setTimeout(async () => {
-         await TagsMenuItems.bulkCreate(fakeTags)
-      }, 1550)
+    await TagsMenuItems.bulkCreate(fakeTags)
+    await new Promise(resolve => setTimeout(resolve, 400)); // Esperar 400 ms
+
 }

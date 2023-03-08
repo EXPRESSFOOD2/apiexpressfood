@@ -28,10 +28,12 @@ const fakeStores = [
 ]
 module.exports = async function() {
     await Role.bulkCreate(fakeRoles)
+    await new Promise(resolve => setTimeout(resolve, 400)); // Esperar 400 ms
     await userPostController( "Carlos", "Mengano", "CarlosM", "12345678", "a@a.com", "555888666", profile_image, roleId = managerRoleId )
     await userPostController( "Maria", "Perez", "MPerex", "12345678", "c@c.com", "55555555", profile_image, roleId = managerRoleId)
     await userPostController( "Maria", "Perez", "MPerex2", "12345678", "x@x.com", "55555556", profile_image, roleId = managerRoleId)
-    setTimeout(() => {
-         Store.bulkCreate(fakeStores)
-       }, 100)
+    await new Promise(resolve => setTimeout(resolve, 400)); 
+    await Store.bulkCreate(fakeStores)
+    await new Promise(resolve => setTimeout(resolve, 400)); 
+
 }
