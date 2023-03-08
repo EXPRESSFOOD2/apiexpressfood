@@ -18,8 +18,8 @@ router.get("/success", async(req, res)=>{
     }
  );
 router.get("/fail", async(req, res)=>{
-    const failureResponse = req.query
-    let redirectUrl = await paymentsFailureProcess(failureResponse)
+
+    let redirectUrl = await paymentsFailureProcess()
     res.status(400).redirect(redirectUrl)
     }
  );
