@@ -16,7 +16,7 @@ const processIngredientPost = async (req, res) => {
     //! Remastered !//
     const origin = req.headers.origin;
     let store_id = "";
-    if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+    if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
       const token = req.headers.token;
       const user_id = req.headers.id;
       if ( !token )  throw Error('AccessToken doesnt exist');
@@ -39,7 +39,7 @@ const processIngredientDelete = async (req, res) => {
     const origin = req.headers.origin;
     let store_id = "";
     const { id } = req.params;
-    if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+    if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
       const token = req.headers.token;
       const user_id = req.headers.id;
       if ( !token )  throw Error('AccessToken doesnt exist');
@@ -62,7 +62,7 @@ const processIngredientGet = async (req, res) => {
     //! Remastered !//
     const origin = req.headers.origin;
     let store_id = "";
-    if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+    if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
       const token = req.headers.token;
       const user_id = req.headers.id;
       console.log("Token: "+token);
@@ -84,7 +84,7 @@ const processIngredientGetById = async (req, res) => {
     //! Remastered !//
     const origin = req.headers.origin;
     let store_id = "";
-    if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+    if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
       const token = req.headers.token;
       const user_id = req.headers.id;
       if ( !token )  throw Error('AccessToken doesnt exist');
@@ -107,7 +107,7 @@ const processIngredientPatch = async (req, res) => {
         //! Remastered !//
         const origin = req.headers.origin;
         let store_id = "";
-        if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
             const token = req.headers.token;
             const user_id = req.headers.id;
             if ( !token )  throw Error('AccessToken doesnt exist');

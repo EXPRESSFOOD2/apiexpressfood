@@ -15,7 +15,7 @@ const processMenuPost = async (req, res) => {
         //! Remastered !//
         const origin = req.headers.origin;
         let store_id = "";
-        if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
             const token = req.headers.token;
             const user_id = req.headers.id;
             if ( !token )  throw Error('AccessToken doesnt exist');
@@ -51,7 +51,7 @@ const processMenuPatch = async (req, res) => {
         //! Remastered !//
         const origin = req.headers.origin;
         let store_id = "";
-        if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
             const token = req.headers.token;
             const user_id = req.headers.id;
             if ( !token )  throw Error('AccessToken doesnt exist');
@@ -78,14 +78,14 @@ const processMenuGetById = async (req, res) => {
         let store_id = "";
         const { id } = req.params;
         if ( isNaN(id) || id < 1) throw Error(INVALID_ID)
-        if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
             const token = req.headers.token;
             const user_id = req.headers.id;
             if ( !token )  throw Error('AccessToken doesnt exist');
             if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
             store_id = await getStoreIdByUserId(user_id);
             mustFilter = false;
-        }else if ( origin === HEADERS_CUSTOMER_ORIGIN_DEPLOY){
+        }else if ( origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY){
             const short_name = req.headers.storename;
             store_id = await getStoreIDByStoreName(short_name);
         }
@@ -107,14 +107,14 @@ const processMenuGet = async (req, res) => {
         let mustFilter = true;
         const origin = req.headers.origin;
         let store_id = "";
-        if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
             const token = req.headers.token;
             const user_id = req.headers.id;
             if ( !token )  throw Error('AccessToken doesnt exist');
             if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
             store_id = await getStoreIdByUserId(user_id);
             mustFilter = false;
-        }else if ( origin === HEADERS_CUSTOMER_ORIGIN_DEPLOY){
+        }else if ( origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY){
             const short_name = req.headers.storename;
             store_id = await getStoreIDByStoreName(short_name);
         }
@@ -133,14 +133,14 @@ const processMenuGetRecommended = async (req, res) => {
         let mustFilter = true;
         const origin = req.headers.origin;
         let store_id = "";
-        if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
             const token = req.headers.token;
             const user_id = req.headers.id;
             if ( !token )  throw Error('AccessToken doesnt exist');
             if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
             store_id = await getStoreIdByUserId(user_id);
             mustFilter = false;
-        }else if ( origin === HEADERS_CUSTOMER_ORIGIN_DEPLOY){
+        }else if ( origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY){
             const short_name = req.headers.storename;
             store_id = await getStoreIDByStoreName(short_name);
         }
@@ -161,13 +161,13 @@ const processMenuDelete = async (req, res) => {
         //! Remastered !//
         const origin = req.headers.origin;
         let store_id = "";
-        if ( origin === HEADERS_STORE_ORIGIN_DEPLOY){
+        if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
             const token = req.headers.token;
             const user_id = req.headers.id;
             if ( !token )  throw Error('AccessToken doesnt exist');
             if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
             store_id = await getStoreIdByUserId(user_id);
-        }else if ( origin === HEADERS_CUSTOMER_ORIGIN_DEPLOY){
+        }else if ( origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY){
             const short_name = req.headers.storename;
             store_id = await getStoreIDByStoreName(short_name);
         }
