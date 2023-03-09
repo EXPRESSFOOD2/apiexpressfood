@@ -120,9 +120,13 @@ const processOrderGetById = async (req, res) => {
             store_id = await getStoreIDByStoreName(short_name);
         }
         else throw new Error("Access Denied")
-
+console.log(origin +   "   url")
+console.log(process.env.HEADERS_STORE_ORIGIN_DEPLOY)
+console.log(process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY)
+console.log(origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY + "    comparacion ")
         const { id } = req.params;
         const result = await orderGetByIdController(id, store_id, email)
+     console.log(result)
         return res.status(200).json(result)
     } catch (error) {
         return res.status(400).json({ error: error.message })
