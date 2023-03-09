@@ -111,7 +111,7 @@ const processOrderGetById= async (req, res) => {
             const user_id = req.headers.id;
             if ( !token )  throw Error('AccessToken doesnt exist');
             if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
-            store_id = await getStoreIdByUserId(user_id);
+            store_id = await getStoreIdByUserId(3);
         }else if ( origin ===process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY){
             const short_name = req.headers.storename;
             user_email = req.headers.user_email;
