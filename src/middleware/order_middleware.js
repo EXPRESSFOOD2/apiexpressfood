@@ -30,6 +30,7 @@ const processOrderGetBalance = async (req, res) => {
     try {
         //! Remastered !//
         const origin = req.headers.origin;
+        console.log(origin)
         let store_id = "";
         if ( origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY){
             const token = req.headers.token;
@@ -38,7 +39,7 @@ const processOrderGetBalance = async (req, res) => {
             if ( !await validateToken(user_id, token ) ) throw Error("Token is invalid or expired, Please log in again.")
             store_id = await getStoreIdByUserId(user_id);
         }else throw new Error("Access Denied")
-
+console.log(store_id)
         const { startDate, endDate } = req.body;
         const result  = await orderGetBalanceController( store_id, startDate, endDate )
         return res.status(200).json( result )

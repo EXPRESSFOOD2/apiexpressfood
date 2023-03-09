@@ -2,7 +2,7 @@ const { MenuItem, Order, OrdersMenu, Review, Op } = require("../../db");
 const { buildBOM } = require("../Utils/aux_controller")
 
 const orderGetBalanceController = async ( store_id, startDate = "2000-01-01", endDate="2500-12-31" ) => {
-
+console.log("hola")
   const orders = await Order.findAll({
     where: {
       store_id,
@@ -28,6 +28,7 @@ const orderGetBalanceController = async ( store_id, startDate = "2000-01-01", en
     },
     order: [["updatedAt", "DESC"]],
   });
+  console.log("mazo"+orders.length)
   const auxOrderIds = await orders.map((o) => {
     return o.dataValues.id;
   });
