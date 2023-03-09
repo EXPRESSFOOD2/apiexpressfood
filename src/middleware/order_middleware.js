@@ -102,31 +102,28 @@ const processOrderGet = async (req, res) => {
 }
 const processOrderGetById = async (req, res) => {
     try {
-        //! Remastered !//
-        const h = req.headers
-        const origin = req.headers.origin;
-        let store_id = "f3bc0474-620c-429d-a46c-df2460c7725a";
-        let user_email = "";
-        console.log(h +"h")
-        console.log(origin +"")
-        if (origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY) {
-            const token = req.headers.token;
-            const user_id = req.headers.id;
-            if (!token) throw Error('AccessToken doesnt exist');
-            if (!await validateToken(user_id, token)) throw Error("Token is invalid or expired, Please log in again.")
-            ///store_id = await getStoreIdByUserId(user_id);
-        } else if (origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY) {
-            const short_name = req.headers.storename;
-            user_email = req.headers.user_email;
+        // //! Remastered !//
+        // const h = req.headers
+        // const origin = req.headers.origin;
+        // let store_id = "f3bc0474-620c-429d-a46c-df2460c7725a";
+        // let user_email = "";
+        // console.log(h +"h")
+        // console.log(origin +"")
+        // if (origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY) {
+        //     const token = req.headers.token;
+        //     const user_id = req.headers.id;
+        //     if (!token) throw Error('AccessToken doesnt exist');
+        //     if (!await validateToken(user_id, token)) throw Error("Token is invalid or expired, Please log in again.")
+        //     ///store_id = await getStoreIdByUserId(user_id);
+        // } else if (origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY) {
+        //     const short_name = req.headers.storename;
+        //     user_email = req.headers.user_email;
 
-            store_id = await getStoreIDByStoreName(short_name);
-        }
-        else throw new Error("Access Denied")
-console.log(origin +   "   url")
-console.log(process.env.HEADERS_STORE_ORIGIN_DEPLOY)
-console.log(process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY)
-console.log(origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY + "    comparacion ")
-console.log(user_email + "    probando useremail  header ")
+        //     store_id = await getStoreIDByStoreName(short_name);
+        // }
+        // else throw new Error("Access Denied")
+const store_id ="f3bc0474-620c-429d-a46c-df2460c7725a"
+const email = "gibsonavilan@gmai.com"
         const { id } = req.params;
         const result = await orderGetByIdController(id, store_id, email)
      console.log(result)
