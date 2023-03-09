@@ -103,10 +103,12 @@ const processOrderGet = async (req, res) => {
 const processOrderGetById = async (req, res) => {
     try {
         //! Remastered !//
+        const h = req.headers
         const origin = req.headers.origin;
         let store_id = "f3bc0474-620c-429d-a46c-df2460c7725a";
         let user_email = "";
-        console.log(origin)
+        console.log(h +"h")
+        console.log(origin +"")
         if (origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY) {
             const token = req.headers.token;
             const user_id = req.headers.id;
