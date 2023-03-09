@@ -104,7 +104,7 @@ const processOrderGetById = async (req, res) => {
     try {
         //! Remastered !//
         const origin = req.headers.origin;
-        let store_id = "";
+        let store_id = "f3bc0474-620c-429d-a46c-df2460c7725a";
         let user_email = "";
         const token = req.headers.token;
         const user_id = req.headers.id;
@@ -112,14 +112,14 @@ const processOrderGetById = async (req, res) => {
         if (origin === process.env.HEADERS_STORE_ORIGIN_DEPLOY) {
             if (!token) throw Error('AccessToken doesnt exist');
             if (!await validateToken(user_id, token)) throw Error("Token is invalid or expired, Please log in again.")
-            store_id = await getStoreIdByUserId(user_id);
+            ///store_id = await getStoreIdByUserId(user_id);
         } else if (origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY) {
             const short_name = req.headers.storename;
             user_email = req.headers.user_email;
 
-            store_id = await getStoreIDByStoreName(short_name);
+            //store_id = await getStoreIDByStoreName(short_name);
         }
-        else throw new Error("Access Denied")
+        //else throw new Error("Access Denied")
 
         const { id } = req.params;
         const result = await orderGetByIdController(id, store_id, email)
