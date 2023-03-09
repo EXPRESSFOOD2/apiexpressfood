@@ -130,7 +130,7 @@ const validateRecipePost = async ( name, details, produced_amount, type_measure,
     if ( await isItAnExistingModelByName(name, store_id, Recipe) ) throw Error(`${DUPLICATED_INGREDIENT_NAME}${name}`);
     if ( produced_amount < MIN_PROD_AMOUNT) throw Error(INVALID_PRODUCED_AMOUNT);
     if (!ingredArray.length) throw Error(INVALID_INGREDIENTS_ARRAY)
-    if ( !await validateArraySameStore(ingredArray, store_id, Recipe)) throw Error(INVALID_ARRAY_CONTENT)
+   // if ( !await validateArraySameStore(ingredArray, store_id, Recipe)) throw Error(INVALID_ARRAY_CONTENT)
     if ( !MEASURES_SHORT.includes(type_measure) ) throw Error(`${type_measure}${INVALID_TYPE_MEASURE}`)
     return result;
 }
