@@ -124,6 +124,7 @@ console.log(origin +   "   url")
 console.log(process.env.HEADERS_STORE_ORIGIN_DEPLOY)
 console.log(process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY)
 console.log(origin === process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY + "    comparacion ")
+console.log(user_email + "    probando useremail  header ")
         const { id } = req.params;
         const result = await orderGetByIdController(id, store_id, email)
      console.log(result)
