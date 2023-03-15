@@ -9,7 +9,7 @@ sendEmail
 } = require("../controllers/htmlMessageMail/sendActivationEmail");
 const { User } = require("..//db");
 const { generateSecret } = require("./../controllers/HashFunction/security");
-
+const {GOOGLE_URL_SUCCESS_LOGIN_REDIRECT_LOCAL, GOOGLE_URL_SUCCESS_LOGIN_REDIRECT_DEPLOY} =process.env
 let user = {};
 
 passport.use(
@@ -105,13 +105,14 @@ router.get(
       email: user.email,
     });
 
-
+    
+    GOOGLE_URL_SUCCESS_LOGIN_REDIRECT_LOCAL ?  res.redirect(`${GOOGLE_URL_SUCCESS_LOGIN_REDIRECT_LOCAL}${userDataQuery}`) : res.redirect(`${GOOGLE_URL_SUCCESS_LOGIN_REDIRECT_DEPLOY}${userDataQuery}`)
     //let redirect = `http://localhost:3000/?user=`;
-    let redirect = `https://spacefood.up.railway.app/?user=`;
+    //let redirect = `https://spacefood.up.railway.app/?user=`;
 
 
     
-    res.redirect(`${redirect}${userDataQuery}`);
+    //res.redirect(`${redirect}${userDataQuery}`);
   }
 );
 
