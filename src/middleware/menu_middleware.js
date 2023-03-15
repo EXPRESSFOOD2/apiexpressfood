@@ -9,8 +9,11 @@ const { ERROR_NAME, INVALID_DECRIPTION, ERROR_PRICE, INVALID_STOCK, INVALID_ARRA
 const { validateArraySameStore, isItAnExistingModelByID, removeIngredientsFromMenu } = require("../controllers/Utils/aux_controller")
 const { getStoreIdByUserId, getStoreIDByStoreName } = require("../controllers/HashFunction/security")
 const { validateToken } = require("../controllers/token/token_controller");
+process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL ? process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY = process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL :  null
 
+process.env.HEADERS_STORE_ORIGIN_LOCAL ? process.env.HEADERS_STORE_ORIGIN_DEPLOY = process.env.HEADERS_STORE_ORIGIN_LOCAL :  null
 const processMenuPost = async (req, res) => {
+
     try {
         //! Remastered !//
         const origin = req.headers.origin;

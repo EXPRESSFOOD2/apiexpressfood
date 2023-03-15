@@ -8,6 +8,8 @@ const { getStoreIdByUserId, getStoreIDByStoreName } = require("../controllers/Ha
 const { INVALID_TAG_ID, DUPLICATED_TAG_NAME, INVALID_TAG_NAME } = require("../models/utils/Tag-ErrorMSGs") 
 const { tagsApplyController } = require("../controllers/tag/tag-apply_controller")
 const { validateToken } = require("../controllers/token/token_controller");
+process.env.HEADERS_STORE_ORIGIN_LOCAL ? process.env.HEADERS_STORE_ORIGIN_DEPLOY = process.env.HEADERS_STORE_ORIGIN_LOCAL :  null
+process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL ? process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY = process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL :  null
 
 const processTagMenuPost = async (req, res) => {
     try {

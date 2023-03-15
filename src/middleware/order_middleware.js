@@ -3,6 +3,8 @@ const { orderPatchController } = require("../controllers/order/order-patch_contr
 const { orderGetController, orderGetByIdController, orderGetBalanceController } = require("../controllers/order/order-get_controller")
 const { orderGetPredictionController } = require("../controllers/order/order-predict_controller");
 const { validateToken } = require("../controllers/token/token_controller");
+process.env.HEADERS_STORE_ORIGIN_LOCAL ? process.env.HEADERS_STORE_ORIGIN_DEPLOY = process.env.HEADERS_STORE_ORIGIN_LOCAL :  null
+process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL ? process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY = process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL :  null
 
 const processOrderPrediction = async (req, res) => {
     try {

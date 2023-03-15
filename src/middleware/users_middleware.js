@@ -6,6 +6,8 @@ const { INVAME_NAME_OR_ACCOUNT, EMAIL_REGEX, INVALID_NAME, INVALID_LAST_NAME,
         INVALID_LOGIN_PARAMS, DEFAULT_IMG } = require("../models/utils/User-ErrorMSGs")
 const { userPostController, token } = require("../controllers/user/user-post_controller")
 const { userLoginController } = require("../controllers/user/user-get-login_controller")
+process.env.HEADERS_STORE_ORIGIN_LOCAL ? process.env.HEADERS_STORE_ORIGIN_DEPLOY = process.env.HEADERS_STORE_ORIGIN_LOCAL :  null
+process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL ? process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY = process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL :  null
 
 //* Visto
 const isExistingUser = async (account_name, email) => {

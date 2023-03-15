@@ -11,6 +11,8 @@ const { isItAnExistingModelByName, getRecipeBasicAttrsById, getActualDate, valid
         isItAnExistingModelByID } = require("../controllers/Utils/aux_controller")
 const { validateToken } = require("../controllers/token/token_controller");
 const { getStoreIdByUserId } = require("../controllers/HashFunction/security")
+process.env.HEADERS_STORE_ORIGIN_LOCAL ? process.env.HEADERS_STORE_ORIGIN_DEPLOY = process.env.HEADERS_STORE_ORIGIN_LOCAL :  null
+process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL ? process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY = process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL :  null
 
 //* Adds storeId && Headers Validation note
 const processRecipePost = async (req,res) => {

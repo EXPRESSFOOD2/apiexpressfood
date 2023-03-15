@@ -10,6 +10,8 @@ const { ingredientsDeleteController2 } = require("../controllers/ingredient/ingr
 const { getStoreIdByUserId,  } = require("../controllers/HashFunction/security")
 const { isItAnExistingModelByID, isItAnExistingModelByName } = require("../controllers/Utils/aux_controller")
 const { validateToken } = require("../controllers/token/token_controller");
+process.env.HEADERS_STORE_ORIGIN_LOCAL ? process.env.HEADERS_STORE_ORIGIN_DEPLOY = process.env.HEADERS_STORE_ORIGIN_LOCAL :  null
+process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL ? process.env.HEADERS_CUSTOMER_ORIGIN_DEPLOY = process.env.HEADERS_CUSTOMER_ORIGIN_LOCAL :  null
 
 const processIngredientPost = async (req, res) => {
   try {
