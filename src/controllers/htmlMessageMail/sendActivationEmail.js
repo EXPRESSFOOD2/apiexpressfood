@@ -1,15 +1,15 @@
 const nodemailer = require("nodemailer");
 const fs = require("fs");
 const path = require("path");
-
+const {HEADERS_CUSTOMER_ORIGIN_LOCAL} = process.env
 const htmlPath = path.join(__dirname, "message.html");
 const html = fs.readFileSync(htmlPath, "utf8");
 
 const sendEmail = (email, orderCode, orderId, status = "Sin Pagar") => {
   //CODIGO QUE ENVIA CORREO AL CLIENTE PARA LA ACTIVACION DE LA CUENTA
-
-  //let rediect = `http://localhost:3000`;
-  let redirect = `https://spacefood.up.railway.app`;
+  let redirect
+  HEADERS_CUSTOMER_ORIGIN_LOCAL?  redirect = `http://localhost:3000` : redirect = `https://spacefood.up.railway.app`;
+  
   const mailExpress =
     "smtps://expressfoodhenry@gmail.com:hdogizvqpmgovqni@smtp.gmail.com";
   const mailSpace =
