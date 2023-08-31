@@ -1,6 +1,7 @@
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 // const PORT = process.env.PORT || 3002;
+const { PORT } = process.env;
 const Seed = require("./src/seeds/index");
 
 // Syncing all the models at once.
@@ -19,7 +20,7 @@ conn
     return Seed();
   })
   .then(() => {
-    server.listen(process.env.PORT, () => {
+    server.listen(PORT, () => {
       console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
     });
   });
