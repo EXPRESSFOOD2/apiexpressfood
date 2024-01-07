@@ -30,7 +30,7 @@ const userLoginController = async (email, password) => {
             roleId: user.roleId,
             token: newToken,
           },
-          storeName: storeName,
+          storeName: "storeName",
         }
       : { valid };
   } else throw Error(INVALID_LOGIN);
