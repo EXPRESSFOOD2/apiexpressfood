@@ -34,4 +34,3 @@ networks:
     external: true
 volumes:
   spacefood-vol:
-    external: true
