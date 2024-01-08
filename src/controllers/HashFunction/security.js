@@ -10,7 +10,7 @@ const hashFunction = (password, secret) => {
   hash.update(password + secret);
   return hash.digest("hex");
 };
-console.log("");
+
 const getStoreIDByStoreName = async (short_name) => {
   const result = await Store.findOne({ where: { short_name } });
   return result ? result.id : null;
